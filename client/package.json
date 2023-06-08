@@ -9,18 +9,29 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^18.0.1",
+    "@jridgewell/gen-mapping": "^0.3.3",
+    "@react-navigation/native": "^6.1.6",
+    "@react-navigation/stack": "^6.3.16",
+    "@expo/webpack-config": "^18.0.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "@rneui/base": "^0.0.0-edge.2",
+    "@rneui/themed": "^0.0.0-edge.2",
+    "@rneui/base": "^0.0.0-edge.2",
+    "@rneui/themed": "^0.0.0-edge.2",
     "axios": "^1.4.0",
+    "customize-cra": "^1.0.0",
     "expo": "~48.0.18",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-elements": "^3.4.3",
+    "react-native-web": "~0.18.10",
+    "react-native-web": "~0.18.10",
     "react-redux": "^8.0.7",
     "redux-saga": "^1.2.3",
-    "ws": "^8.13.0",
-    "react-native-web": "~0.18.10",
-    "react-dom": "18.2.0",
-    "@expo/webpack-config": "^18.0.1"
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
