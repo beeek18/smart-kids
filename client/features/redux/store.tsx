@@ -1,13 +1,13 @@
 import { AnyAction, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 // import rootSaga from '../sagas/rootSaga';
-// import userReducer from './slices/user/userSlicer';
+import userReducer from './slices/user/userSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
-    // user: userReducer,
+    user: userReducer,
   },
   middleware: (mid) => [...mid(), sagaMiddleware],
 });
