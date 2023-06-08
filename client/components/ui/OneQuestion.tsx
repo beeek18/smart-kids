@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import ChoiceButton from '../../ui/Buttons.tsx/ChoiceButton';
-import QuestionText from '../../ui/Text/QuestionText';
+import { StyleSheet, View } from 'react-native';
+import ChoiceButton from './Buttons.tsx/ChoiceButton';
+import QuestionText from './Text/QuestionText';
 
-export default function OneQuestion(): JSX.Element {
+export default function SimpleQuestion(): JSX.Element {
   const onPressYes = () => {
     console.log('Да');
   };
