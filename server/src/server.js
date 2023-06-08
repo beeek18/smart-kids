@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const userRouter = require('./routes/userRouter');
+const friendsRouter = require('./routes/friendsRouter');
 
 require('dotenv').config();
 
@@ -17,5 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/user', userRouter);
+app.use('/api/friends', friendsRouter);
 
 app.listen(PORT, () => console.log(`START ON PORT ${PORT}`));
