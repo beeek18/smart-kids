@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import OneQuestion from './components/pages/questions/OneQuestion';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {/* <Text>Open up App.tsx to start working on your app!</Text>
+      <StatusBar style="auto" /> */}
+      <OneQuestion />
     </View>
   );
 }
