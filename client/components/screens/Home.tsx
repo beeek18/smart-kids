@@ -1,6 +1,5 @@
 import { Button, View, Text } from 'react-native';
 import { Avatar } from '@rneui/themed';
-import { Text } from 'react-native-elements';
 import { useState } from 'react';
 
 export default function Home({ navigation }): JSX.Element {
@@ -10,20 +9,20 @@ export default function Home({ navigation }): JSX.Element {
   };
   return (
     <View>
-      <Avatar size={100} rounded title="😎" />
+      <Avatar size={100} onPress={() => navigation.navigate('Profile')} rounded title="😎" />
+      <Text>Алена</Text>
       {sound !== true && (
-        <Text onPress={() => onClick()} h1>
+        <Text onPress={() => onClick()} style={{ fontSize: 50 }}>
           🔊
         </Text>
       )}
       {sound === true && (
-        <Text onPress={() => onClick()} h1>
+        <Text onPress={() => onClick()} style={{ fontSize: 50 }}>
           🔇
         </Text>
       )}
       <Button onPress={() => navigation.navigate('Categories')} title="Начать игру" />
-      <Button onPress={() => navigation.navigate('Profile')} title="Profile" />
-      <Button onPress={() => navigation.navigate('Info')} title="ℹ️" />
+      <Button onPress={() => navigation.navigate('Info')} title="ℹ" />
     </View>
   );
 }
