@@ -1,4 +1,4 @@
-import { Button, View } from 'react-native';
+import { Button, View, Text } from 'react-native';
 import { Avatar } from '@rneui/themed';
 import { Text } from 'react-native-elements';
 import { useState } from 'react';
