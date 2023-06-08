@@ -16,7 +16,7 @@ export const signUpThunk: ThunkActionCreater<SignUpType> = (input: SignUpType) =
     .catch(() => dispatch(setUser({ status: 'guest' })));
 };
 
-export const loginUpThunk: ThunkActionCreater<LoginType> = (input: LoginType) => (dispatch) => {
+export const loginThunk: ThunkActionCreater<LoginType> = (input: LoginType) => (dispatch) => {
   axios
     .post<UserType>('http://localhost:3000/api/user/login', input)
     .then(({ data }) => dispatch(setUser({ ...data, status: 'logged' })))

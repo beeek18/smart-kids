@@ -3,8 +3,9 @@ import { ThemeProvider, Button, createTheme, Input, Text } from '@rneui/themed';
 import { useRoute } from '@react-navigation/native';
 import { color } from '@rneui/base';
 import { useAppDispatch } from '../../features/redux/hooks';
-import { loginUpThunk } from '../../features/redux/slices/user/userThunk';
+import { loginThunk } from '../../features/redux/slices/user/userThunk';
 import { View } from 'react-native';
+import { LoginType } from '../../types/user/UserType';
 
 const theme = createTheme({
   components: {
@@ -21,7 +22,11 @@ export default function Autorization({ navigation }) {
   const dispatch = useAppDispatch();
 
   const loginHandler = () => {
-    dispatch(loginUpThunk({ email, password }));
+    try {
+      dispatch(loginThunk({ email, password } as LoginType));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -61,10 +66,9 @@ export default function Autorization({ navigation }) {
             marginBottom: 10,
           }}
         ></Input>
-        <Button>Войти</Button>
+        <Button onPress={loginHandler}>Войти</Button>
       </ThemeProvider>
       <Button onPress={() => navigation.navigate('SignUp')} title="SignUp" />
-      <Button onPress={() => navigation.navigate('Login')} title="Login" />
     </View>
   );
 }
