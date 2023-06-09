@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ThunkActionCreater } from '../../store';
-import { setUser } from './userSlice';
+import { logoutUser, setUser } from './userSlice';
 import { LoginType, SignUpType, UserType } from '../../../../types/user/UserType';
 import { Platform } from 'react-native';
 import { API_URL } from '@env';
@@ -43,8 +43,11 @@ export const logOutThunk: ThunkActionCreater = () => (dispatch) => {
   axios(
     `http://${
       Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-    }:3000/api/auth/logout`,
+    }:3000/api/user/logout`,
   )
-    .then(() => dispatch(setUser({ status: 'guest' })))
+    .then(() => {
+      dispatch(logoutUser());
+      dispatch(setUser({ status: 'guest' }));
+    })
     .catch(() => dispatch(setUser({ status: 'logged' })));
 };

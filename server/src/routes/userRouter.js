@@ -6,6 +6,7 @@ const { sign, verify } = require('jsonwebtoken');
 const { User } = require('../../db/models');
 
 const router = express.Router();
+const avatarPaths = ['avatar1', 'avatar2', 'avatar3', 'avatar4'];
 
 router.post('/signup', async (req, res) => {
   try {
@@ -19,14 +20,18 @@ router.post('/signup', async (req, res) => {
 
     const [user, created] = await User.findOrCreate({
       where: { email },
-      defaults: { username, password: hashPassword },
+      defaults: {
+        username,
+        password: hashPassword,
+        img: avatarPaths[Math.floor(Math.random() * 4)],
+      },
     });
 
     if (!created) {
       return res.status(400).json({ message: 'Пользователь уже существует' });
     }
 
-    const userInfo = { id: user.id, username };
+    const userInfo = { id: user.id, username, img: user.img };
 
     const token = sign(userInfo, process.env.JWT_SECRET);
 
@@ -91,7 +96,8 @@ router.get('/check', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  res.clearCookie('tokenJWT').status(200).json({ message: 'Вы вышли из системы' });
+  res.clearCookie('tokenJWT').sendStatus(200);
+  // .json({ message: 'Вы вышли из системы' });
 });
 
 module.exports = router;
