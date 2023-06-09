@@ -4,7 +4,7 @@ import { Pressable, Text, StyleSheet } from 'react-native';
 export default function ChoiceButton(): JSX.Element {
   return (
     <Pressable style={styles.button}>
-      <Text style={styles.buttonText}>Да</Text>
+      <Text style={styles.buttonText}>Да/Нет</Text>
     </Pressable>
   );
 }

@@ -1,11 +1,33 @@
-import { Button, Text, View } from 'react-native';
+import React from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
+import ResultTable from '../ui/ResultTable';
 
 export default function Result({ navigation }): JSX.Element {
   return (
-    <View>
-      <Text>Result</Text>
-      <Button onPress={() => navigation.navigate('FriendsList')} title="FriendsList" />
-      <Button onPress={() => navigation.navigate('Home')} title="Home" />
+    <View style={styles.container}>
+      <ResultTable />
+      <View style={styles.buttonsContainer}>
+        <Button title="Играть снова" onPress={() => navigation.navigate('SimpleRound')} />
+        <Button title="Выйти" onPress={() => navigation.navigate('Home')} />
+      </View>
+      <Text style={styles.footer}>Спасибо за игру!</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  footer: {
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
