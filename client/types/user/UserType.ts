@@ -2,6 +2,7 @@ export type SignUpType = {
   username: string;
   email: string;
   password: string;
+  img: string;
   status?: string;
 };
 
@@ -15,6 +16,7 @@ export type BackendUserType = {
   username: string;
   email: string;
   password: string;
+  img: string;
 };
 export type LoggedUserType = {
   status: string;

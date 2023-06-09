@@ -2,16 +2,15 @@ import { useEffect, useState } from 'react';
 import { Image, Button, Text, View, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { checkUserThunk } from '../../features/redux/slices/user/userThunk';
+import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
+import { useEffect } from 'react';
 
 export default function Profile({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(checkUserThunk());
-  }, []);
-
   const user = useAppSelector((store) => store.user);
+  const logOutHandler = () => {
+    dispatch(logOutThunk());
+  };
   return (
     <>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -45,6 +44,13 @@ export default function Profile({ navigation }): JSX.Element {
       <Input placeholder="Введите имя"></Input>
       <Button title="Сохранить" />
       <Button onPress={() => navigation.navigate('Home')} title="Home" />
+      <Button
+        onPress={() => {
+          logOutHandler();
+          navigation.navigate('Home');
+        }}
+        title="Выйти из аккаунта"
+      />
     </>
   );
 }
