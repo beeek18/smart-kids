@@ -17,20 +17,34 @@ export const checkUserThunk: ThunkActionCreater = () => (dispatch) => {
 
 export const signUpThunk: ThunkActionCreater<SignUpType> = (input: SignUpType) => (dispatch) => {
   axios
-    .post<UserType>('http://localhost:3000/api/user/signup', input)
+    .post<UserType>(
+      `http://${
+        Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
+      }:3000/api/user/signup`,
+      input,
+    )
     .then(({ data }) => dispatch(setUser({ ...data, status: 'logged' })))
     .catch(() => dispatch(setUser({ status: 'guest' })));
 };
 
 export const loginThunk: ThunkActionCreater<LoginType> = (input: LoginType) => (dispatch) => {
   axios
-    .post<UserType>('http://localhost:3000/api/user/login', input)
+    .post<UserType>(
+      `http://${
+        Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
+      }:3000/api/user/login`,
+      input,
+    )
     .then(({ data }) => dispatch(setUser({ ...data, status: 'logged' })))
     .catch(() => dispatch(setUser({ status: 'guest' })));
 };
 
 export const logOutThunk: ThunkActionCreater = () => (dispatch) => {
-  axios('http://localhost:3000/api/user/logout')
+  axios(
+    `http://${
+      Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
+    }:3000/api/auth/logout`,
+  )
     .then(() => dispatch(setUser({ status: 'guest' })))
     .catch(() => dispatch(setUser({ status: 'logged' })));
 };

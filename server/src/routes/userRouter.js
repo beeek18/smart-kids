@@ -11,9 +11,9 @@ router.post('/signup', async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
-    if (!(email && username && password)) {
-      return res.status(400).json({ message: 'Заполните все поля' });
-    }
+    // if (!(email && username && password)) {
+    //   return res.status(400).json({ message: 'Заполните все поля' });
+    // }
 
     const hashPassword = await bcrypt.hash(password, 10);
 
