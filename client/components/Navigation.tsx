@@ -13,6 +13,8 @@ import Profile from './screens/Profile';
 import SimpleRound from './screens/SimpleRound';
 import HardRound from './screens/HardRound';
 import Result from './screens/Result';
+import HardTwoRound from './screens/HardTwoRound';
+import ResultPage from './screens/ResultPage';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +33,7 @@ export default function Navigation(): JSX.Element {
         <Stack.Screen name="FriendsList" component={FriendsList} />
         <Stack.Screen name="SimpleRound" component={SimpleRound} />
         <Stack.Screen name="HardRound" component={HardRound} />
+        <Stack.Screen name="HardTwoRound" component={HardTwoRound} />
         <Stack.Screen name="Result" component={Result} />
       </Stack.Navigator>
     </NavigationContainer>
