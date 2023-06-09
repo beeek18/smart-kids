@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function QuestionText(): JSX.Element {
+export default function HardQuestionText(): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>QuestionText</Text>
@@ -11,18 +11,16 @@ export default function QuestionText(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ebe134',
     padding: 10,
+    height: 120,
     width: 300,
-    height: 200,
     borderRadius: 10,
+    backgroundColor: '#fff',
+    marginBottom: 10,
   },
   text: {
-    color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
-    display: 'flex',
-    justifyContent: 'center',
     textAlign: 'center',
   },
 });
