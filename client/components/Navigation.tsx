@@ -1,24 +1,32 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Autorization from './screens/Autorization';
 import Categories from './screens/Categories';
 import FriendsList from './screens/FriendsList';
-import Autorization from './screens/Autorization';
-import Welcome from './screens/Welcome';
-import SignUp from './screens/SignUp';
-import Login from './screens/Login';
+import HardRound from './screens/HardRound';
+import HardTwoRound from './screens/HardTwoRound';
 import Home from './screens/Home';
 import Info from './screens/Info';
+import Login from './screens/Login';
 import Profile from './screens/Profile';
-import SimpleRound from './screens/SimpleRound';
-import HardRound from './screens/HardRound';
 import Result from './screens/Result';
-import HardTwoRound from './screens/HardTwoRound';
-import ResultPage from './screens/ResultPage';
+import SignUp from './screens/SignUp';
+import SimpleRound from './screens/SimpleRound';
+import Welcome from './screens/Welcome';
+import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
+import { useEffect } from 'react';
+import { socketInit } from '../features/ws/wsActions';
 
 const Stack = createStackNavigator();
 
 export default function Navigation(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store) => store.user);
+
+  useEffect(() => {
+    if (user && user.token) dispatch(socketInit(user.token));
+  }, [user.id]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

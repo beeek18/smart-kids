@@ -31,9 +31,9 @@ router.post('/signup', async (req, res) => {
     const token = sign(userInfo, process.env.JWT_SECRET);
 
     res
-      .cookie('tokenJWT', token, { maxAge: 1000 * 60 * 60 * 24 })
+      // .cookie('tokenJWT', token, { maxAge: 1000 * 60 * 60 * 24 })
       .status(200)
-      .json(userInfo);
+      .json({ userInfo, token });
   } catch (error) {
     console.log(error);
   }
