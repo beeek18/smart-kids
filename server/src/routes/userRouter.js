@@ -100,4 +100,17 @@ router.get('/logout', (req, res) => {
   // .json({ message: 'Вы вышли из системы' });
 });
 
+router.patch('/edit', async (req, res) => {
+  const { username } = req.body;
+  const accessToken = req.cookies.tokenJWT;
+  const validToken = verify(accessToken, process.env.JWT_SECRET);
+  await User.update({ username }, { where: { id: validToken.id } });
+  const changedName = await User.findByPk(validToken.id);
+  console.log(validToken);
+  // console.log(username);
+
+  res.json(changedName);
+});
+
+
 module.exports = router;

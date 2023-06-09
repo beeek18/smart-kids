@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { FetchingUserType, UserType } from '../../../../types/user/UserType';
+import { EditUserType, FetchingUserType, UserType } from '../../../../types/user/UserType';
 
 const initialState: FetchingUserType = {
   status: 'fetching',
@@ -11,9 +11,12 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<UserType>) => action.payload,
     logoutUser: (state) => ({ status: 'guest' }),
+    editUser: (state, action: PayloadAction<EditUserType>) => {
+      state.username = action.payload.username;
+    },
   },
 });
 
-export const { setUser, logoutUser } = userSlice.actions;
+export const { setUser, logoutUser, editUser } = userSlice.actions;
 
 export default userSlice.reducer;
