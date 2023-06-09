@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
 import { Image, Button, Text, View } from 'react-native';
 import { Input } from 'react-native-elements';
 
 export default function Profile({ navigation }): JSX.Element {
-  const [name, setName] = useState('');
-  const handleSave = () => {
-    console.log('save');
-  };
-
   return (
     <>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -28,10 +22,10 @@ export default function Profile({ navigation }): JSX.Element {
           source={require('../../assets/icons/avatar4.png')}
         />
       </View>
-      <Text>{name}</Text>
+      <Text>Alena</Text>
       <Text>Как тебя зовут ?</Text>
-      <Input placeholder="Введите имя" onChangeText={setName}></Input>
-      <Button onPress={handleSave} title="Сохранить" />
+      <Input placeholder="Введите имя"></Input>
+      <Button title="Сохранить" />
       <Button onPress={() => navigation.navigate('Home')} title="Home" />
     </>
   );
