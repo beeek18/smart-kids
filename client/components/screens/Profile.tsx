@@ -1,28 +1,46 @@
-import { Image, Button, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Image, Button, Text, View, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { checkUserThunk } from '../../features/redux/slices/user/userThunk';
 
 export default function Profile({ navigation }): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(checkUserThunk());
+  }, []);
+
+  const user = useAppSelector((store) => store.user);
   return (
     <>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <Image
-          style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
-          source={require('../../assets/icons/avatar1.png')}
-        />
-        <Image
-          style={{ width: 80, height: 80, marginRight: 30 }}
-          source={require('../../assets/icons/avatar2.png')}
-        />
-        <Image
-          style={{ width: 80, height: 80, marginRight: 30 }}
-          source={require('../../assets/icons/avatar3.png')}
-        />
-        <Image
-          style={{ width: 80, height: 80 }}
-          source={require('../../assets/icons/avatar4.png')}
-        />
+        <TouchableOpacity>
+          <Image
+            style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
+            source={require('../../assets/icons/avatar1.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
+            source={require('../../assets/icons/avatar2.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
+            source={require('../../assets/icons/avatar3.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
+            source={require('../../assets/icons/avatar4.png')}
+          />
+        </TouchableOpacity>
       </View>
-      <Text>Alena</Text>
+      <Text>{user.username}</Text>
       <Text>Как тебя зовут ?</Text>
       <Input placeholder="Введите имя"></Input>
       <Button title="Сохранить" />
