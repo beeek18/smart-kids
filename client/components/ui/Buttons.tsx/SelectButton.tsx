@@ -1,28 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function QuestionText(): JSX.Element {
+export default function SelectButton(): JSX.Element {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>QuestionText</Text>
+      <Text style={styles.text}>AnswerText</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ebe134',
     padding: 10,
     width: 300,
-    height: 200,
+    height: 50,
     borderRadius: 10,
+    backgroundColor: '#fff',
+    marginBottom: 10,
   },
   text: {
-    color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
-    display: 'flex',
-    justifyContent: 'center',
     textAlign: 'center',
   },
 });
