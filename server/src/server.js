@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const userRouter = require('./routes/userRouter');
 const friendsRouter = require('./routes/friendsRouter');
+const questionsRouter = require('./routes/questionsRouter');
 
 require('dotenv').config();
 
@@ -19,5 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/user', userRouter);
 app.use('/api/friends', friendsRouter);
+app.use('/questions', questionsRouter);
 
 app.listen(PORT, () => console.log(`START ON PORT ${PORT}`));

@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ebe134',
   },
   buttonsContainer: {
     flexDirection: 'row',
