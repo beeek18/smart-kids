@@ -18,9 +18,9 @@ export default function SignUp({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const signUpHandler = () => {
+  const signUpHandler = (): void => {
     try {
-      dispatch(signUpThunk({ email: '', username: '', password: '' } as SignUpType));
+      dispatch(signUpThunk({ email, username, password } as SignUpType));
     } catch (error) {
       console.log(error);
     }

@@ -1,12 +1,21 @@
 import { Button, View, Text } from 'react-native';
 import { Avatar } from '@rneui/themed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { checkUserThunk } from '../../features/redux/slices/user/userThunk';
 
 export default function Home({ navigation }): JSX.Element {
   const [sound, setSound] = useState(false);
   const onClick = () => {
     setSound((prev) => !prev);
   };
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(checkUserThunk());
+  }, []);
+  const user = useAppSelector((store) => store.user);
+  console.log(user);
   return (
     <View>
       <Avatar size={100} onPress={() => navigation.navigate('Profile')} rounded title="😎" />
