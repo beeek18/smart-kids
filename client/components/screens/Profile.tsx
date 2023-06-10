@@ -7,22 +7,23 @@ import {
   editUserNameThunk,
   logOutThunk,
 } from '../../features/redux/slices/user/userThunk';
+import { ImagesAssets } from '../../assets/imageAssets';
 
 export default function Profile({ navigation }): JSX.Element {
   const [input, setInput] = useState('');
 
+  const user = useAppSelector((store) => store.user);
+
   const dispatch = useAppDispatch();
+
   const updateHandler = (value: string) => {
     dispatch(editUserNameThunk(value));
     setInput('');
   };
 
-  const user = useAppSelector((store) => store.user);
-
   const logOutHandler = () => {
     dispatch(logOutThunk());
   };
-  console.log(user.username);
 
   return (
     <>
@@ -30,7 +31,7 @@ export default function Profile({ navigation }): JSX.Element {
         <TouchableOpacity>
           <Image
             style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
-            source={require('../../assets/icons/avatar1.png')}
+            source={ImagesAssets.avatar1}
           />
         </TouchableOpacity>
         <TouchableOpacity>

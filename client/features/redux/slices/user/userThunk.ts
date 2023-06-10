@@ -64,3 +64,16 @@ export const editUserNameThunk: ThunkActionCreater = (input) => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
+export const editUserImgThunk: ThunkActionCreater = (input) => (dispatch) => {
+  axios
+    .patch(
+      `http://${
+        Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
+      }:3000/api/user/edit`,
+      { img: input },
+    )
+    .then(({ data }) => {
+      dispatch(editUser(data));
+    })
+    .catch((error) => console.log(error));
+};
