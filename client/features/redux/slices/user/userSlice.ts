@@ -14,10 +14,10 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<UserType>) => action.payload,
     logoutUser: (state) => initialState,
-    editUser: (state, action: PayloadAction<UserType['username']>) => {
-      state.username = action.payload;
+    editUser: (state, action: PayloadAction<UserType>) => {
+      state.username = action.payload.username;
     },
-    editImg: (state, action: PayloadAction<EditUserType>) => {
+    editImg: (state, action: PayloadAction<UserType>) => {
       state.img = action.payload.img;
     },
   },
