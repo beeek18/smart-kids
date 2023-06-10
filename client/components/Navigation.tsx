@@ -1,5 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useEffect } from 'react';
+
+import { socketInit } from '../features/ws/wsActions';
+import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
+
 import Autorization from './screens/Autorization';
 import Categories from './screens/Categories';
 import FriendsList from './screens/FriendsList';
@@ -12,9 +17,6 @@ import Result from './screens/Result';
 import SignUp from './screens/SignUp';
 import SimpleRound from './screens/SimpleRound';
 import Welcome from './screens/Welcome';
-import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
-import { useEffect } from 'react';
-import { socketInit } from '../features/ws/wsActions';
 import HardTwoRound from './screens/HardTwoRound';
 import IntroRound from './screens/IntroRound';
 import IntroTwoRound from './screens/IntroTwoRound';
@@ -26,7 +28,7 @@ export default function Navigation(): JSX.Element {
   const user = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    if (user && user) dispatch(socketInit(user));
+    if (user) dispatch(socketInit(user));
   }, [user]);
 
   return (

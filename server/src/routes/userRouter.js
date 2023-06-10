@@ -55,7 +55,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Указан неверный пароль' });
     }
 
-    const userInfo = { id: user.id, username: user.username };
+    const userInfo = { id: user.id, username: user.username, img: user.img };
 
     req.session.user = userInfo;
 
