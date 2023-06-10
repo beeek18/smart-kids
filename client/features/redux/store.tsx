@@ -1,6 +1,5 @@
 import { AnyAction, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-// import rootSaga from '../sagas/rootSaga';
 import userReducer from './slices/user/userSlice';
 import gameReducer from './slices/game/gameSlice';
 import rootSaga from '../sagas/rootSaga';

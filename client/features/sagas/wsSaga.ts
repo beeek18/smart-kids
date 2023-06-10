@@ -45,7 +45,6 @@ function* startGameWorker(socket) {
 
 function* joinGameWorker(socket) {
   while (true) {
-    console.log('saagaworks');
     const message = yield take('JOIN_ROOM');
     socket.send(JSON.stringify(message));
   }
@@ -59,7 +58,6 @@ function* voteWorker(socket) {
 }
 
 function* wsWorker(action) {
-  console.log('11111111111111', action);
   const socket = yield call(createWebSocketConnection);
   const socketChannel = yield call(createSocketChannel, socket);
 

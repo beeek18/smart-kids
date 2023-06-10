@@ -1,15 +1,10 @@
 const { WebSocketServer } = require('ws');
-const jwt = require('jsonwebtoken');
 
 const wss = new WebSocketServer({ clientTracking: false, noServer: true });
 
 wss.on('connection', (ws, request, wsMap) => {
-  const tokenJWT = '';
-  // const { tokenJWT } = request.cookies;
-  // console.log('connection', request.cookies);
-  const decodedToken = jwt.verify(tokenJWT, process.env.JWT_SECRET);
-
-  wsMap.set(decodedToken.id, { ws, user: decodedToken });
+  const { id } = request.session.user;
+  wsMap.set(id, { ws, user: request.session.user });
 
   ws.on('message', async (data) => {
     const { type, payload } = JSON.parse(data);
