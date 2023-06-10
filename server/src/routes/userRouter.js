@@ -7,7 +7,7 @@ const { isAuth, notAuth } = require('../middleware');
 const router = express.Router();
 const avatarPaths = ['avatar1', 'avatar2', 'avatar3', 'avatar4'];
 
-router.post('/signup', notAuth, async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
@@ -35,7 +35,7 @@ router.post('/signup', notAuth, async (req, res) => {
   }
 });
 
-router.post('/login', notAuth, async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
