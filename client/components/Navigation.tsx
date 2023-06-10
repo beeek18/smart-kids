@@ -14,7 +14,6 @@ import SimpleRound from './screens/SimpleRound';
 import HardRound from './screens/HardRound';
 import Result from './screens/Result';
 import HardTwoRound from './screens/HardTwoRound';
-import ResultPage from './screens/ResultPage';
 import IntroRound from './screens/IntroRound';
 import IntroTwoRound from './screens/IntroTwoRound';
 
