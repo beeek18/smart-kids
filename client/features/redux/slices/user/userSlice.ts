@@ -1,13 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { EditUserType, FetchingUserType, UserType } from '../../../../types/user/UserType';
 
-const initialState: FetchingUserType = {
+const initialState: FetchingUserType & { id: number } = {
+  id: 0,
   status: 'fetching',
 };
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: initialState as UserType,
+  initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserType>) => action.payload,
     logoutUser: (state) => ({ status: 'guest' }),

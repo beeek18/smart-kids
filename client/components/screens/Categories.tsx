@@ -1,9 +1,14 @@
+import ChoiceButton from '../ui/Buttons.tsx/ChoiceButton';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { joinRoomAction } from '../../features/redux/slices/game/gameAction';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Categories({ navigation }): JSX.Element {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store) => store.user);
   return (
     <>
       <View style={styles.container}>
