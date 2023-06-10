@@ -29,5 +29,11 @@ export type GuestUserType = {
 export type FetchingUserType = {
   status: string;
 };
-
-export type UserType = LoggedUserType | GuestUserType | FetchingUserType;
+export type EditUserType = {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  img: string;
+};
+export type UserType = LoggedUserType | GuestUserType | FetchingUserType | EditUserType;

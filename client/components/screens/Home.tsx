@@ -1,12 +1,13 @@
 import { Button, View, Text, Image, TouchableHighlight } from 'react-native';
 import { Avatar } from '@rneui/themed';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { checkUserThunk } from '../../features/redux/slices/user/userThunk';
 import { ImagesAssets } from '../../assets/imageAssets';
 
 export default function Home({ navigation }): JSX.Element {
   const [sound, setSound] = useState(false);
+
   const onClick = () => {
     setSound((prev) => !prev);
   };
