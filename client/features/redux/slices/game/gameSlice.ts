@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { GameStateType } from '../../../../types/game/GameType';
-import { PlayerType } from '../../../../types/game/PlayerType';
+import { UserType } from '../../../../types/user/UserType';
 
 const initialState: GameStateType = {
   status: null,
@@ -11,32 +11,18 @@ const initialState: GameStateType = {
 
 export const gameSlice = createSlice({
   name: 'Game',
-  initialState: initialState,
+  initialState,
   reducers: {
-    setPlayerList: (state, action: PayloadAction<PlayerType[]>) => {
-      state.allPlayers = action.payload;
-    },
-
-    addPlayer: (state, action: PayloadAction<PlayerType>) => {
+    addPlayer: (state, action: PayloadAction<UserType>) => {
       state.allPlayers.push(action.payload);
     },
 
-    playerExit: (state, action: PayloadAction<PlayerType['id']>) => {
+    playerExit: (state, action: PayloadAction<UserType['id']>) => {
       state.allPlayers = state.allPlayers.filter((elem) => elem.id !== action.payload);
-    },
-
-    updatePlayers: (state, action: PayloadAction<PlayerType>) => {
-      state.allPlayers = state.allPlayers.map((elem) =>
-        elem.id === action.payload.id ? action.payload : elem,
-      );
     },
 
     updateGameStatus: (state, action: PayloadAction<GameStateType['status']>) => {
       state.status = action.payload;
-    },
-
-    setupRoom: (state, action: PayloadAction<{ userid: number }>) => {
-      state.userid = action.payload.userid;
     },
 
     nextRound: (state) => {
@@ -47,23 +33,11 @@ export const gameSlice = createSlice({
       state.status = null;
       state.allPlayers = [];
       state.round = 0;
-    },
-
-    userVote: (state, action) => {
-      state.vote.push(action.payload);
+      state.score = 0;
     },
   },
 });
 
-export const {
-  setPlayerList,
-  playerExit,
-  updatePlayers,
-  updateGameStatus,
-  setupRoom,
-  nextRound,
-  resetRoom,
-  userVote,
-} = gameSlice.actions;
+export const { addPlayer, playerExit, updateGameStatus, nextRound, resetRoom } = gameSlice.actions;
 
 export default gameSlice.reducer;

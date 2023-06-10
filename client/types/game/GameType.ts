@@ -1,12 +1,12 @@
-import { PlayerType } from './PlayerType';
+import { UserType } from '../user/UserType';
 
 export type RoomType = {
-  AllPlayers: PlayerType[];
+  AllPlayers: UserType[];
 };
 
 export type GameStateInfoType = {
-  allPlayers: PlayerType[];
-  score: number;
+  allPlayers: UserType[];
+  score: number | 0;
   round: number | 0;
 };
 

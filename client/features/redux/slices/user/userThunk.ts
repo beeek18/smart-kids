@@ -5,14 +5,21 @@ import { LoginType, SignUpType, UserType } from '../../../../types/user/UserType
 import { Platform } from 'react-native';
 import { API_URL } from '@env';
 
+const guestUser = {
+  id: 0,
+  username: '',
+  img: '',
+  status: 'guest',
+};
+
 export const checkUserThunk: ThunkActionCreater = () => (dispatch) => {
   axios(
     `http://${
       Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
     }:3000/api/user/check`,
   )
-    .then(({ data }) => dispatch(setUser({ ...data, status: 'logged' })))
-    .catch(() => dispatch(setUser({ status: 'guest' })));
+    .then(({ data }) => dispatch(setUser(data)))
+    .catch(() => dispatch(setUser(guestUser)));
 };
 
 export const signUpThunk: ThunkActionCreater<SignUpType> = (input: SignUpType) => (dispatch) => {
@@ -23,8 +30,8 @@ export const signUpThunk: ThunkActionCreater<SignUpType> = (input: SignUpType) =
       }:3000/api/user/signup`,
       input,
     )
-    .then(({ data }) => dispatch(setUser({ ...data, status: 'logged' })))
-    .catch(() => dispatch(setUser({ status: 'guest' })));
+    .then(({ data }) => dispatch(setUser(data)))
+    .catch(() => dispatch(setUser(guestUser)));
 };
 
 export const loginThunk: ThunkActionCreater<LoginType> = (input: LoginType) => (dispatch) => {
@@ -35,8 +42,8 @@ export const loginThunk: ThunkActionCreater<LoginType> = (input: LoginType) => (
       }:3000/api/user/login`,
       input,
     )
-    .then(({ data }) => dispatch(setUser({ ...data, status: 'logged' })))
-    .catch(() => dispatch(setUser({ status: 'guest' })));
+    .then(({ data }) => dispatch(setUser(data)))
+    .catch(() => dispatch(setUser(guestUser)));
 };
 
 export const logOutThunk: ThunkActionCreater = () => (dispatch) => {
@@ -47,9 +54,9 @@ export const logOutThunk: ThunkActionCreater = () => (dispatch) => {
   )
     .then(() => {
       dispatch(logoutUser());
-      dispatch(setUser({ status: 'guest' }));
+      dispatch(setUser(guestUser));
     })
-    .catch(() => dispatch(setUser({ status: 'logged' })));
+    .catch(console.log);
 };
 export const editUserNameThunk: ThunkActionCreater = (input) => (dispatch) => {
   axios

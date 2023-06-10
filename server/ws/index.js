@@ -8,9 +8,9 @@ wss.on('connection', (ws, request, wsMap) => {
 
   ws.on('message', async (data) => {
     const { type, payload } = JSON.parse(data);
+
     switch (type) {
       case 'JOIN_ROOM': {
-        console.log('=========', payload);
         for (const [, wsClient] of wsMap) {
           wsClient.ws.send(
             JSON.stringify({
@@ -38,30 +38,6 @@ wss.on('connection', (ws, request, wsMap) => {
 
       default:
         break;
-    }
-  });
-
-  ws.on('error', () => {
-    wsMap.delete(id);
-    for (const [, wsClient] of wsMap) {
-      wsClient.ws.send(
-        JSON.stringify({
-          type: 'friends/setFriendsOnline',
-          payload: Array.from(wsMap.values()).map((el) => el.user),
-        }),
-      );
-    }
-  });
-
-  ws.on('close', () => {
-    wsMap.delete(id);
-    for (const [, wsClient] of wsMap) {
-      wsClient.ws.send(
-        JSON.stringify({
-          type: 'friends/setFriendsOnline',
-          payload: Array.from(wsMap.values()).map((el) => el.user),
-        }),
-      );
     }
   });
 });
