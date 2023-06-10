@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 
 const userRouter = require('./routes/userRouter');
 const friendsRouter = require('./routes/friendsRouter');
+const questionsRouter = require('./routes/questionsRouter');
 
 require('dotenv').config();
 const wss = require('../ws/index');
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/user', userRouter);
 app.use('/api/friends', friendsRouter);
+app.use('/questions', questionsRouter);
 
 const server = http.createServer(app);
 const map = new Map();

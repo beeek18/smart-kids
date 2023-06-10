@@ -2,6 +2,7 @@ export type SignUpType = {
   username: string;
   email: string;
   password: string;
+  img: string;
   status?: string;
 };
 
@@ -15,6 +16,7 @@ export type BackendUserType = {
   username: string;
   email: string;
   password: string;
+  img: string;
 };
 export type LoggedUserType = {
   status: string;
@@ -27,5 +29,11 @@ export type GuestUserType = {
 export type FetchingUserType = {
   status: string;
 };
-
-export type UserType = LoggedUserType | GuestUserType | FetchingUserType;
+export type EditUserType = {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  img: string;
+};
+export type UserType = LoggedUserType | GuestUserType | FetchingUserType | EditUserType;

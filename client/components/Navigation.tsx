@@ -4,7 +4,6 @@ import Autorization from './screens/Autorization';
 import Categories from './screens/Categories';
 import FriendsList from './screens/FriendsList';
 import HardRound from './screens/HardRound';
-import HardTwoRound from './screens/HardTwoRound';
 import Home from './screens/Home';
 import Info from './screens/Info';
 import Login from './screens/Login';
@@ -16,6 +15,9 @@ import Welcome from './screens/Welcome';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
 import { useEffect } from 'react';
 import { socketInit } from '../features/ws/wsActions';
+import HardTwoRound from './screens/HardTwoRound';
+import IntroRound from './screens/IntroRound';
+import IntroTwoRound from './screens/IntroTwoRound';
 
 const Stack = createStackNavigator();
 
@@ -24,12 +26,22 @@ export default function Navigation(): JSX.Element {
   const user = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    if (user && user.token) dispatch(socketInit(user.token));
-  }, [user.id]);
+    if (user && user) dispatch(socketInit(user));
+  }, [user]);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      // screenOptions={{
+      //   headerShadowVisible: false,
+      //   title: '',
+      //   headerLeft: false,
+      //   gestureEnabled: false,
+      //   headerStyle: {
+      //     // backgroundColor: 'yellow',
+      //   },
+      // }} НЕ УДАЛЯТЬ !!!
+      >
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Autorization" component={Autorization} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -40,6 +52,8 @@ export default function Navigation(): JSX.Element {
         <Stack.Screen name="Categories" component={Categories} />
         <Stack.Screen name="FriendsList" component={FriendsList} />
         <Stack.Screen name="SimpleRound" component={SimpleRound} />
+        <Stack.Screen name="IntroRound" component={IntroRound} />
+        <Stack.Screen name="IntroTwoRound" component={IntroTwoRound} />
         <Stack.Screen name="HardRound" component={HardRound} />
         <Stack.Screen name="HardTwoRound" component={HardTwoRound} />
         <Stack.Screen name="Result" component={Result} />

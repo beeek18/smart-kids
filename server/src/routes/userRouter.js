@@ -5,6 +5,7 @@ const { User } = require('../../db/models');
 const { isAuth, notAuth } = require('../middleware');
 
 const router = express.Router();
+const avatarPaths = ['avatar1', 'avatar2', 'avatar3', 'avatar4'];
 
 router.post('/signup', notAuth, async (req, res) => {
   try {
@@ -14,14 +15,18 @@ router.post('/signup', notAuth, async (req, res) => {
 
     const [user, created] = await User.findOrCreate({
       where: { email },
-      defaults: { username, password: hashPassword },
+      defaults: {
+        username,
+        password: hashPassword,
+        img: avatarPaths[Math.floor(Math.random() * 4)],
+      },
     });
 
     if (!created) {
       return res.status(400).json({ message: 'Пользователь уже существует' });
     }
 
-    const userInfo = { id: user.id, username };
+    const userInfo = { id: user.id, username, img: user.img };
     req.session.user = userInfo;
 
     res.status(200).json({ userInfo });
@@ -71,6 +76,14 @@ router.get('/logout', isAuth, (req, res) => {
   req.session.destroy();
   res.clearCookie('user_sid');
   res.sendStatus(200);
+});
+
+router.patch('/edit', async (req, res) => {
+  const { username } = req.body;
+  const { id } = req.session.user;
+  await User.update({ username }, { where: { id } });
+  const changedName = await User.findByPk(id);
+  res.json(changedName);
 });
 
 module.exports = router;

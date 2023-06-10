@@ -7,7 +7,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
   return (
     <>
       <View>
-        <Button onPress={() => navigation.navigate('HardRound')} title="HardRound" />
+        <Button onPress={() => navigation.navigate('IntroTwoRound')} title="IntroRound" />
       </View>
       <View style={styles.container}>
         <View style={styles.content}>
