@@ -60,7 +60,7 @@ export const editUserNameThunk: ThunkActionCreater = (input) => (dispatch) => {
       { username: input },
     )
     .then(({ data }) => {
-      dispatch(editUser({ ...data, input }));
+      dispatch(editUser(data));
     })
     .catch((error) => console.log(error));
 };

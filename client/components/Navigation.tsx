@@ -23,7 +23,17 @@ const Stack = createStackNavigator();
 export default function Navigation(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      // screenOptions={{
+      //   headerShadowVisible: false,
+      //   title: '',
+      //   headerLeft: false,
+      //   gestureEnabled: false,
+      //   headerStyle: {
+      //     // backgroundColor: 'yellow',
+      //   },
+      // }} НЕ УДАЛЯТЬ !!!
+      >
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Autorization" component={Autorization} />
         <Stack.Screen name="SignUp" component={SignUp} />

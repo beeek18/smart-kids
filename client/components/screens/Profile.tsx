@@ -14,11 +14,15 @@ export default function Profile({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
   const updateHandler = (value: string) => {
     dispatch(editUserNameThunk(value));
+    setInput('');
   };
+
   const user = useAppSelector((store) => store.user);
+
   const logOutHandler = () => {
     dispatch(logOutThunk());
   };
+  console.log(user.username);
 
   return (
     <>

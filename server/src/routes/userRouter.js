@@ -107,10 +107,7 @@ router.patch('/edit', async (req, res) => {
   await User.update({ username }, { where: { id: validToken.id } });
   const changedName = await User.findByPk(validToken.id);
   console.log(validToken);
-  // console.log(username);
-
   res.json(changedName);
 });
-
 
 module.exports = router;
