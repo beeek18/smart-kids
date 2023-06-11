@@ -45,7 +45,9 @@ export default function SimpleRound({ navigation }): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <QuestionText />
+        {questions.map((question) => (
+          <QuestionText question={question} key={question.id} />
+        ))}
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <ChoiceButton />
