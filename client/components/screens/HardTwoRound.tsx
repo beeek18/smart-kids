@@ -13,7 +13,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
 
   const handleSubmit = () => {
     // Обработка отправки ответа
-    console.log('Submitted answer:', answer);
+    // console.log('Submitted answer:', answer);
   };
 
   return (

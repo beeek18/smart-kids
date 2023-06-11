@@ -1,9 +1,33 @@
-import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
-import QuestionText from '../ui/Text/QuestionText';
+import { useEffect, useState } from 'react';
+import { Button, StyleSheet, View } from 'react-native';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { nextRound } from '../../features/redux/slices/game/gameSlice';
 import ChoiceButton from '../ui/Buttons.tsx/ChoiceButton';
+import QuestionText from '../ui/Text/QuestionText';
+import { clearVotes } from '../../features/redux/slices/game/gameAction';
 
 export default function SimpleRound({ navigation }): JSX.Element {
+  const dispatch = useAppDispatch();
+  const game = useAppSelector((state) => state.game);
+
+  const { allPlayers, round, votes } = game;
+
+  const [voteUser, setVoteUser] = useState(false);
+
+  console.log(allPlayers, round, votes);
+
+  // useEffect(() => {
+  //   if (allPlayers.length === votes.length) {
+  //     dispatch(nextRound());
+  //     setVoteUser(false);
+  //     dispatch(clearVotes());
+  //   }
+  // }, [votes]);
+
+  // const handleVote = () => {
+  //   setVoteUser(true);
+  // };
+
   return (
     <>
       <View>

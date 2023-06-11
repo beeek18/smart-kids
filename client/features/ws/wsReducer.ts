@@ -1,4 +1,4 @@
-import { SET_WS } from '../../types/webSocket/webSocket';
+import { SET_WS } from '../../types/ws/WsType';
 
 const wsReducer = (state = null, action) => {
   const { type, payload } = action;

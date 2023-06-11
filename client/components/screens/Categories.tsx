@@ -7,8 +7,6 @@ import { Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Categories({ navigation }): JSX.Element {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((store) => store.user);
   return (
     <>
       <View style={styles.container}>

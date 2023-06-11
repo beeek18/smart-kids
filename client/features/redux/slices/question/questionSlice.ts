@@ -27,7 +27,7 @@ export const getQuestionsThunk =
     axios<QuestionType[]>(
       `http://${
         Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-      } :3000/question/${id}`,
+      } :3000/api/question/${id}`,
     )
       .then(({ data }) => dispatch(setQuestions(data)))
       .catch(console.log);
