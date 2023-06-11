@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import HardQuestionText from '../ui/Text/HardQuestionText';
 import { Input, Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigation.navigate('Result');
+    }, 1000 * 15);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   const [answer, setAnswer] = useState('');
 
   const handleKeyboardDismiss = () => {
@@ -17,32 +25,27 @@ export default function HardTwoRound({ navigation }): JSX.Element {
   };
 
   return (
-    <>
-      <View>
-        <Button onPress={() => navigation.navigate('Result')} title="Result" />
-      </View>
-      <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-        <View style={styles.container}>
-          <View>
-            <HardQuestionText />
-          </View>
-          <View style={styles.inputContainer}>
-            <Input
-              placeholder="Your Answer"
-              value={answer}
-              onChangeText={setAnswer}
-              onFocus={handleKeyboardDismiss}
-              containerStyle={styles.input}
-            />
-            <Button
-              icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
-              onPress={handleSubmit}
-              buttonStyle={styles.submitButton}
-            />
-          </View>
+    <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
+      <View style={styles.container}>
+        <View>
+          <HardQuestionText />
         </View>
-      </TouchableWithoutFeedback>
-    </>
+        <View style={styles.inputContainer}>
+          <Input
+            placeholder="Your Answer"
+            value={answer}
+            onChangeText={setAnswer}
+            onFocus={handleKeyboardDismiss}
+            containerStyle={styles.input}
+          />
+          <Button
+            icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
+            onPress={handleSubmit}
+            buttonStyle={styles.submitButton}
+          />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

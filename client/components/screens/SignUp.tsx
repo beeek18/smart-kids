@@ -84,7 +84,6 @@ export default function SignUp({ navigation }) {
           }}
         ></Input>
         <Button onPress={signUpHandler}>Зарегистрироваться</Button>
-        <Button onPress={() => navigation.navigate('Home')} title="Home" />
       </ThemeProvider>
     </View>
   );
