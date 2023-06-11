@@ -7,6 +7,14 @@ import QuestionText from '../ui/Text/QuestionText';
 import { clearVotes } from '../../features/redux/slices/game/gameAction';
 
 export default function SimpleRound({ navigation }): JSX.Element {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigation.navigate('IntroTwoRound');
+    }, 1000 * 15);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   const dispatch = useAppDispatch();
   const game = useAppSelector((state) => state.game);
 
@@ -29,23 +37,18 @@ export default function SimpleRound({ navigation }): JSX.Element {
   // };
 
   return (
-    <>
-      <View>
-        <Button onPress={() => navigation.navigate('IntroTwoRound')} title="IntroRound" />
-      </View>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <QuestionText />
-          <View style={{ flexDirection: 'row', marginTop: 20 }}>
-            <View style={styles.buttonContainer}>
-              <ChoiceButton />
-              <View style={styles.buttonSeparator} />
-              <ChoiceButton />
-            </View>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <QuestionText />
+        <View style={{ flexDirection: 'row', marginTop: 20 }}>
+          <View style={styles.buttonContainer}>
+            <ChoiceButton />
+            <View style={styles.buttonSeparator} />
+            <ChoiceButton />
           </View>
         </View>
       </View>
-    </>
+    </View>
   );
 }
 

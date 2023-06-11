@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Image, Text } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function IntroRound({ navigation }): JSX.Element {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigation.navigate('SimpleRound');
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <>
       <View style={styles.container}>
@@ -13,11 +21,6 @@ export default function IntroRound({ navigation }): JSX.Element {
         <View>
           <Image style={styles.image} source={require('../../assets/icons/avatar1.png')} />
         </View>
-        <Button
-          icon={<MaterialIcons name="arrow-forward" size={24} />}
-          onPress={() => navigation.navigate('SimpleRound')}
-          buttonStyle={styles.submitButton}
-        />
       </View>
     </>
   );
