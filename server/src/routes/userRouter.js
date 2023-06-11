@@ -85,5 +85,12 @@ router.patch('/edit', async (req, res) => {
   const changedName = await User.findByPk(id);
   res.json(changedName);
 });
+router.patch('/edit/avatar', async (req, res) => {
+  const { img } = req.body;
+  const { id } = req.session.user;
+  await User.update({ img }, { where: { id } });
+  const changedImg = await User.findByPk(id);
+  res.json(changedImg);
+});
 
 module.exports = router;

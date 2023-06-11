@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ThunkActionCreater } from '../../store';
-import { editUser, logoutUser, setUser } from './userSlice';
+import { editImg, editUser, logoutUser, setUser } from './userSlice';
 import { LoginType, SignUpType, UserType } from '../../../../types/user/UserType';
 import { Platform } from 'react-native';
 import { API_URL } from '@env';
@@ -67,6 +67,20 @@ export const editUserNameThunk: ThunkActionCreater = (input) => (dispatch) => {
     )
     .then(({ data }) => {
       dispatch(editUser(data));
+    })
+    .catch((error) => console.log(error));
+};
+export const editUserImgThunk: ThunkActionCreater = (input) => (dispatch) => {
+  console.log('------', input);
+  axios
+    .patch(
+      `http://${
+        Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
+      }:3000/api/user/edit/avatar`,
+      { img: input },
+    )
+    .then(({ data }) => {
+      dispatch(editImg(data));
     })
     .catch((error) => console.log(error));
 };

@@ -74,7 +74,6 @@ export default function Autorization({ navigation }) {
         ></Input>
         <Button onPress={loginHandler}>Войти</Button>
       </ThemeProvider>
-      <Button onPress={() => navigation.navigate('Home')} title="Home" />
     </View>
   );
 }

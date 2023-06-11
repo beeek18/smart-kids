@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, View, Text, Image, StyleSheet } from 'react-native';
+import { Audio } from 'expo-av';
 import ChoiceButton from '../ui/Buttons.tsx/ChoiceButton';
 
 export default function Welcome({ navigation }): JSX.Element {
+  // const [sound, setSound] = useState();
+  // const [volume, setVolume] = useState(1);
+  // async function setVolumeLower() {
+  //   if (sound) {
+  //     const newVolume = volume === 1 ? 0 : 1;
+  //     await sound.setVolumeAsync(newVolume);
+  //     setVolume(newVolume);
+  //   }
+  // }
+  // async function playSound() {
+  //   console.log('Loading Sound');
+  //   const { sound } = await Audio.Sound.createAsync(require('../../assets/mainsound.mp3'));
+  //   setSound(sound);
+  //   console.log('Playing Sound');
+  //   await sound.playAsync();
+  // }
+
+  // useEffect(() => {
+  //   playSound();
+  // }, []);
   return (
     <View style={styles.view}>
       <View style={styles.whiteFon}>
         <Text style={styles.text}>DЕТИ - УМНЫЕ!</Text>
         <Text style={styles.textCard}>Но кто станет самым умным в этой викторине?</Text>
       </View>
+      {/* <Button title="audio" onPress={playSound} /> */}
       <Button onPress={() => navigation.navigate('Autorization')} title="Autorization" />
       <Image style={styles.image} source={require('../../assets/icons/avatar2.png')} />
       <View style={styles.button}>

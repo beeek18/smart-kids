@@ -16,12 +16,16 @@ export default function HardRound({ navigation }): JSX.Element {
 
   const questions = useAppSelector((store) => store.questions);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigation.navigate('HardTwoRound');
+    }, 1000 * 15);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <>
-      <View>
-        <Button onPress={() => navigation.navigate('Result')} title="Result" />
-        <Button onPress={() => navigation.navigate('HardTwoRound')} title="HardTwoRound" />
-      </View>
       <View style={styles.container}>
         <View>
           {questions.map((question) => (
