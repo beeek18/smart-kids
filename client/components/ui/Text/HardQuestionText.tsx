@@ -9,7 +9,7 @@ type Props = {
 export default function HardQuestionText({ question }: Props): JSX.Element {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{question.title}</Text>
+      <Text style={styles.text}>{question?.title}</Text>
     </View>
   );
 }
