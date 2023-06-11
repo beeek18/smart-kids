@@ -20,16 +20,19 @@ import Welcome from './screens/Welcome';
 import HardTwoRound from './screens/HardTwoRound';
 import IntroRound from './screens/IntroRound';
 import IntroTwoRound from './screens/IntroTwoRound';
+import { checkUserThunk } from '../features/redux/slices/user/userThunk';
 
 const Stack = createStackNavigator();
 
 export default function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    if (user) dispatch(socketInit(user));
-  }, [user]);
+    dispatch(socketInit());
+    dispatch(checkUserThunk());
+  }, []);
+
+  const user = useAppSelector((state) => state.user);
 
   return (
     <NavigationContainer>
@@ -44,21 +47,28 @@ export default function Navigation(): JSX.Element {
       //   },
       // }} НЕ УДАЛЯТЬ !!!
       >
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Autorization" component={Autorization} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Info" component={Info} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Categories" component={Categories} />
-        <Stack.Screen name="FriendsList" component={FriendsList} />
-        <Stack.Screen name="SimpleRound" component={SimpleRound} />
-        <Stack.Screen name="IntroRound" component={IntroRound} />
-        <Stack.Screen name="IntroTwoRound" component={IntroTwoRound} />
-        <Stack.Screen name="HardRound" component={HardRound} />
-        <Stack.Screen name="HardTwoRound" component={HardTwoRound} />
-        <Stack.Screen name="Result" component={Result} />
+        {user.status === 'fetching' ? (
+          <>
+            <Stack.Screen name="Welcome" component={Welcome} />
+            <Stack.Screen name="Autorization" component={Autorization} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="Login" component={Login} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Info" component={Info} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Categories" component={Categories} />
+            <Stack.Screen name="FriendsList" component={FriendsList} />
+            <Stack.Screen name="SimpleRound" component={SimpleRound} />
+            <Stack.Screen name="IntroRound" component={IntroRound} />
+            <Stack.Screen name="IntroTwoRound" component={IntroTwoRound} />
+            <Stack.Screen name="HardRound" component={HardRound} />
+            <Stack.Screen name="HardTwoRound" component={HardTwoRound} />
+            <Stack.Screen name="Result" component={Result} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

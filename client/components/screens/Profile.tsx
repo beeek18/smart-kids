@@ -7,12 +7,19 @@ import { ImagesAssets } from '../../assets/imageAssets';
 
 export default function Profile({ navigation }): JSX.Element {
   const [input, setInput] = useState('');
+
   const user = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
+
+  const updateHandler = (value: string) => {
+    dispatch(editUserNameThunk(value));
+    setInput('');
+  };
 
   const logOutHandler = () => {
     dispatch(logOutThunk());
   };
+
   const [imgPath, setImgPath] = useState(user.img);
 
   const updateImgHandler = (value) => {
@@ -22,6 +29,7 @@ export default function Profile({ navigation }): JSX.Element {
   useEffect(() => {
     setImgPath(user.img);
   }, [user.img]);
+
 
   return (
     <>
@@ -51,7 +59,6 @@ export default function Profile({ navigation }): JSX.Element {
           />
         </TouchableOpacity>
       </View>
-      <Image style={{ width: 70, height: 70 }} source={ImagesAssets[imgPath]} />
       <Text>{user.username}</Text>
       <Text>Как тебя зовут ?</Text>
       <Input

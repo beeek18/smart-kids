@@ -3,14 +3,19 @@ import { Button, Text, View, StyleSheet } from 'react-native';
 import HardQuestionText from '../ui/Text/HardQuestionText';
 import HardButton from '../ui/Buttons.tsx/SelectButton';
 import SelectButton from '../ui/Buttons.tsx/SelectButton';
+import { useEffect } from 'react';
 
 export default function HardRound({ navigation }): JSX.Element {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigation.navigate('HardTwoRound');
+    }, 1000 * 15);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <>
-      <View>
-        <Button onPress={() => navigation.navigate('Result')} title="Result" />
-        <Button onPress={() => navigation.navigate('HardTwoRound')} title="HardTwoRound" />
-      </View>
       <View style={styles.container}>
         <View>
           <HardQuestionText />

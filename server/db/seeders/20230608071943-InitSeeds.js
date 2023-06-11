@@ -16,24 +16,6 @@ module.exports = {
     );
 
     await queryInterface.bulkInsert(
-      'Friendships',
-      [
-        createFriendship(1, 2),
-        createFriendship(1, 3),
-        createFriendship(1, 4),
-        createFriendship(2, 1),
-        createFriendship(2, 3),
-        createFriendship(2, 4),
-        createFriendship(3, 1),
-        createFriendship(3, 2),
-        createFriendship(3, 4),
-        createFriendship(4, 1),
-        createFriendship(4, 2),
-        createFriendship(4, 3),
-      ],
-      {},
-    );
-    await queryInterface.bulkInsert(
       'Categories',
       [
         {

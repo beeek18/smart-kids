@@ -8,7 +8,10 @@ export type GameStateInfoType = {
   allPlayers: UserType[];
   score: number | 0;
   round: number | 0;
+  votes: GameVoteType[];
 };
+
+export type GameVoteType = string;
 
 export type GameStateInRoomType = GameStateInfoType & {
   status: 'InRoom';

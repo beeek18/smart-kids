@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { GameStateType } from '../../../../types/game/GameType';
+import { GameStateType, GameVoteType } from '../../../../types/game/GameType';
 import { UserType } from '../../../../types/user/UserType';
 
 const initialState: GameStateType = {
@@ -7,6 +7,7 @@ const initialState: GameStateType = {
   allPlayers: [],
   round: 1,
   score: 0,
+  votes: [],
 };
 
 export const gameSlice = createSlice({
@@ -14,7 +15,7 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     addPlayer: (state, action: PayloadAction<UserType>) => {
-      state.allPlayers.push(action.payload);
+      state.allPlayers = [...state.allPlayers, action.payload];
     },
 
     playerExit: (state, action: PayloadAction<UserType['id']>) => {
@@ -25,14 +26,23 @@ export const gameSlice = createSlice({
       state.status = action.payload;
     },
 
+    userVote: (state, action: PayloadAction<GameVoteType>) => {
+      state.votes.push(action.payload);
+    },
+
     nextRound: (state) => {
       state.round += 1;
+    },
+
+    clearAllVotes: (state) => {
+      state.votes = [];
     },
 
     resetRoom: (state) => {
       state.status = null;
       state.allPlayers = [];
-      state.round = 0;
+      state.votes = [];
+      state.round = 1;
       state.score = 0;
     },
   },

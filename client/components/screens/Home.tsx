@@ -15,10 +15,6 @@ export default function Home({ navigation }): JSX.Element {
     setSound((prev) => !prev);
   };
 
-  useEffect(() => {
-    dispatch(checkUserThunk());
-  }, []);
-
   return (
     <View>
       <TouchableHighlight
