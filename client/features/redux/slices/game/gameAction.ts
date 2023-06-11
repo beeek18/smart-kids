@@ -6,16 +6,12 @@ export const joinRoomAction = (payload: UserType) => ({
   payload,
 });
 
-export const startGameAction = (payload: GameStateType['status']) => ({
-  type: 'START_GAME',
+export const statusGameAction = (payload: GameStateType['status']) => ({
+  type: 'STATUS_GAME',
   payload,
 });
 
 export const voteAction = (payload: GameVoteType) => ({
   type: 'VOTE',
   payload,
-});
-
-export const clearVotes = () => ({
-  type: 'CLEAR_VOTE',
 });

@@ -18,10 +18,13 @@ module.exports = {
       'Categories',
       [
         {
-          title: 'Simple',
+          title: 'Choice',
         },
         {
-          title: 'Hard',
+          title: 'Select',
+        },
+        {
+          title: 'Input',
         },
       ],
       {},
@@ -35,7 +38,7 @@ module.exports = {
           title: 'Question 3',
           answer: 'Answer 3',
           img: 'https://fikiwiki.com/uploads/posts/2022-02/1644991786_3-fikiwiki-com-p-prikolnie-kartinki-pro-kotov-3.jpg',
-          categoryId: 1,
+          categoryId: 2,
         },
         {
           title: 'Question 4',
@@ -47,14 +50,14 @@ module.exports = {
           title: 'Question 5',
           answer: 'Answer 5',
           img: 'https://elenaportnova.ru/wp-content/uploads/2/9/0/29084cb417afd8f49919a8e1c0c91293.jpeg',
-          categoryId: 2,
+          categoryId: 3,
         },
         { title: 'Question 6', answer: 'Answer 6', img: 'img6', categoryId: 2 },
         {
           title: 'Question 7',
           answer: 'Answer 7',
           img: 'https://traveltimes.ru/wp-content/uploads/2022/08/1652226824_16-kartinkin-net-p-krasivie-kartinki-yaponii-18.jpg',
-          categoryId: 2,
+          categoryId: 3,
         },
       ],
       {},
@@ -64,35 +67,28 @@ module.exports = {
       [
         {
           title: 'option 1',
-          questionId: 4,
+          questionId: 5,
         },
         {
           title: 'option 2',
-          questionId: 4,
+          questionId: 5,
         },
         {
           title: 'option 3',
-          questionId: 4,
+          questionId: 5,
         },
-        {
-          title: 'option 4',
-          questionId: 4,
-        },
+
         {
           title: 'option 1',
-          questionId: 5,
+          questionId: 6,
         },
         {
           title: 'option 2',
-          questionId: 5,
+          questionId: 6,
         },
         {
           title: 'option 3',
-          questionId: 5,
-        },
-        {
-          title: 'option 4',
-          questionId: 5,
+          questionId: 6,
         },
       ],
       {},

@@ -17,7 +17,7 @@ wss.on('connection', (ws, request, wsMap) => {
         break;
       }
 
-      case 'START_GAME': {
+      case 'STATUS_GAME': {
         for (const [, wsClient] of wsMap) {
           wsClient.ws.send(JSON.stringify({ type: 'Game/updateGameStatus', payload }));
         }

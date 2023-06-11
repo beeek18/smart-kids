@@ -5,8 +5,18 @@ import { Pressable, Text, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import { MaterialIcons } from '@expo/vector-icons';
+import { useEffect } from 'react';
+import { updateGameStatus } from '../../features/redux/slices/game/gameSlice';
 
 export default function Categories({ navigation }): JSX.Element {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store) => store.user);
+
+  useEffect(() => {
+    dispatch(joinRoomAction(user));
+    dispatch(updateGameStatus('InRoom'));
+  }, []);
+
   return (
     <>
       <View style={styles.container}>
