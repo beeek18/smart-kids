@@ -27,11 +27,9 @@ export const getQuestionsThunk: ThunkActionCreater<QuestionType[]> =
     axios<QuestionType[]>(
       `http://${
         Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-      } :3000/api/questions/${id}`,
+      }:3000/api/questions/${id}`,
     )
       .then(({ data }) => {
-        console.log('===>> data', data);
-
         dispatch(setQuestions(data));
       })
       .catch(console.log);

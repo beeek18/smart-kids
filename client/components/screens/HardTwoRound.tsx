@@ -27,9 +27,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
   return (
     <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
       <View style={styles.container}>
-        <View>
-          <HardQuestionText />
-        </View>
+        <View>{/* <HardQuestionText /> */}</View>
         <View style={styles.inputContainer}>
           <Input
             placeholder="Your Answer"

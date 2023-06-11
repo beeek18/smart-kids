@@ -19,7 +19,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
   const game = useAppSelector((state) => state.game);
 
-  const { allPlayers, round, votes } = game;
+  const { allPlayers, round } = game;
 
   const [voteUser, setVoteUser] = useState(false);
 
@@ -28,7 +28,6 @@ export default function SimpleRound({ navigation }): JSX.Element {
   }, []);
 
   const questions = useAppSelector((store) => store.questions);
-  console.log('=====>>>', questions);
 
   // useEffect(() => {
   //   if (allPlayers.length === votes.length) {
