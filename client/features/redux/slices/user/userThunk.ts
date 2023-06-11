@@ -71,7 +71,6 @@ export const editUserNameThunk: ThunkActionCreater = (input) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 export const editUserImgThunk: ThunkActionCreater = (input) => (dispatch) => {
-  console.log('------', input);
   axios
     .patch(
       `http://${
