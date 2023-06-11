@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 
 const { User } = require('../../db/models');
-const { isAuth, notAuth } = require('../middleware');
+const { isAuth } = require('../middleware');
 
 const router = express.Router();
 const avatarPaths = ['avatar1', 'avatar2', 'avatar3', 'avatar4'];
@@ -26,10 +26,10 @@ router.post('/signup', async (req, res) => {
       return res.status(400).json({ message: 'Пользователь уже существует' });
     }
 
-    const userInfo = { id: user.id, username, img: user.img };
+    const userInfo = { id: user.id, username, img: user.img, status: 'logged' };
     req.session.user = userInfo;
 
-    res.status(200).json({ userInfo });
+    res.status(200).json(userInfo);
   } catch (error) {
     console.log(error);
   }
@@ -55,7 +55,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Указан неверный пароль' });
     }
 
-    const userInfo = { id: user.id, username: user.username };
+    const userInfo = { id: user.id, username: user.username, img: user.img, status: 'logged' };
 
     req.session.user = userInfo;
 

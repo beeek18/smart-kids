@@ -14,23 +14,35 @@ const theme = createTheme({
   },
 });
 export default function SignUp({ navigation }) {
+  const [input, setInput] = useState<SignUpType>({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (name, value): void => {
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+
   const signUpHandler = (): void => {
     try {
-      dispatch(signUpThunk({ email, username, password } as SignUpType));
+      dispatch(signUpThunk(input));
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <View>
       <ThemeProvider theme={theme}>
         <Input
-          value={username}
-          onChangeText={setUsername}
+          value={input.username}
+          onChangeText={(value) => handleChange('username', value)}
           placeholder="Как тебя зовут?"
           enablesReturnKeyAutomatically
           textAlign="center"
@@ -43,8 +55,8 @@ export default function SignUp({ navigation }) {
           }}
         ></Input>
         <Input
-          value={email}
-          onChangeText={setEmail}
+          value={input.email}
+          onChangeText={(value) => handleChange('email', value)}
           placeholder="Электронная почта"
           enablesReturnKeyAutomatically
           textAlign="center"
@@ -57,8 +69,8 @@ export default function SignUp({ navigation }) {
           }}
         ></Input>
         <Input
-          value={password}
-          onChangeText={setPassword}
+          value={input.password}
+          onChangeText={(value) => handleChange('password', value)}
           placeholder="Пароль"
           enablesReturnKeyAutomatically
           textAlign="center"

@@ -2,8 +2,6 @@ export type SignUpType = {
   username: string;
   email: string;
   password: string;
-  img: string;
-  status?: string;
 };
 
 export type LoginType = {
@@ -11,29 +9,9 @@ export type LoginType = {
   password: string;
 };
 
-export type BackendUserType = {
+export type UserType = {
   id: number;
   username: string;
-  email: string;
-  password: string;
   img: string;
-};
-export type LoggedUserType = {
-  status: string;
-} & BackendUserType;
-
-export type GuestUserType = {
   status: string;
 };
-
-export type FetchingUserType = {
-  status: string;
-};
-export type EditUserType = {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-  img: string;
-};
-export type UserType = LoggedUserType | GuestUserType | FetchingUserType | EditUserType;

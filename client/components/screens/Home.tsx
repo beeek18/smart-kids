@@ -11,13 +11,8 @@ export default function Home({ navigation }): JSX.Element {
   const onClick = () => {
     setSound((prev) => !prev);
   };
-  const user = useAppSelector((store) => store.user);
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(checkUserThunk());
-  }, []);
+  const user = useAppSelector((state) => state.user);
 
   return (
     <View>

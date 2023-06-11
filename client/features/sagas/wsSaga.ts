@@ -57,6 +57,13 @@ function* voteWorker(socket) {
   }
 }
 
+function* clearVoteWorker(socket) {
+  while (true) {
+    const message = yield take('CLEAR_VOTE');
+    socket.send(JSON.stringify(message));
+  }
+}
+
 function* wsWorker(action) {
   const socket = yield call(createWebSocketConnection);
   const socketChannel = yield call(createSocketChannel, socket);
@@ -64,6 +71,7 @@ function* wsWorker(action) {
   yield fork(joinGameWorker, socket);
   yield fork(startGameWorker, socket);
   yield fork(voteWorker, socket);
+  yield fork(clearVoteWorker, socket);
 
   while (true) {
     try {
