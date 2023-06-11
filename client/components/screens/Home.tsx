@@ -6,7 +6,7 @@ import { useAppSelector } from '../../features/redux/hooks';
 import { ImagesAssets } from '../../assets/imageAssets';
 
 export default function Home({ navigation }): JSX.Element {
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((store) => store.user);
   const [imageVolumeToggle, setImageVolumeToggle] = useState(false);
 
   const [sound, setSound] = useState<Audio.Sound>();

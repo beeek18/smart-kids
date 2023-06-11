@@ -7,7 +7,7 @@ export default function Result({ navigation }): JSX.Element {
     <View style={styles.container}>
       <ResultTable />
       <View style={styles.buttonsContainer}>
-        <Button title="Играть снова" onPress={() => navigation.navigate('IntroRound')} />
+        <Button title="Играть снова" onPress={() => navigation.navigate('FriendList')} />
         <Button title="Выйти" onPress={() => navigation.navigate('Home')} />
       </View>
       <Text style={styles.footer}>Спасибо за игру!</Text>
