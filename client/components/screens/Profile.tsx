@@ -21,6 +21,7 @@ export default function Profile({ navigation }): JSX.Element {
 
   const logOutHandler = () => {
     dispatch(logOutThunk());
+    sound.stopAsync();
   };
 
   return (

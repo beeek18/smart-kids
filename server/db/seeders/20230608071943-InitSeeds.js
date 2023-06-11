@@ -2,7 +2,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     const createUser = (username, password, email, img) => ({ username, password, email, img });
-    const createFriendship = (subjectUserId, objectUserId) => ({ subjectUserId, objectUserId });
 
     await queryInterface.bulkInsert(
       'Users',
@@ -15,24 +14,6 @@ module.exports = {
       {},
     );
 
-    await queryInterface.bulkInsert(
-      'Friendships',
-      [
-        createFriendship(1, 2),
-        createFriendship(1, 3),
-        createFriendship(1, 4),
-        createFriendship(2, 1),
-        createFriendship(2, 3),
-        createFriendship(2, 4),
-        createFriendship(3, 1),
-        createFriendship(3, 2),
-        createFriendship(3, 4),
-        createFriendship(4, 1),
-        createFriendship(4, 2),
-        createFriendship(4, 3),
-      ],
-      {},
-    );
     await queryInterface.bulkInsert(
       'Categories',
       [
@@ -120,5 +101,8 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Categories', null, {});
+    await queryInterface.bulkDelete('Questions', null, {});
+    await queryInterface.bulkDelete('Options', null, {});
   },
 };
