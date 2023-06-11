@@ -5,6 +5,7 @@ import { nextRound } from '../../features/redux/slices/game/gameSlice';
 import ChoiceButton from '../ui/Buttons.tsx/ChoiceButton';
 import QuestionText from '../ui/Text/QuestionText';
 import { clearVotes } from '../../features/redux/slices/game/gameAction';
+import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
 
 export default function SimpleRound({ navigation }): JSX.Element {
   useEffect(() => {
@@ -22,7 +23,12 @@ export default function SimpleRound({ navigation }): JSX.Element {
 
   const [voteUser, setVoteUser] = useState(false);
 
-  console.log(allPlayers, round, votes);
+  useEffect(() => {
+    dispatch(getQuestionsThunk(1));
+  }, []);
+
+  const questions = useAppSelector((store) => store.questions);
+  console.log('=====>>>', questions);
 
   // useEffect(() => {
   //   if (allPlayers.length === votes.length) {
@@ -39,7 +45,9 @@ export default function SimpleRound({ navigation }): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <QuestionText />
+        {questions.map((question) => (
+          <QuestionText question={question} key={question.id} />
+        ))}
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <ChoiceButton />

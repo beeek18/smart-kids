@@ -52,7 +52,7 @@ export default function Home({ navigation }): JSX.Element {
       >
         <Image style={{ width: 70, height: 70 }} source={ImagesAssets[user.img]} />
       </TouchableHighlight>
-      <Text>Алена</Text>
+      <Text>{user.username}</Text>
       {imageVolumeToggle !== true && (
         <Text
           onPress={() => {

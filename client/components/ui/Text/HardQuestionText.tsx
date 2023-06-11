@@ -1,10 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { QuestionType } from '../../../types/question/QuestionType';
 
-export default function HardQuestionText(): JSX.Element {
+type Props = {
+  question: QuestionType;
+};
+
+export default function HardQuestionText({ question }: Props): JSX.Element {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>QuestionText</Text>
+      <Text style={styles.text}>{question.title}</Text>
     </View>
   );
 }
