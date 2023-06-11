@@ -8,7 +8,6 @@ import { ImagesAssets } from '../../assets/imageAssets';
 export default function Profile({ navigation }): JSX.Element {
   const [input, setInput] = useState('');
   const user = useAppSelector((store) => store.user);
-  console.log(user);
   const dispatch = useAppDispatch();
 
   const logOutHandler = () => {
@@ -20,36 +19,39 @@ export default function Profile({ navigation }): JSX.Element {
     dispatch(editUserImgThunk(value));
     setImgPath(value);
   };
+  useEffect(() => {
+    setImgPath(user.img);
+  }, [user.img]);
 
   return (
     <>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <TouchableOpacity onPress={() => updateImgHandler(ImagesAssets.avatar1)}>
+        <TouchableOpacity onPress={() => updateImgHandler('avatar1')}>
           <Image
             style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
             source={ImagesAssets.avatar1}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => updateImgHandler(ImagesAssets.avatar2)}>
+        <TouchableOpacity onPress={() => updateImgHandler('avatar2')}>
           <Image
             style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
             source={ImagesAssets.avatar2}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => updateImgHandler(ImagesAssets.avatar3)}>
+        <TouchableOpacity onPress={() => updateImgHandler('avatar3')}>
           <Image
             style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
             source={ImagesAssets.avatar3}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => updateImgHandler(ImagesAssets.avatar4)}>
+        <TouchableOpacity onPress={() => updateImgHandler('avatar4')}>
           <Image
             style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
             source={ImagesAssets.avatar4}
           />
         </TouchableOpacity>
       </View>
-      <Image style={{ width: 70, height: 70 }} source={imgPath} />
+      <Image style={{ width: 70, height: 70 }} source={ImagesAssets[imgPath]} />
       <Text>{user.username}</Text>
       <Text>Как тебя зовут ?</Text>
       <Input
