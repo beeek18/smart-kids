@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Audio } from 'expo-av';
 
 import { socketInit } from '../features/ws/wsActions';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
@@ -26,13 +27,12 @@ const Stack = createStackNavigator();
 
 export default function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const user = useAppSelector((state) => state.user);
+  
   useEffect(() => {
     dispatch(socketInit());
     dispatch(checkUserThunk());
   }, []);
-
-  const user = useAppSelector((state) => state.user);
 
   return (
     <NavigationContainer>

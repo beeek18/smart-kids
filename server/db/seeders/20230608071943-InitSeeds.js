@@ -2,7 +2,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     const createUser = (username, password, email, img) => ({ username, password, email, img });
-    const createFriendship = (subjectUserId, objectUserId) => ({ subjectUserId, objectUserId });
 
     await queryInterface.bulkInsert(
       'Users',
@@ -102,5 +101,8 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Categories', null, {});
+    await queryInterface.bulkDelete('Questions', null, {});
+    await queryInterface.bulkDelete('Options', null, {});
   },
 };
