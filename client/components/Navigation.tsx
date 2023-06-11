@@ -20,16 +20,19 @@ import Welcome from './screens/Welcome';
 import HardTwoRound from './screens/HardTwoRound';
 import IntroRound from './screens/IntroRound';
 import IntroTwoRound from './screens/IntroTwoRound';
+import { checkUserThunk } from '../features/redux/slices/user/userThunk';
 
 const Stack = createStackNavigator();
 
 export default function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((store) => store.user);
 
   useEffect(() => {
-    if (user) dispatch(socketInit(user));
-  }, [user]);
+    dispatch(socketInit());
+    dispatch(checkUserThunk());
+  }, []);
+
+  const user = useAppSelector((state) => state.user);
 
   return (
     <NavigationContainer>

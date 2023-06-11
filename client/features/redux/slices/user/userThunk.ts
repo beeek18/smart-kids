@@ -9,7 +9,7 @@ const guestUser = {
   id: 0,
   username: '',
   img: '',
-  status: 'guest',
+  status: 'fetching',
 };
 
 export const checkUserThunk: ThunkActionCreater = () => (dispatch) => {
@@ -54,7 +54,6 @@ export const logOutThunk: ThunkActionCreater = () => (dispatch) => {
   )
     .then(() => {
       dispatch(logoutUser());
-      dispatch(setUser(guestUser));
     })
     .catch(console.log);
 };

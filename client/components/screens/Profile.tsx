@@ -11,18 +11,17 @@ import {
 export default function Profile({ navigation }): JSX.Element {
   const [input, setInput] = useState('');
 
+  const user = useAppSelector((state) => state.user);
+
   const dispatch = useAppDispatch();
   const updateHandler = (value: string) => {
     dispatch(editUserNameThunk(value));
     setInput('');
   };
 
-  const user = useAppSelector((store) => store.user);
-
   const logOutHandler = () => {
     dispatch(logOutThunk());
   };
-  console.log(user.username);
 
   return (
     <>
@@ -52,7 +51,7 @@ export default function Profile({ navigation }): JSX.Element {
           />
         </TouchableOpacity>
       </View>
-      <Text>{user.username}</Text>
+      <Text>{user?.username}</Text>
       <Text>Как тебя зовут ?</Text>
       <Input
         placeholder="Введите имя"
