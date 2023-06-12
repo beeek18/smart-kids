@@ -23,12 +23,12 @@ export const gameSlice = createSlice({
       state.allPlayers = [...state.allPlayers, action.payload];
     },
 
-    updateGameStatus: (state, action: PayloadAction<GameStatusType['status']>) => {
-      state.status = action.payload;
-    },
-
     addPoint: (state) => {
       state.score += 1;
+    },
+
+    updateGameStatus: (state, action: PayloadAction<GameStatusType['status']>) => {
+      state.status = action.payload;
     },
 
     updateAllScores: (state, action: PayloadAction<GameAllScoreType>) => {
@@ -42,12 +42,14 @@ export const gameSlice = createSlice({
     resetRoom: (state) => {
       state.status = null;
       state.allPlayers = [];
+      state.allScores = [];
       state.round = 1;
       state.score = 0;
     },
   },
 });
 
-export const { addPlayer, updateGameStatus, nextRound, resetRoom } = gameSlice.actions;
+export const { addPlayer, addPoint, updateGameStatus, updateAllScores, nextRound, resetRoom } =
+  gameSlice.actions;
 
 export default gameSlice.reducer;
