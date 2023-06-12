@@ -22,7 +22,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
   const [voteUser, setVoteUser] = useState(false);
 
   useEffect(() => {
-    dispatch(getQuestionsThunk(1));
+    dispatch(getQuestionsThunk(1, 0));
   }, []);
 
   const questions = useAppSelector((store) => store.questions);

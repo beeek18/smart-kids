@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   text: {
-    color: '#fff',
+    color: 'black',
     fontSize: 24,
     fontWeight: 'bold',
     display: 'flex',

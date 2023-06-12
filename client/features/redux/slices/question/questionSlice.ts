@@ -21,13 +21,13 @@ export const { setQuestions } = QuestionSlice.actions;
 
 export default QuestionSlice.reducer;
 
-export const getQuestionsThunk: ThunkActionCreater<QuestionType[]> =
-  (id: QuestionType['categoryId']): AppThunk =>
+export const getQuestionsThunk =
+  (id: QuestionType['categoryId'], offset: number): AppThunk =>
   (dispatch) => {
     axios<QuestionType[]>(
       `http://${
         Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-      }:3000/api/questions/${id}`,
+      }:3000/api/questions/${id}?offset=${offset}`,
     )
       .then(({ data }) => {
         dispatch(setQuestions(data));
