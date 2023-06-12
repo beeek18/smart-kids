@@ -9,6 +9,7 @@ import { getQuestionOptionThunk } from '../../features/redux/slices/question/que
 import { Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import { QuestionType } from '../../types/question/QuestionType';
+import { addPoint } from '../../features/redux/slices/game/gameSlice';
 
 export default function HardRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,7 +30,10 @@ export default function HardRound({ navigation }): JSX.Element {
 
   const [arrowButton, setArrowButton] = useState(false);
 
-  const handlePress = () => {
+  const handlePress = (answer: string) => {
+    if (answer === question.answer) {
+      dispatch(addPoint());
+    }
     setArrowButton(true);
   };
   return (
@@ -43,7 +47,12 @@ export default function HardRound({ navigation }): JSX.Element {
         <View style={{ marginTop: 20 }}>
           {question?.Options &&
             question?.Options.map((option) => (
-              <TouchableOpacity onPress={handlePress} key={option.id}>
+              <TouchableOpacity
+                onPress={() => {
+                  handlePress(option.title);
+                }}
+                key={option.id}
+              >
                 <SelectButton option={option} />
               </TouchableOpacity>
             ))}

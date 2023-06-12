@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { QuestionType } from '../../../types/question/QuestionType';
+import { useAppDispatch } from '../../../features/redux/hooks';
 type Props = {
   option: {
     id: number;
