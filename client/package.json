@@ -28,6 +28,7 @@
     "react-native": "0.71.8",
     "react-native-dotenv": "^3.4.8",
     "react-native-elements": "^3.4.3",
+    "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.10",
     "react-redux": "^8.0.7",
     "redux-saga": "^1.2.3",

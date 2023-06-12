@@ -1,5 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+// type Props = {
+//   onPress: () => void;
+// };
 
 export default function SelectButton(): JSX.Element {
   return (
