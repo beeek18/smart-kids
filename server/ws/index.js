@@ -31,13 +31,6 @@ wss.on('connection', (ws, request, wsMap) => {
         break;
       }
 
-      case 'CLEAR_VOTE': {
-        for (const [, wsClient] of wsMap) {
-          wsClient.ws.send(JSON.stringify({ type: 'Game/clearAllVotes', payload }));
-        }
-        break;
-      }
-
       default:
         break;
     }
