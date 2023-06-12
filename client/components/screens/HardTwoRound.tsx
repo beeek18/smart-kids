@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-nati
 import HardQuestionText from '../ui/Text/HardQuestionText';
 import { Input, Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useAppDispatch } from '../../features/redux/hooks';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
   useEffect(() => {
@@ -13,6 +14,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     return () => clearTimeout(timeout);
   }, []);
 
+  const dispatch = useAppDispatch();
   const [answer, setAnswer] = useState('');
 
   const handleKeyboardDismiss = () => {
