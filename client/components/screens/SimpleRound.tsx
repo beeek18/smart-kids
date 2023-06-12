@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
 import ChoiceButton from '../ui/Buttons.tsx/ChoiceButton';
 import QuestionText from '../ui/Text/QuestionText';
+import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 
 export default function SimpleRound({ navigation }): JSX.Element {
   useEffect(() => {
@@ -38,6 +38,8 @@ export default function SimpleRound({ navigation }): JSX.Element {
   // const handleVote = () => {
   //   setVoteUser(true);
   // };
+
+  const [count, setCount] = useState(0);
 
   return (
     <View style={styles.container}>
