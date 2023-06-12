@@ -8,13 +8,18 @@ import { getQuestionsThunk } from '../../../features/redux/slices/question/quest
 import HardQuestionText from '../../ui/Text/HardQuestionText';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
+  const [timerComplete, setTimerComplete] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation.navigate('Result');
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('Result');
+      }
     }, 1000 * 15);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
   const [answer, setAnswer] = useState('');
@@ -60,7 +65,10 @@ export default function HardTwoRound({ navigation }): JSX.Element {
         {arrowButton && (
           <Button
             icon={<MaterialIcons name="arrow-forward" size={40} />}
-            onPress={() => navigation.navigate('Result')}
+            onPress={() => {
+              setTimerComplete(true);
+              navigation.navigate('Result');
+            }}
             buttonStyle={styles.submitButton}
           />
         )}

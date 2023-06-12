@@ -9,13 +9,18 @@ import QuestionText from '../../ui/Text/QuestionText';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function RightRound({ navigation }): JSX.Element {
+  const [timerComplete, setTimerComplete] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation.navigate('IntroHard');
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('IntroHard');
+      }
     }, 1000 * 15);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -49,7 +54,10 @@ export default function RightRound({ navigation }): JSX.Element {
               {arrowButton && (
                 <Button
                   icon={<MaterialIcons name="arrow-forward" size={40} />}
-                  onPress={() => navigation.navigate('IntroHard')}
+                  onPress={() => {
+                    clearTimeout(setTimerComplete(true));
+                    navigation.navigate('IntroHard');
+                  }}
                   buttonStyle={styles.submitButton}
                 />
               )}
