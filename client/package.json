@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
     "@jridgewell/gen-mapping": "^0.3.3",
     "@react-navigation/native": "^6.1.6",
