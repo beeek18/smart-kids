@@ -5,16 +5,17 @@ import HardButton from '../ui/Buttons.tsx/SelectButton';
 import SelectButton from '../ui/Buttons.tsx/SelectButton';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { useEffect } from 'react';
-import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
+import { getQuestionOptionThunk } from '../../features/redux/slices/question/questionSlice';
 
 export default function HardRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getQuestionsThunk(2));
+    dispatch(getQuestionOptionThunk(3));
   }, []);
 
-  const questions = useAppSelector((store) => store.questions);
+  const question = useAppSelector((store) => store.questions);
+  console.log(question[0].Options);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -28,9 +29,9 @@ export default function HardRound({ navigation }): JSX.Element {
     <>
       <View style={styles.container}>
         <View>
-          {questions.map((question) => (
-            <HardQuestionText question={question} key={question.id} />
-          ))}
+          {/* {questions.map((question) => ( */}
+          <HardQuestionText question={question} key={question.id} />
+          {/* ))} */}
         </View>
         <View style={{ marginTop: 20 }}>
           <SelectButton />

@@ -4,14 +4,14 @@ const { Question, Option } = require('../../db/models');
 const questionsRouter = express.Router();
 
 questionsRouter.get('/:categoryId', async (req, res) => {
-  const question = await Question.findAll({ where: { categoryId: req.params.categoryId } });
+  const question = await Question.findOne({ where: { categoryId: req.params.categoryId } });
   res.json(question);
 });
 
 questionsRouter.get('/:categoryId/options', async (req, res) => {
   const { categoryId } = req.params;
   try {
-    const question = await Question.findAll({
+    const question = await Question.findOne({
       where: { categoryId },
       include: { model: Option },
     });
