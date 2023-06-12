@@ -1,10 +1,14 @@
 const express = require('express');
-const { Question, Option } = require('../../db/models');
+const { Question, Option, Sequelize } = require('../../db/models');
 
 const questionsRouter = express.Router();
 
 questionsRouter.get('/:categoryId', async (req, res) => {
-  const question = await Question.findOne({ where: { categoryId: req.params.categoryId } });
+  const question = await Question.findOne({
+    where: { categoryId: req.params.categoryId },
+    order: Sequelize.literal('RANDOM()'),
+    limit: 1,
+  });
   res.json(question);
 });
 
@@ -14,6 +18,8 @@ questionsRouter.get('/:categoryId/options', async (req, res) => {
     const question = await Question.findOne({
       where: { categoryId },
       include: { model: Option },
+      order: Sequelize.literal('RANDOM()'),
+      limit: 1,
     });
     res.json(question);
   } catch (error) {
