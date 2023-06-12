@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
 import QuestionText from '../ui/Text/QuestionText';
+import { addPoint } from '../../features/redux/slices/game/gameSlice';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -29,12 +30,9 @@ export default function SimpleRound({ navigation }): JSX.Element {
 
   const questions = useAppSelector((store) => store.questions);
 
-  const [arrowButton, setArrowButton] = useState(false);
+  // console.log(game.score);
 
-  // const arrowHandler = () => {
-  //   console.log(arrowButton);
-  //   setArrowButton(true);
-  // };
+  const [arrowButton, setArrowButton] = useState(false);
 
   // useEffect(() => {
   //   if (allPlayers.length === votes.length) {
