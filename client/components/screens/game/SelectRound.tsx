@@ -17,13 +17,18 @@ export default function HardRound({ navigation }): JSX.Element {
 
   const question = useAppSelector((store) => store.questions);
 
+  const [timerComplete, setTimerComplete] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation.navigate('InputRound');
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('InputRound');
+      }
     }, 1000 * 15);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [timerComplete]);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -59,7 +64,10 @@ export default function HardRound({ navigation }): JSX.Element {
         {arrowButton && (
           <Button
             icon={<MaterialIcons name="arrow-forward" size={40} />}
-            onPress={() => navigation.navigate('InputRound')}
+            onPress={() => {
+              setTimerComplete(true);
+              navigation.navigate('InputRound');
+            }}
             buttonStyle={styles.submitButton}
           />
         )}

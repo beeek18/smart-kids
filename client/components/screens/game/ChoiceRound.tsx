@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
@@ -9,13 +9,18 @@ import QuestionText from '../../ui/Text/QuestionText';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function SimpleRound({ navigation }): JSX.Element {
+  const [timerComplete, setTimerComplete] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation.navigate('RightRound');
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('RightRound');
+      }
     }, 1000 * 15);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -27,6 +32,13 @@ export default function SimpleRound({ navigation }): JSX.Element {
 
   const [arrowButton, setArrowButton] = useState(false);
 
+  const handlePress = (text: string) => {
+    if (text === question.answer) {
+      dispatch(addPoint());
+    }
+    setArrowButton(true);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -35,23 +47,21 @@ export default function SimpleRound({ navigation }): JSX.Element {
         {/* ))} */}
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
+            <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
               <Text style={styles.buttonText}>Да</Text>
             </TouchableOpacity>
             <View style={styles.buttonSeparator} />
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setArrowButton(true), dispatch(addPoint());
-              }}
-            >
+            <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
               <Text style={styles.buttonText}>Нет</Text>
             </TouchableOpacity>
             <View>
               {arrowButton && (
                 <Button
                   icon={<MaterialIcons name="arrow-forward" size={40} />}
-                  onPress={() => navigation.navigate('RightRound')}
+                  onPress={() => {
+                    setTimerComplete(true);
+                    navigation.navigate('RightRound');
+                  }}
                   buttonStyle={styles.submitButton}
                 />
               )}
