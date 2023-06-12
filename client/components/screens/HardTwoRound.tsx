@@ -48,7 +48,6 @@ export default function HardTwoRound({ navigation }): JSX.Element {
               placeholder="Your Answer"
               value={answer}
               onChangeText={setAnswer}
-              onFocus={handleKeyboardDismiss}
               containerStyle={styles.input}
             />
             <Button

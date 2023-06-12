@@ -31,7 +31,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
   const question = useAppSelector((store) => store.questions);
   console.log(question);
 
-  // console.log(game.score);
+  console.log(game.score);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -59,7 +59,12 @@ export default function SimpleRound({ navigation }): JSX.Element {
               <Text style={styles.buttonText}>Да</Text>
             </TouchableOpacity>
             <View style={styles.buttonSeparator} />
-            <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                setArrowButton(true), dispatch(addPoint());
+              }}
+            >
               <Text style={styles.buttonText}>Нет</Text>
             </TouchableOpacity>
             <View>
