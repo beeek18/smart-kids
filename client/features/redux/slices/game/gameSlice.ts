@@ -10,7 +10,6 @@ import { UserType } from '../../../../types/user/UserType';
 const initialState: GameStateType = {
   status: null,
   allPlayers: [],
-  round: 1,
   score: 0,
   allScores: [],
 };
@@ -35,15 +34,10 @@ export const gameSlice = createSlice({
       state.allScores = [...state.allScores, action.payload];
     },
 
-    nextRound: (state) => {
-      state.round += 1;
-    },
-
     resetRoom: (state) => {
       state.status = null;
       state.allPlayers = [];
       state.allScores = [];
-      state.round = 1;
       state.score = 0;
     },
   },
