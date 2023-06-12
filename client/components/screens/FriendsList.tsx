@@ -25,13 +25,13 @@ export default function FriendsList({ navigation }): JSX.Element {
     <View>
       <Text>Friends</Text>
       {players.map((player) => (
-        <div key={player.id}>
+        <View key={player.id}>
           <Text>{player.username}</Text>
           <Image
             style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
             source={ImagesAssets[player.img]}
           />
-        </div>
+        </View>
       ))}
       <Button title="IntroRound" onPress={() => navigation.navigate('IntroRound')} />
     </View>

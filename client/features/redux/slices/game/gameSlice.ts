@@ -48,6 +48,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { addPlayer, playerExit, updateGameStatus, nextRound, resetRoom } = gameSlice.actions;
+export const { addPlayer, playerExit, updateGameStatus, nextRound, resetRoom, clearAllVotes } =
+  gameSlice.actions;
 
 export default gameSlice.reducer;
