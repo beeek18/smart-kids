@@ -3,7 +3,8 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-nati
 import HardQuestionText from '../ui/Text/HardQuestionText';
 import { Input, Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useAppDispatch } from '../../features/redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
   useEffect(() => {
@@ -29,12 +30,18 @@ export default function HardTwoRound({ navigation }): JSX.Element {
 
   const [arrowButton, setArrowButton] = useState(false);
 
+  useEffect(() => {
+    dispatch(getQuestionsThunk(4));
+  }, []);
+
+  const question = useAppSelector((store) => store.questions);
+
   return (
     <>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <View style={styles.container}>
           <View>
-            <HardQuestionText />
+            <HardQuestionText question={question} />
           </View>
           <View style={styles.inputContainer}>
             <Input
