@@ -1,7 +1,9 @@
 import React from 'react';
 import { Pressable, Text, StyleSheet } from 'react-native';
-
-export default function ChoiceButton(): JSX.Element {
+type Props = {
+  setArrowButton: () => void;
+};
+export default function ChoiceButton({ setArrowButton }: Props): JSX.Element {
   return (
     <Pressable style={styles.button}>
       <Text style={styles.buttonText}>Да/Нет</Text>

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { nextRound } from '../../features/redux/slices/game/gameSlice';
-import ChoiceButton from '../ui/Buttons.tsx/ChoiceButton';
 import QuestionText from '../ui/Text/QuestionText';
 import { clearVotes } from '../../features/redux/slices/game/gameAction';
+
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function SimpleRound({ navigation }): JSX.Element {
   useEffect(() => {
@@ -24,6 +26,13 @@ export default function SimpleRound({ navigation }): JSX.Element {
 
   console.log(allPlayers, round, votes);
 
+  const [arrowButton, setArrowButton] = useState(false);
+
+  // const arrowHandler = () => {
+  //   console.log(arrowButton);
+  //   setArrowButton(true);
+  // };
+
   // useEffect(() => {
   //   if (allPlayers.length === votes.length) {
   //     dispatch(nextRound());
@@ -42,9 +51,22 @@ export default function SimpleRound({ navigation }): JSX.Element {
         <QuestionText />
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
-            <ChoiceButton />
+            <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
+              <Text style={styles.buttonText}>Да</Text>
+            </TouchableOpacity>
             <View style={styles.buttonSeparator} />
-            <ChoiceButton />
+            <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
+              <Text style={styles.buttonText}>Нет</Text>
+            </TouchableOpacity>
+            <View style={{ marginTop: 300 }}>
+              {arrowButton && (
+                <Button
+                  icon={<MaterialIcons name="arrow-forward" size={40} />}
+                  onPress={() => navigation.navigate('IntroTwoRound')}
+                  buttonStyle={styles.submitButton}
+                />
+              )}
+            </View>
           </View>
         </View>
       </View>
@@ -71,5 +93,30 @@ const styles = StyleSheet.create({
   },
   buttonSeparator: {
     width: 10,
+  },
+  button: {
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: 'yellow',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 4,
+    elevation: 2,
+    height: 100,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
+  submitButton: {
+    backgroundColor: 'white',
+    color: 'blue',
   },
 });

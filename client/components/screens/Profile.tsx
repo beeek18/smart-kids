@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Image, Button, Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Input } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { editUserImgThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
+import { editUserImgThunk, editUserNameThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
 import { ImagesAssets } from '../../assets/imageAssets';
 
 export default function Profile({ navigation }): JSX.Element {
@@ -18,7 +18,6 @@ export default function Profile({ navigation }): JSX.Element {
 
   const logOutHandler = () => {
     dispatch(logOutThunk());
-    sound.stopAsync();
   };
 
   const [imgPath, setImgPath] = useState(user.img);
