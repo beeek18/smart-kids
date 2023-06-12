@@ -9,14 +9,6 @@ import { useEffect } from 'react';
 import { updateGameStatus } from '../../features/redux/slices/game/gameSlice';
 
 export default function Categories({ navigation }): JSX.Element {
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((store) => store.user);
-
-  useEffect(() => {
-    dispatch(joinRoomAction(user));
-    dispatch(updateGameStatus('InRoom'));
-  }, []);
-
   return (
     <>
       <View style={styles.container}>

@@ -1,22 +1,34 @@
 import { Button, Image, Text, View } from 'react-native';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { statusGameAction } from '../../features/redux/slices/game/gameAction';
+import { joinRoomAction, statusGameAction } from '../../features/redux/slices/game/gameAction';
+import { useEffect } from 'react';
 
 export default function FriendsList({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const game = useAppSelector((store) => store.game);
+  const allPlayers = useAppSelector((store) => store.game.allPlayers);
+  const status = useAppSelector((store) => store.game.status);
+  const user = useAppSelector((store) => store.user);
+
+  useEffect(() => {
+    dispatch(joinRoomAction(user));
+    dispatch(statusGameAction('InRoom'));
+  }, []);
 
   const handleStart = () => {
     navigation.navigate('IntroRound');
     dispatch(statusGameAction('InGame'));
   };
 
+  useEffect(() => {
+    if (status === 'InGame') navigation.navigate('IntroRound');
+  }, [status]);
+
   return (
     <View>
       <Text>Friends</Text>
-      {game.allPlayers.map((player) => (
+      {allPlayers.map((player) => (
         <View key={player.id}>
           <Text>{player.username}</Text>
           <Image
