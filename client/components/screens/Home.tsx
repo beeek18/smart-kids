@@ -1,9 +1,8 @@
-import { Button, View, Text, Image, TouchableHighlight } from 'react-native';
-import { Avatar } from '@rneui/themed';
-import { useEffect, useRef, useState } from 'react';
 import { Audio } from 'expo-av';
-import { useAppSelector } from '../../features/redux/hooks';
+import { useEffect, useState } from 'react';
+import { Button, Image, Text, TouchableHighlight, View } from 'react-native';
 import { ImagesAssets } from '../../assets/imageAssets';
+import { useAppSelector } from '../../features/redux/hooks';
 
 export default function Home({ navigation }): JSX.Element {
   const user = useAppSelector((store) => store.user);
