@@ -6,30 +6,20 @@ export type RoomType = {
 
 export type GameStateInfoType = {
   allPlayers: UserType[];
+  allScores: GameAllScoreType[];
   score: number | 0;
   round: number | 0;
 };
 
 export type GameVoteType = string;
 
-export type GameStateInRoomType = GameStateInfoType & {
-  status: 'InRoom';
+export type GameAllScoreType = {
+  username: string;
+  score: number;
 };
 
-export type GameStateInGameType = GameStateInfoType & {
-  status: 'InGame';
+export type GameStatusType = GameStateInfoType & {
+  status: 'InRoom' | 'InGame' | 'Finished' | null;
 };
 
-export type GameStateFinishedType = GameStateInfoType & {
-  status: 'Finished';
-};
-
-export type GameStateNullType = GameStateInfoType & {
-  status: null;
-};
-
-export type GameStateType =
-  | GameStateInRoomType
-  | GameStateInGameType
-  | GameStateFinishedType
-  | GameStateNullType;
+export type GameStateType = GameAllScoreType | GameStatusType;
