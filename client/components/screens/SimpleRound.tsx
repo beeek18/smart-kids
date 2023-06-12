@@ -63,7 +63,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
             <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
               <Text style={styles.buttonText}>Нет</Text>
             </TouchableOpacity>
-            <View style={{ marginTop: 300 }}>
+            <View>
               {arrowButton && (
                 <Button
                   icon={<MaterialIcons name="arrow-forward" size={40} />}

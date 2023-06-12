@@ -4,8 +4,10 @@ import HardQuestionText from '../ui/Text/HardQuestionText';
 import HardButton from '../ui/Buttons.tsx/SelectButton';
 import SelectButton from '../ui/Buttons.tsx/SelectButton';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
+import { Button } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function HardRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
