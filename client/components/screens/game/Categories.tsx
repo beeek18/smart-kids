@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ImagesAssets } from '../../../assets/imageAssets';
 
 export default function Categories({ navigation }): JSX.Element {
   return (
@@ -8,6 +9,9 @@ export default function Categories({ navigation }): JSX.Element {
       <View style={styles.container}>
         <View style={styles.banner}>
           <Text style={styles.bannerText}>Категории вопросов</Text>
+        </View>
+        <View>
+          <Image style={styles.image} source={ImagesAssets.avatar1} />
         </View>
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button}>
@@ -45,13 +49,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 40,
-    width: 200,
-    height: 100,
+    width: 300,
+    height: 150,
+    shadowColor: 'blue',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   bannerText: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'blue',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -61,10 +71,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
-    shadowColor: 'yellow',
+    shadowColor: 'blue',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 4,
@@ -80,17 +90,19 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    color: 'blue',
   },
   buttonHardText: {
     fontSize: 14,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    color: 'blue',
   },
   submitButton: {
     backgroundColor: '#fff',
     color: 'blue',
+    borderRadius: 15,
+    marginTop: 20,
   },
 });
