@@ -1,30 +1,34 @@
 import { Button, Image, Text, View } from 'react-native';
-import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { useEffect } from 'react';
-import { joinRoomAction } from '../../features/redux/slices/game/gameAction';
-import { updateGameStatus } from '../../features/redux/slices/game/gameSlice';
 import { ImagesAssets } from '../../assets/imageAssets';
-import { UserType } from '../../types/user/UserType';
-import { socketInit } from '../../features/ws/wsActions';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { joinRoomAction, statusGameAction } from '../../features/redux/slices/game/gameAction';
+import { useEffect } from 'react';
 
 export default function FriendsList({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state) => state.user);
-
-  const game = useAppSelector((state) => state.game);
-
-  const players = game.allPlayers.filter((player, i) => game.allPlayers.indexOf(player) === i);
+  const allPlayers = useAppSelector((store) => store.game.allPlayers);
+  const status = useAppSelector((store) => store.game.status);
+  const user = useAppSelector((store) => store.user);
 
   useEffect(() => {
     dispatch(joinRoomAction(user));
-    dispatch(updateGameStatus('InRoom'));
+    dispatch(statusGameAction('InRoom'));
   }, []);
+
+  const handleStart = () => {
+    navigation.navigate('IntroRound');
+    dispatch(statusGameAction('InGame'));
+  };
+
+  useEffect(() => {
+    if (status === 'InGame') navigation.navigate('IntroRound');
+  }, [status]);
 
   return (
     <View>
       <Text>Friends</Text>
-      {players.map((player) => (
+      {allPlayers.map((player) => (
         <View key={player.id}>
           <Text>{player.username}</Text>
           <Image
@@ -33,7 +37,7 @@ export default function FriendsList({ navigation }): JSX.Element {
           />
         </View>
       ))}
-      <Button title="IntroRound" onPress={() => navigation.navigate('IntroRound')} />
+      <Button title="НАЧАТЬ" onPress={handleStart} />
     </View>
   );
 }

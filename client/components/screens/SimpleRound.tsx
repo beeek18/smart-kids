@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { nextRound } from '../../features/redux/slices/game/gameSlice';
+import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
 import ChoiceButton from '../ui/Buttons.tsx/ChoiceButton';
 import QuestionText from '../ui/Text/QuestionText';
-import { clearVotes } from '../../features/redux/slices/game/gameAction';
-import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
 
 export default function SimpleRound({ navigation }): JSX.Element {
   useEffect(() => {

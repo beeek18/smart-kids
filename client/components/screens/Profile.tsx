@@ -30,6 +30,7 @@ export default function Profile({ navigation }): JSX.Element {
     dispatch(editUserImgThunk(value));
     setImgPath(value);
   };
+
   useEffect(() => {
     setImgPath(user.img);
   }, [user.img]);
