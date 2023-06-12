@@ -10,9 +10,6 @@ export default function Categories({ navigation }): JSX.Element {
         <View style={styles.banner}>
           <Text style={styles.bannerText}>Категории вопросов</Text>
         </View>
-        <View>
-          <Image style={styles.image} source={ImagesAssets.avatar1} />
-        </View>
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button}>
             <Text style={styles.buttonText}>Да/Нет</Text>
