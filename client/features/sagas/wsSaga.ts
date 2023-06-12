@@ -57,6 +57,13 @@ function* voteWorker(socket) {
   }
 }
 
+function* getAllScoreWorker(socket) {
+  while (true) {
+    const message = yield take('GET_ALL_SCORE');
+    socket.send(JSON.stringify(message));
+  }
+}
+
 function* wsWorker(action) {
   const socket = yield call(createWebSocketConnection);
   const socketChannel = yield call(createSocketChannel, socket);
@@ -64,6 +71,7 @@ function* wsWorker(action) {
   yield fork(joinGameWorker, socket);
   yield fork(statusGameWorker, socket);
   yield fork(voteWorker, socket);
+  yield fork(getAllScoreWorker, socket);
 
   while (true) {
     try {

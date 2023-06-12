@@ -31,6 +31,13 @@ wss.on('connection', (ws, request, wsMap) => {
         break;
       }
 
+      case 'GET_ALL_SCORE': {
+        for (const [, wsClient] of wsMap) {
+          wsClient.ws.send(JSON.stringify({ type: 'Game/updateAllScores', payload }));
+        }
+        break;
+      }
+
       default:
         break;
     }
