@@ -9,7 +9,7 @@ type QuestionTextProps = {
 export default function QuestionText({ question }: QuestionTextProps): JSX.Element {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{question.title}</Text>
+      <Text style={styles.text}>{question?.title}</Text>
     </View>
   );
 }

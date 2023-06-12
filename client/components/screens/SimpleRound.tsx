@@ -47,6 +47,8 @@ export default function SimpleRound({ navigation }): JSX.Element {
   //   setVoteUser(true);
   // };
 
+  const [count, setCount] = useState(0);
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>

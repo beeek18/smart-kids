@@ -5,6 +5,7 @@ import { Input, Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
+import { addPoint } from '../../features/redux/slices/game/gameSlice';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
   useEffect(() => {
@@ -23,6 +24,9 @@ export default function HardTwoRound({ navigation }): JSX.Element {
   };
 
   const handleSubmit = () => {
+    if (answer.toLowerCase() === question.answer.toLowerCase()) {
+      dispatch(addPoint());
+    }
     setArrowButton(true);
     // Обработка отправки ответа
     // console.log('Submitted answer:', answer);
@@ -38,7 +42,8 @@ export default function HardTwoRound({ navigation }): JSX.Element {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
+      <TouchableWithoutFeedback>
+        {/* onPress={handleKeyboardDismiss} */}
         <View style={styles.container}>
           <View>
             <HardQuestionText question={question} />
