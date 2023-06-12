@@ -3,11 +3,7 @@ import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import {
-  editUserImgThunk,
-  editUserNameThunk,
-  logOutThunk,
-} from '../../features/redux/slices/user/userThunk';
+import { editUserImgThunk, editUserNameThunk } from '../../features/redux/slices/user/userThunk';
 
 export default function Profile({ navigation }): JSX.Element {
   const [input, setInput] = useState('');
@@ -18,10 +14,6 @@ export default function Profile({ navigation }): JSX.Element {
   const updateHandler = (value: string) => {
     dispatch(editUserNameThunk(value));
     setInput('');
-  };
-
-  const logOutHandler = () => {
-    dispatch(logOutThunk());
   };
 
   const updateImgHandler = (value) => {
@@ -65,13 +57,6 @@ export default function Profile({ navigation }): JSX.Element {
       ></Input>
       <Button onPress={() => updateHandler(input)} title="Сохранить" />
       <Button onPress={() => navigation.navigate('Home')} title="Home" />
-      <Button
-        onPress={() => {
-          logOutHandler();
-          navigation.navigate('Home');
-        }}
-        title="Выйти из аккаунта"
-      />
     </>
   );
 }

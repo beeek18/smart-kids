@@ -18,12 +18,13 @@ export default function Home({ navigation }): JSX.Element {
   const [imageVolumeToggle, setImageVolumeToggle] = useState(false);
 
   const [sound, setSound] = useState<Audio.Sound>();
+
   async function playSound() {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(require('../../assets/mainsound.mp3'));
     await sound.setIsLoopingAsync(true);
-    setSound(sound);
     console.log('Playing Sound');
+    setSound(sound);
     await sound.playAsync();
   }
 
@@ -49,6 +50,12 @@ export default function Home({ navigation }): JSX.Element {
   const onClick = () => {
     setImageVolumeToggle((prev) => !prev);
   };
+  const logOutHandler = async () => {
+    if (sound) {
+      sound.stopAsync();
+    }
+    dispatch(logOutThunk());
+  };
 
   return (
     <View>
@@ -56,7 +63,7 @@ export default function Home({ navigation }): JSX.Element {
         style={{ width: 70, height: 70 }}
         activeOpacity={1}
         underlayColor={'white'}
-        onPress={() => navigation.navigate('Profile', sound)}
+        onPress={() => navigation.navigate('Profile', { sound })}
       >
         <Image style={{ width: 70, height: 70 }} source={ImagesAssets[user.img]} />
       </TouchableHighlight>
@@ -83,6 +90,12 @@ export default function Home({ navigation }): JSX.Element {
       )}
       <Button onPress={() => navigation.navigate('Categories')} title="Начать игру" />
       <Button onPress={() => navigation.navigate('Info')} title="ℹ" />
+      <Button
+        onPress={() => {
+          logOutHandler();
+        }}
+        title="Выйти из аккаунта"
+      />
     </View>
   );
 }
