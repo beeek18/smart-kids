@@ -1,9 +1,9 @@
-import { Button, Text, View, StyleSheet } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function Info({ navigation }): JSX.Element {
   return (
     <View style={styles.container}>
-      <Text>ИНСТРУУКЦИЯ</Text>
+      <Text>ИНСТРУКЦИЯ</Text>
       <Text>В этой игре 3 раунда: легкий, средний и простой.</Text>
       <Text>
         На каждой вопрос есть только один правильный ответю Неправильно написанные ответы не
