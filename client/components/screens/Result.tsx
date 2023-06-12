@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
 import ResultTable from '../ui/ResultTable';
-import { useAppDispatch } from '../../features/redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { resetRoom } from '../../features/redux/slices/game/gameSlice';
-import { statusGameAction } from '../../features/redux/slices/game/gameAction';
+import { getAllScoreAction, statusGameAction } from '../../features/redux/slices/game/gameAction';
+import store from '../../features/redux/store';
 
 export default function Result({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -18,13 +19,24 @@ export default function Result({ navigation }): JSX.Element {
     dispatch(resetRoom());
   };
 
+  const score = useAppSelector((store) => store.game.score);
+  const username = useAppSelector((store) => store.user.username);
+
   useEffect(() => {
     dispatch(statusGameAction('Finished'));
+    dispatch(getAllScoreAction({ username, score }));
   }, []);
+
+  const allScores = useAppSelector((store) => store.game.allScores);
 
   return (
     <View style={styles.container}>
-      <ResultTable />
+      {/* <ResultTable /> */}
+      {allScores.map((resultUser, i) => (
+        <Text key={i}>
+          {resultUser.username} : {resultUser.score} очков
+        </Text>
+      ))}
       <View style={styles.buttonsContainer}>
         <Button title="Играть снова" onPress={handlePlayAgain} />
         <Button title="Выйти" onPress={handleHome} />
