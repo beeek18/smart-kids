@@ -1,11 +1,13 @@
 import { Input } from '@rneui/base';
-import { Button, Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import HardQuestionText from '../ui/Text/HardQuestionText';
 import HardButton from '../ui/Buttons.tsx/SelectButton';
 import SelectButton from '../ui/Buttons.tsx/SelectButton';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
+import { Button } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function HardRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,6 +26,11 @@ export default function HardRound({ navigation }): JSX.Element {
     return () => clearTimeout(timeout);
   }, []);
 
+  const [arrowButton, setArrowButton] = useState(false);
+
+  const handlePress = () => {
+    setArrowButton(true);
+  };
   return (
     <>
       <View style={styles.container}>
@@ -33,11 +40,28 @@ export default function HardRound({ navigation }): JSX.Element {
           ))}
         </View>
         <View style={{ marginTop: 20 }}>
-          <SelectButton />
-          <SelectButton />
-          <SelectButton />
-          <SelectButton />
+          <TouchableOpacity onPress={() => handlePress()}>
+            <SelectButton />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handlePress()}>
+            <SelectButton />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handlePress()}>
+            <SelectButton />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handlePress()}>
+            <SelectButton />
+          </TouchableOpacity>
         </View>
+      </View>
+      <View>
+        {arrowButton && (
+          <Button
+            icon={<MaterialIcons name="arrow-forward" size={40} />}
+            onPress={() => navigation.navigate('HardTwoRound')}
+            buttonStyle={styles.submitButton}
+          />
+        )}
       </View>
     </>
   );
@@ -49,5 +73,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  submitButton: {
+    backgroundColor: 'white',
+    color: 'blue',
   },
 });

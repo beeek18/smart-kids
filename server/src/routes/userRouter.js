@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
       defaults: {
         username,
         password: hashPassword,
-        img: avatarPaths[Math.floor(Math.random() * 4)],
+        img: 'avatar1',
       },
     });
 
