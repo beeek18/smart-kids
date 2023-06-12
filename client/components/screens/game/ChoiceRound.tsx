@@ -9,13 +9,18 @@ import QuestionText from '../../ui/Text/QuestionText';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default function SimpleRound({ navigation }): JSX.Element {
+  const [timerComplete, setTimerComplete] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation.navigate('RightRound');
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('RightRound');
+      }
     }, 1000 * 15);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -53,7 +58,10 @@ export default function SimpleRound({ navigation }): JSX.Element {
               {arrowButton && (
                 <Button
                   icon={<MaterialIcons name="arrow-forward" size={40} />}
-                  onPress={() => navigation.navigate('RightRound')}
+                  onPress={() => {
+                    setTimerComplete(true);
+                    navigation.navigate('RightRound');
+                  }}
                   buttonStyle={styles.submitButton}
                 />
               )}

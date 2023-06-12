@@ -26,13 +26,7 @@ import IntroSimple from './screens/intro/IntroSimple';
 const Stack = createStackNavigator();
 
 export default function Navigation(): JSX.Element {
-  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-
-  useEffect(() => {
-    dispatch(socketInit());
-    dispatch(checkUserThunk());
-  }, []);
 
   return (
     <NavigationContainer>

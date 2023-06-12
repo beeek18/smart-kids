@@ -3,10 +3,17 @@ import { useEffect, useState } from 'react';
 import { Button, Image, Text, TouchableHighlight, View } from 'react-native';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { logOutThunk } from '../../features/redux/slices/user/userThunk';
+import { socketInit } from '../../features/ws/wsActions';
+import { checkUserThunk } from '../../features/redux/slices/user/userThunk';
 
 export default function Home({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(socketInit());
+    dispatch(checkUserThunk());
+  }, []);
+
   const user = useAppSelector((store) => store.user);
   const [imageVolumeToggle, setImageVolumeToggle] = useState(false);
 
