@@ -5,18 +5,19 @@ import HardButton from '../ui/Buttons.tsx/SelectButton';
 import SelectButton from '../ui/Buttons.tsx/SelectButton';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { useEffect, useState } from 'react';
-import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
+import { getQuestionOptionThunk } from '../../features/redux/slices/question/questionSlice';
 import { Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
+import { QuestionType } from '../../types/question/QuestionType';
 
 export default function HardRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getQuestionsThunk(2));
+    dispatch(getQuestionOptionThunk(3));
   }, []);
 
-  const questions = useAppSelector((store) => store.questions);
+  const question = useAppSelector((store) => store.questions);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -35,23 +36,17 @@ export default function HardRound({ navigation }): JSX.Element {
     <>
       <View style={styles.container}>
         <View>
-          {questions.map((question) => (
-            <HardQuestionText question={question} key={question.id} />
-          ))}
+          {/* {questions.map((question) => ( */}
+          <HardQuestionText question={question} key={question.id} />
+          {/* ))} */}
         </View>
         <View style={{ marginTop: 20 }}>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
+          {question?.Options &&
+            question?.Options.map((option) => (
+              <TouchableOpacity onPress={handlePress} key={option.id}>
+                <SelectButton option={option} />
+              </TouchableOpacity>
+            ))}
         </View>
       </View>
       <View>

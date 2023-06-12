@@ -27,7 +27,8 @@ export default function SimpleRound({ navigation }): JSX.Element {
     dispatch(getQuestionsThunk(1));
   }, []);
 
-  const questions = useAppSelector((store) => store.questions);
+  const question = useAppSelector((store) => store.questions);
+  console.log(question);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -51,9 +52,9 @@ export default function SimpleRound({ navigation }): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        {questions.map((question) => (
-          <QuestionText question={question} key={question.id} />
-        ))}
+        {/* {questions.map((question) => ( */}
+        <QuestionText question={question} />
+        {/* ))} */}
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
