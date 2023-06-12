@@ -3,8 +3,10 @@ export type QuestionType = {
   title: string;
   answer: string;
   categoryId: number;
-  Options?: {
-    id: number;
-    title: string;
-  };
+  Options: [
+    {
+      id: number;
+      title: string;
+    },
+  ];
 };

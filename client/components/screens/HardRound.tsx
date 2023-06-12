@@ -5,9 +5,10 @@ import HardButton from '../ui/Buttons.tsx/SelectButton';
 import SelectButton from '../ui/Buttons.tsx/SelectButton';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { useEffect, useState } from 'react';
-import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
+import { getQuestionOptionThunk } from '../../features/redux/slices/question/questionSlice';
 import { Button } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
+import { QuestionType } from '../../types/question/QuestionType';
 
 export default function HardRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -17,7 +18,6 @@ export default function HardRound({ navigation }): JSX.Element {
   }, []);
 
   const question = useAppSelector((store) => store.questions);
-  console.log(question[0].Options);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -41,18 +41,12 @@ export default function HardRound({ navigation }): JSX.Element {
           {/* ))} */}
         </View>
         <View style={{ marginTop: 20 }}>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handlePress()}>
-            <SelectButton />
-          </TouchableOpacity>
+          {question?.Options &&
+            question?.Options.map((option) => (
+              <TouchableOpacity onPress={handlePress} key={option.id}>
+                <SelectButton option={option} />
+              </TouchableOpacity>
+            ))}
         </View>
       </View>
       <View>

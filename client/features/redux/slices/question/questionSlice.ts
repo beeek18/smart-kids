@@ -12,6 +12,12 @@ const initialState: QuestionState = {
   title: '',
   answer: '',
   categoryId: 0,
+  Options: [
+    {
+      id: 0,
+      title: '',
+    },
+  ],
 };
 
 export const QuestionSlice = createSlice({
