@@ -22,32 +22,46 @@ export default function HardTwoRound({ navigation }): JSX.Element {
   };
 
   const handleSubmit = () => {
+    setArrowButton(true);
     // Обработка отправки ответа
     // console.log('Submitted answer:', answer);
   };
 
+  const [arrowButton, setArrowButton] = useState(false);
+
   return (
-    <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-      <View style={styles.container}>
-        <View>
-          <HardQuestionText />
+    <>
+      <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
+        <View style={styles.container}>
+          <View>
+            <HardQuestionText />
+          </View>
+          <View style={styles.inputContainer}>
+            <Input
+              placeholder="Your Answer"
+              value={answer}
+              onChangeText={setAnswer}
+              onFocus={handleKeyboardDismiss}
+              containerStyle={styles.input}
+            />
+            <Button
+              icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
+              onPress={handleSubmit}
+              buttonStyle={styles.submitButton}
+            />
+          </View>
         </View>
-        <View style={styles.inputContainer}>
-          <Input
-            placeholder="Your Answer"
-            value={answer}
-            onChangeText={setAnswer}
-            onFocus={handleKeyboardDismiss}
-            containerStyle={styles.input}
-          />
+      </TouchableWithoutFeedback>
+      <View>
+        {arrowButton && (
           <Button
-            icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
-            onPress={handleSubmit}
+            icon={<MaterialIcons name="arrow-forward" size={40} />}
+            onPress={() => navigation.navigate('Result')}
             buttonStyle={styles.submitButton}
           />
-        </View>
+        )}
       </View>
-    </TouchableWithoutFeedback>
+    </>
   );
 }
 
