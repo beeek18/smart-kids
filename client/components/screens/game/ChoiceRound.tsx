@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
@@ -27,6 +27,13 @@ export default function SimpleRound({ navigation }): JSX.Element {
 
   const [arrowButton, setArrowButton] = useState(false);
 
+  const handlePress = (text: string) => {
+    if (text === question.answer) {
+      dispatch(addPoint());
+    }
+    setArrowButton(true);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -35,16 +42,11 @@ export default function SimpleRound({ navigation }): JSX.Element {
         {/* ))} */}
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
+            <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
               <Text style={styles.buttonText}>Да</Text>
             </TouchableOpacity>
             <View style={styles.buttonSeparator} />
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setArrowButton(true), dispatch(addPoint());
-              }}
-            >
+            <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
               <Text style={styles.buttonText}>Нет</Text>
             </TouchableOpacity>
             <View>

@@ -27,20 +27,27 @@ export default function RightRound({ navigation }): JSX.Element {
 
   const [arrowButton, setArrowButton] = useState(false);
 
+  const handlePress = (text: string) => {
+    if (text === question.answer) {
+      dispatch(addPoint());
+    }
+    setArrowButton(true);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <QuestionText question={question} />
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>
+            <TouchableOpacity style={styles.button} onPress={() => handlePress('Верно')}>
               <Text style={styles.buttonText}>Верно</Text>
             </TouchableOpacity>
             <View style={styles.buttonSeparator} />
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                setArrowButton(true), dispatch(addPoint());
+                handlePress('Неверно');
               }}
             >
               <Text style={styles.buttonText}>Неверно</Text>
