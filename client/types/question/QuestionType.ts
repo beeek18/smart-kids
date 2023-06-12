@@ -1,6 +1,10 @@
 export type QuestionType = {
   id: number;
-  question: string;
+  title: string;
   answer: string;
-  options: string[];
+  categoryId: number;
+  Options?: {
+    id: number;
+    title: string;
+  };
 };

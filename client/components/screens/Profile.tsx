@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import { Image, Button, Text, View, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Input } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { editUserImgThunk, editUserNameThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
+import {
+  editUserImgThunk,
+  editUserNameThunk,
+  logOutThunk,
+} from '../../features/redux/slices/user/userThunk';
 import { ImagesAssets } from '../../assets/imageAssets';
 
 export default function Profile({ navigation }): JSX.Element {
@@ -26,10 +30,10 @@ export default function Profile({ navigation }): JSX.Element {
     dispatch(editUserImgThunk(value));
     setImgPath(value);
   };
+
   useEffect(() => {
     setImgPath(user.img);
   }, [user.img]);
-
 
   return (
     <>

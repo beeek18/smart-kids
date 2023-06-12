@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { nextRound } from '../../features/redux/slices/game/gameSlice';
+import { getQuestionsThunk } from '../../features/redux/slices/question/questionSlice';
 import QuestionText from '../ui/Text/QuestionText';
-import { clearVotes } from '../../features/redux/slices/game/gameAction';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -20,11 +19,15 @@ export default function SimpleRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
   const game = useAppSelector((state) => state.game);
 
-  const { allPlayers, round, votes } = game;
+  const { allPlayers, round } = game;
 
   const [voteUser, setVoteUser] = useState(false);
 
-  console.log(allPlayers, round, votes);
+  useEffect(() => {
+    dispatch(getQuestionsThunk(1));
+  }, []);
+
+  const questions = useAppSelector((store) => store.questions);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -48,7 +51,9 @@ export default function SimpleRound({ navigation }): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <QuestionText />
+        {questions.map((question) => (
+          <QuestionText question={question} key={question.id} />
+        ))}
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={() => setArrowButton(true)}>

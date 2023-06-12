@@ -1,4 +1,9 @@
-import { GameStateType, GameVoteType } from '../../../../types/game/GameType';
+import {
+  GameAllScoreType,
+  GameStateType,
+  GameStatusType,
+  GameVoteType,
+} from '../../../../types/game/GameType';
 import { UserType } from '../../../../types/user/UserType';
 
 export const joinRoomAction = (payload: UserType) => ({
@@ -6,8 +11,8 @@ export const joinRoomAction = (payload: UserType) => ({
   payload,
 });
 
-export const startGameAction = (payload: GameStateType['status']) => ({
-  type: 'START_GAME',
+export const statusGameAction = (payload: GameStatusType['status']) => ({
+  type: 'STATUS_GAME',
   payload,
 });
 
@@ -16,6 +21,7 @@ export const voteAction = (payload: GameVoteType) => ({
   payload,
 });
 
-export const clearVotes = () => ({
-  type: 'CLEAR_VOTE',
+export const getAllScoreAction = (payload: GameAllScoreType) => ({
+  type: 'GET_ALL_SCORE',
+  payload,
 });

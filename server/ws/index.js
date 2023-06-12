@@ -17,7 +17,7 @@ wss.on('connection', (ws, request, wsMap) => {
         break;
       }
 
-      case 'START_GAME': {
+      case 'STATUS_GAME': {
         for (const [, wsClient] of wsMap) {
           wsClient.ws.send(JSON.stringify({ type: 'Game/updateGameStatus', payload }));
         }
@@ -31,9 +31,9 @@ wss.on('connection', (ws, request, wsMap) => {
         break;
       }
 
-      case 'CLEAR_VOTE': {
+      case 'GET_ALL_SCORE': {
         for (const [, wsClient] of wsMap) {
-          wsClient.ws.send(JSON.stringify({ type: 'Game/clearAllVotes', payload }));
+          wsClient.ws.send(JSON.stringify({ type: 'Game/updateAllScores', payload }));
         }
         break;
       }

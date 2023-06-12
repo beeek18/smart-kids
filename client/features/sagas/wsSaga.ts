@@ -36,9 +36,9 @@ function createWebSocketConnection() {
   return newSocket;
 }
 
-function* startGameWorker(socket) {
+function* statusGameWorker(socket) {
   while (true) {
-    const message = yield take('START_GAME');
+    const message = yield take('STATUS_GAME');
     socket.send(JSON.stringify(message));
   }
 }
@@ -57,9 +57,9 @@ function* voteWorker(socket) {
   }
 }
 
-function* clearVoteWorker(socket) {
+function* getAllScoreWorker(socket) {
   while (true) {
-    const message = yield take('CLEAR_VOTE');
+    const message = yield take('GET_ALL_SCORE');
     socket.send(JSON.stringify(message));
   }
 }
@@ -69,9 +69,9 @@ function* wsWorker(action) {
   const socketChannel = yield call(createSocketChannel, socket);
 
   yield fork(joinGameWorker, socket);
-  yield fork(startGameWorker, socket);
+  yield fork(statusGameWorker, socket);
   yield fork(voteWorker, socket);
-  yield fork(clearVoteWorker, socket);
+  yield fork(getAllScoreWorker, socket);
 
   while (true) {
     try {
