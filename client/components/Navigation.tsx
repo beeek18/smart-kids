@@ -1,11 +1,8 @@
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
-import { socketInit } from '../features/ws/wsActions';
+import { useAppSelector } from '../features/redux/hooks';
 
-import { checkUserThunk } from '../features/redux/slices/user/userThunk';
 import Home from './screens/Home';
 import Info from './screens/Info';
 import Profile from './screens/Profile';
