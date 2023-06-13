@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import {
@@ -28,16 +28,16 @@ export default function Result({ navigation }): JSX.Element {
     dispatch(getAllScoreAction({ username, score }));
   }, []);
 
-  const allScores = useAppSelector((store) => store.game.allScores);
+  const players = useAppSelector((store) => store.game.allScores);
 
   return (
     <View style={styles.container}>
-      {/* <ResultTable /> */}
-      {allScores.map((resultUser, i) => (
-        <Text key={i}>
-          {resultUser.username} : {resultUser.score} очков
-        </Text>
-      ))}
+      {players.length > 0 &&
+        players.map((player, i) => (
+          <Text key={i}>
+            {player.username} : {player.score} очков
+          </Text>
+        ))}
       <View style={styles.buttonsContainer}>
         <Button title="Играть снова" onPress={handlePlayAgain} />
         <Button title="Выйти" onPress={handleHome} />
