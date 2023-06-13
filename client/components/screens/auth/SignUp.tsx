@@ -100,7 +100,7 @@ export default function SignUp({ navigation }) {
               }}
             ></Input>
           </View>
-          <TouchableOpacity style={styles.whiteFon}>
+          <TouchableOpacity style={styles.whiteFon} onPress={signUpHandler}>
             <Text style={styles.text}>Зарегистрироваться</Text>
           </TouchableOpacity>
         </View>

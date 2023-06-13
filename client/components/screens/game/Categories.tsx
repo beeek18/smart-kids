@@ -2,8 +2,17 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Button, Image } from 'react-native-elements';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import { useAppSelector } from '../../../features/redux/hooks';
+import store from '../../../features/redux/store';
 
 export default function Categories({ navigation }): JSX.Element {
+  const players = useAppSelector((store) => store.game.allPlayers);
+
+  const handleToLobby = () => {
+    if (players.length <= 7) {
+      navigation.navigate('Lobby');
+    }
+  };
   return (
     <>
       <View style={styles.container}>
@@ -34,7 +43,7 @@ export default function Categories({ navigation }): JSX.Element {
         </View>
         <Button
           icon={<MaterialIcons name="arrow-forward" color={'blue'} size={24} />}
-          onPress={() => navigation.navigate('Lobby')}
+          onPress={handleToLobby}
           buttonStyle={styles.submitButton}
         />
       </View>
@@ -124,7 +133,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Jingle',
   },
   buttonHardText: {
-    fontSize: 19,
+    fontSize: 18,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
