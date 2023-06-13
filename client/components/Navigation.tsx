@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useEffect } from 'react';
 
@@ -42,27 +42,155 @@ export default function Navigation(): JSX.Element {
       >
         {user.status === 'fetching' ? (
           <>
-            <Stack.Screen name="Welcome" component={Welcome} />
-            <Stack.Screen name="Autorization" component={Autorization} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Autorization"
+              component={Autorization}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
           </>
         ) : (
           <>
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Info" component={Info} />
-            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Info"
+              component={Info}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
 
-            <Stack.Screen name="IntroSimple" component={IntroSimple} />
-            <Stack.Screen name="IntroHard" component={IntroHard} />
+            <Stack.Screen
+              name="IntroSimple"
+              component={IntroSimple}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="IntroHard"
+              component={IntroHard}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
 
-            <Stack.Screen name="Categories" component={Categories} />
-            <Stack.Screen name="Lobby" component={Lobby} />
-            <Stack.Screen name="ChoiceRound" component={ChoiceRound} />
-            <Stack.Screen name="RightRound" component={RightRound} />
-            <Stack.Screen name="SelectRound" component={SelectRound} />
-            <Stack.Screen name="InputRound" component={InputRound} />
-            <Stack.Screen name="Result" component={Result} />
+            <Stack.Screen
+              name="Categories"
+              component={Categories}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Lobby"
+              component={Lobby}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="ChoiceRound"
+              component={ChoiceRound}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="RightRound"
+              component={RightRound}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="SelectRound"
+              component={SelectRound}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="InputRound"
+              component={InputRound}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
+            <Stack.Screen
+              name="Result"
+              component={Result}
+              options={{
+                headerTitleStyle: {
+                  fontFamily: 'Jingle',
+                },
+              }}
+            />
           </>
         )}
       </Stack.Navigator>

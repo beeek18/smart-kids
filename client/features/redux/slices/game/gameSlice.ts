@@ -10,7 +10,6 @@ import { UserType } from '../../../../types/user/UserType';
 const initialState: GameStateType = {
   status: null,
   allPlayers: [],
-  round: 1,
   score: 0,
   allScores: [],
 };
@@ -23,6 +22,10 @@ export const gameSlice = createSlice({
       state.allPlayers = [...state.allPlayers, action.payload];
     },
 
+    removePlayer: (state, action: PayloadAction<UserType>) => {
+      state.allPlayers = state.allPlayers.filter((player) => player.id !== action.payload.id);
+    },
+
     addPoint: (state) => {
       state.score += 1;
     },
@@ -32,18 +35,13 @@ export const gameSlice = createSlice({
     },
 
     updateAllScores: (state, action: PayloadAction<GameAllScoreType>) => {
-      state.allScores = [...state.allScores, action.payload];
-    },
-
-    nextRound: (state) => {
-      state.round += 1;
+      state.allScores = [...state.allScores, action.payload].sort((a, b) => b.score - a.score);
     },
 
     resetRoom: (state) => {
       state.status = null;
       state.allPlayers = [];
       state.allScores = [];
-      state.round = 1;
       state.score = 0;
     },
   },

@@ -8,7 +8,6 @@ export type GameStateInfoType = {
   allPlayers: UserType[];
   allScores: GameAllScoreType[];
   score: number | 0;
-  round: number | 0;
 };
 
 export type GameVoteType = string;

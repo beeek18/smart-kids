@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import { Button, Image, Text, View } from 'react-native';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
-import { joinRoomAction, statusGameAction } from '../../../features/redux/slices/game/gameAction';
+import {
+  joinRoomAction,
+  leftRoomAction,
+  statusGameAction,
+} from '../../../features/redux/slices/game/gameAction';
 
 export default function Lobby({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,6 +23,12 @@ export default function Lobby({ navigation }): JSX.Element {
   const handleStart = () => {
     navigation.navigate('IntroSimple');
     dispatch(statusGameAction('InGame'));
+  };
+
+  const leftLobby = () => {
+    dispatch(leftRoomAction(user));
+    dispatch(statusGameAction(null));
+    navigation.navigate('Categories');
   };
 
   useEffect(() => {
@@ -38,6 +48,7 @@ export default function Lobby({ navigation }): JSX.Element {
         </View>
       ))}
       <Button title="НАЧАТЬ" onPress={handleStart} />
+      <Button title="Назад" onPress={leftLobby} />
     </View>
   );
 }
