@@ -1,5 +1,4 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import ChoiceButton from '../../ui/Buttons.tsx/ChoiceButton';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-elements';
@@ -51,13 +50,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#ebe134',
   },
   textCard: {
+    lineHeight: 20,
+    fontFamily: 'Jingle',
     color: 'blue',
     textAlign: 'center',
-    fontSize: 17,
+    fontSize: 20,
   },
   text: {
+    lineHeight: 70,
+    width: 220,
+    fontFamily: 'Jingle',
     color: 'blue',
-    fontSize: 50,
+    fontSize: 65,
     textAlign: 'center',
     marginTop: 30,
   },
