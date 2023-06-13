@@ -26,7 +26,6 @@ export default function Welcome({ navigation }): JSX.Element {
 const styles = StyleSheet.create({
   button: {
     marginLeft: 240,
-    marginTop: -20,
   },
   whiteFon: {
     borderRadius: 10,
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   view: {
-    paddingTop: 40,
+    paddingTop: 100,
     paddingLeft: 30,
     flex: 1,
     backgroundColor: '#ebe134',

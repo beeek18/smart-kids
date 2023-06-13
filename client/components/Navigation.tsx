@@ -31,15 +31,10 @@ export default function Navigation(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator
-      // screenOptions={{
-      //   headerShadowVisible: false,
-      //   title: '',
-      //   headerLeft: false,
-      //   gestureEnabled: false,
-      //   headerStyle: {
-      //     // backgroundColor: 'yellow',
-      //   },
-      // }} НЕ УДАЛЯТЬ !!!
+        screenOptions={{
+          headerShown: false,
+          // gestureEnabled: false,
+        }}
       >
         {user.status === 'fetching' ? (
           <>
