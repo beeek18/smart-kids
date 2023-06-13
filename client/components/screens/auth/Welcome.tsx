@@ -1,6 +1,8 @@
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import ChoiceButton from '../../ui/Buttons.tsx/ChoiceButton';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Button } from 'react-native-elements';
 
 export default function Welcome({ navigation }): JSX.Element {
   return (
@@ -9,8 +11,14 @@ export default function Welcome({ navigation }): JSX.Element {
         <Text style={styles.text}>DЕТИ - УМНЫЕ!</Text>
         <Text style={styles.textCard}>Но кто станет самым умным в этой викторине?</Text>
       </View>
-      <Button onPress={() => navigation.navigate('Autorization')} title="Autorization" />
       <Image style={styles.image} source={ImagesAssets.avatar2} />
+      <Button
+        icon={<MaterialIcons name="arrow-forward" size={40} color={'blue'} />}
+        onPress={() => {
+          navigation.navigate('Autorization');
+        }}
+        buttonStyle={styles.submitButton}
+      />
     </View>
   );
 }
@@ -27,9 +35,9 @@ const styles = StyleSheet.create({
     height: 250,
     backgroundColor: 'white',
     shadowColor: 'blue',
-    shadowOffset: { width: 15, height: 15 },
-    shadowOpacity: 10,
-    shadowRadius: 10,
+    shadowOffset: { width: -7, height: 7 },
+    shadowOpacity: 5,
+    shadowRadius: 1,
   },
   image: {
     marginTop: 50,
@@ -39,10 +47,9 @@ const styles = StyleSheet.create({
   },
   view: {
     paddingTop: 40,
-    // alignContent: 'center',
     paddingLeft: 30,
     flex: 1,
-    backgroundColor: 'yellow',
+    backgroundColor: '#ebe134',
   },
   textCard: {
     color: 'blue',
@@ -54,5 +61,18 @@ const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: 'center',
     marginTop: 30,
+  },
+  submitButton: {
+    marginBottom: 10,
+    marginLeft: 250,
+    borderRadius: 15,
+    width: 65,
+    height: 65,
+    backgroundColor: 'white',
+    color: 'blue',
+    shadowColor: 'blue',
+    shadowOffset: { width: -5, height: 5 },
+    shadowOpacity: 3,
+    shadowRadius: 1,
   },
 });

@@ -4,7 +4,7 @@ import { Button, Image, Text, TouchableHighlight, View } from 'react-native';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { socketInit } from '../../features/ws/wsActions';
-import { checkUserThunk } from '../../features/redux/slices/user/userThunk';
+import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
 
 export default function Home({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
