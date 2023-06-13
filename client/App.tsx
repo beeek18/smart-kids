@@ -9,7 +9,6 @@ axios.defaults.withCredentials = true;
 
 export default function App() {
   const [loaded] = useFonts({
-    Caveat: require('./assets/fonts/Caveat-SemiBold.ttf'),
     Jingle: require('./assets/fonts/Jingleberry.ttf'),
   });
 
