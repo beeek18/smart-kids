@@ -1,10 +1,12 @@
 import { Audio } from 'expo-av';
 import { useEffect, useState } from 'react';
-import { Button, Image, Text, TouchableHighlight, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { socketInit } from '../../features/ws/wsActions';
-import { checkUserThunk } from '../../features/redux/slices/user/userThunk';
+import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
+import { Button } from '@rneui/themed';
+import { Icon } from 'react-native-elements';
 
 export default function Home({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -58,44 +60,131 @@ export default function Home({ navigation }): JSX.Element {
   };
 
   return (
-    <View>
-      <TouchableHighlight
-        style={{ width: 70, height: 70 }}
-        activeOpacity={1}
-        underlayColor={'white'}
-        onPress={() => navigation.navigate('Profile', { sound })}
-      >
-        <Image style={{ width: 70, height: 70 }} source={ImagesAssets[user.img]} />
-      </TouchableHighlight>
-      <Text>{user.username}</Text>
-      {imageVolumeToggle !== true && (
-        <Text
-          onPress={() => {
-            onClick(), changeVolume(0);
-          }}
-          style={{ fontSize: 50 }}
+    <>
+      <View style={styles.containerAll}>
+        <View style={styles.info}>
+          <Icon
+            color="blue"
+            onPress={logOutHandler}
+            style={styles.buttonLogout}
+            size={55}
+            name="logout"
+          />
+          <Icon
+            onPress={() => navigation.navigate('Info')}
+            style={styles.buttonInfo}
+            name="info-outline"
+            size={55}
+            color="blue"
+          />
+          {imageVolumeToggle !== true && (
+            <Icon
+              onPress={() => {
+                onClick(), changeVolume(0);
+              }}
+              color="blue"
+              size={50}
+              name="audiotrack"
+            />
+          )}
+          {imageVolumeToggle === true && (
+            <Icon
+              onPress={() => {
+                onClick(), changeVolume(1);
+              }}
+              size={50}
+              color="blue"
+              name="music-off"
+            />
+          )}
+        </View>
+      </View>
+      <View style={styles.container}>
+        <TouchableHighlight
+          activeOpacity={1}
+          underlayColor={'white'}
+          onPress={() => navigation.navigate('Profile', { sound })}
         >
-          🔊
-        </Text>
-      )}
-      {imageVolumeToggle === true && (
-        <Text
-          onPress={() => {
-            onClick(), changeVolume(1);
-          }}
-          style={{ fontSize: 50 }}
-        >
-          🔇
-        </Text>
-      )}
-      <Button onPress={() => navigation.navigate('Categories')} title="Начать игру" />
-      <Button onPress={() => navigation.navigate('Info')} title="ℹ" />
-      <Button
-        onPress={() => {
-          logOutHandler();
-        }}
-        title="Выйти из аккаунта"
-      />
-    </View>
+          <Image
+            style={{ width: 200, height: 190, resizeMode: 'contain', backgroundColor: '#ebe134' }}
+            source={ImagesAssets[user.img]}
+          />
+        </TouchableHighlight>
+        <Text style={styles.nameText}>{user.username}</Text>
+        <View>
+          <TouchableOpacity style={styles.banner} onPress={() => navigation.navigate('Categories')}>
+            <Text style={styles.bannerText}>Играть</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </>
   );
 }
+const styles = StyleSheet.create({
+  containerAll: {
+    backgroundColor: '#ebe134',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#ebe134',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  banner: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 40,
+    width: 300,
+    height: 70,
+    shadowColor: 'blue',
+    shadowOffset: { width: -5, height: 5 },
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+  nameText: {
+    fontSize: 24,
+    marginTop: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'blue',
+    marginBottom: 75,
+  },
+  button: {
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    padding: 10,
+    shadowColor: 'blue',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 4,
+    elevation: 2,
+    height: 100,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+  },
+  bannerText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    // letterSpacing: 0.25,
+    color: 'blue',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  info: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ebe134',
+    padding: 10,
+    marginTop: 70,
+  },
+  buttonInfo: {
+    fontSize: 45,
+    marginRight: 20,
+  },
+  buttonLogout: {
+    marginRight: 190,
+  },
+});
