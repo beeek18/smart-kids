@@ -22,6 +22,10 @@ export const gameSlice = createSlice({
       state.allPlayers = [...state.allPlayers, action.payload];
     },
 
+    removePlayer: (state, action: PayloadAction<UserType>) => {
+      state.allPlayers = state.allPlayers.filter((player) => player.id !== action.payload.id);
+    },
+
     addPoint: (state) => {
       state.score += 1;
     },
@@ -31,7 +35,7 @@ export const gameSlice = createSlice({
     },
 
     updateAllScores: (state, action: PayloadAction<GameAllScoreType>) => {
-      state.allScores = [...state.allScores, action.payload];
+      state.allScores = [...state.allScores, action.payload].sort((a, b) => b.score - a.score);
     },
 
     resetRoom: (state) => {

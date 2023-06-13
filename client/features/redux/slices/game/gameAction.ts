@@ -11,6 +11,11 @@ export const joinRoomAction = (payload: UserType) => ({
   payload,
 });
 
+export const leftRoomAction = (payload: UserType) => ({
+  type: 'LEFT_ROOM',
+  payload,
+});
+
 export const statusGameAction = (payload: GameStatusType['status']) => ({
   type: 'STATUS_GAME',
   payload,
