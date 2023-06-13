@@ -1,6 +1,15 @@
-import { Button, Input, Text, ThemeProvider, createTheme } from '@rneui/themed';
+import { Input, Text } from '@rneui/themed';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import { ImagesAssets } from '../../../assets/imageAssets';
 import { useAppDispatch } from '../../../features/redux/hooks';
 import { loginThunk } from '../../../features/redux/slices/user/userThunk';
 import { LoginType } from '../../../types/user/UserType';
@@ -26,45 +35,59 @@ export default function Autorization({ navigation }) {
       console.log(error);
     }
   };
+  const handleTap = (): void => {
+    Keyboard.dismiss();
+  };
 
   return (
-    <View>
-      <Text h1 h1Style={{ textAlign: 'center', color: 'blue' }}>
-        Авторизация
-      </Text>
-      <Input
-        value={input.email}
-        onChangeText={(value) => handleChange('email', value)}
-        placeholder="Электронная почта"
-        enablesReturnKeyAutomatically
-        textAlign="center"
-        focusable
-        inputContainerStyle={{
-          borderBottomWidth: 0,
-          borderRadius: 5,
-          backgroundColor: '#F0F0F0',
-          marginBottom: 10,
-        }}
-      ></Input>
-      <Input
-        value={input.password}
-        onChangeText={(value) => handleChange('password', value)}
-        placeholder="Пароль"
-        enablesReturnKeyAutomatically
-        textAlign="center"
-        focusable
-        autoCorrect={false}
-        spellCheck={false}
-        textContentType="none"
-        inputContainerStyle={{
-          borderBottomWidth: 0,
-          borderRadius: 5,
-          backgroundColor: '#F0F0F0',
-          marginBottom: 10,
-        }}
-      ></Input>
-      <Button onPress={loginHandler}>Войти</Button>
-    </View>
+    <TouchableWithoutFeedback onPress={handleTap}>
+      <KeyboardAvoidingView style={styles.view} behavior="padding">
+        <View style={styles.whiteFonAuto}>
+          <Text style={styles.textAuthorize}>ВОЙТИ В АККАУНТ</Text>
+        </View>
+        <View>
+          <Input
+            style={styles.whiteFonInputs}
+            value={input.email}
+            onChangeText={(value) => handleChange('email', value)}
+            placeholder="Электронная почта"
+            enablesReturnKeyAutomatically
+            textAlign="center"
+            focusable
+            inputContainerStyle={{
+              borderBottomWidth: 0,
+              borderRadius: 15,
+              backgroundColor: '#F0F0F0',
+              width: 250,
+            }}
+          ></Input>
+        </View>
+        <View>
+          <Input
+            style={styles.whiteFonInputs}
+            value={input.password}
+            onChangeText={(value) => handleChange('password', value)}
+            placeholder="Пароль"
+            enablesReturnKeyAutomatically
+            textAlign="center"
+            focusable
+            autoCorrect={false}
+            spellCheck={false}
+            textContentType="none"
+            inputContainerStyle={{
+              borderBottomWidth: 0,
+              borderRadius: 5,
+              backgroundColor: '#F0F0F0',
+              width: 250,
+            }}
+          ></Input>
+        </View>
+        <TouchableOpacity onPress={loginHandler} style={styles.whiteFonInputs}>
+          <Text style={styles.text}>Войти</Text>
+        </TouchableOpacity>
+        <Image style={styles.image} source={ImagesAssets.avatar3} />
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -74,33 +97,42 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ebe134',
+    gap: 30,
   },
   text: {
+    fontFamily: 'Jingle',
     color: 'blue',
-    fontSize: 20,
+    fontSize: 35,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 5,
   },
-  whiteFon: {
+  whiteFonInputs: {
+    textAlign: 'center',
     borderRadius: 10,
     alignItems: 'center',
-    width: 260,
+    width: 250,
     height: 60,
     backgroundColor: 'white',
     shadowColor: 'blue',
     shadowOffset: { width: -7, height: 7 },
     shadowOpacity: 5,
     shadowRadius: 1,
+    color: 'blue',
+    fontFamily: 'Jingle',
+    fontSize: 30,
   },
   textAuthorize: {
+    fontFamily: 'Jingle',
     color: 'blue',
-    fontSize: 30,
+    fontSize: 28,
+    letterSpacing: 1,
     textAlign: 'center',
-    marginTop: 40,
-    letterSpacing: 2,
+    marginTop: 42,
   },
   whiteFonAuto: {
-    marginBottom: 70,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 30,
     borderRadius: 10,
     alignItems: 'center',
     width: 250,
@@ -114,7 +146,6 @@ const styles = StyleSheet.create({
   image: {
     width: 225,
     height: 225,
-    marginRight: 100,
     resizeMode: 'contain',
     transform: [{ rotate: '10deg' }],
   },

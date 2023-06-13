@@ -43,85 +43,105 @@ export default function SignUp({ navigation }) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handleTap}>
-      <KeyboardAvoidingView style={styles.view} behavior="padding">
-        <View>
-          <View style={styles.whiteFonAuto}>
-            <Text style={styles.textAuthorize}>РЕГИСТРАЦИЯ</Text>
-          </View>
-          <View>
-            <Input
-              inputStyle={{ color: 'blue' }}
-              cursorColor={'blue'}
-              style={styles.whiteFon}
-              value={input.username}
-              onChangeText={(value) => handleChange('username', value)}
-              placeholder="Как тебя зовут?"
-              enablesReturnKeyAutomatically
-              textAlign="center"
-              focusable
-              inputContainerStyle={{
-                width: 240,
-                borderBottomWidth: 0,
-                borderRadius: 15,
-                backgroundColor: '#F0F0F0',
-              }}
-            ></Input>
-            <Input
-              inputStyle={{ color: 'blue' }}
-              style={styles.whiteFon}
-              value={input.email}
-              onChangeText={(value) => handleChange('email', value)}
-              placeholder="Электронная почта"
-              enablesReturnKeyAutomatically
-              textAlign="center"
-              inputContainerStyle={{
-                width: 240,
-                borderBottomWidth: 0,
-                borderRadius: 15,
-                backgroundColor: 'white',
-              }}
-            ></Input>
-            <Input
-              inputStyle={{ color: 'blue' }}
-              style={styles.whiteFon}
-              value={input.password}
-              onChangeText={(value) => handleChange('password', value)}
-              placeholder="Пароль"
-              enablesReturnKeyAutomatically
-              textAlign="center"
-              secureTextEntry={true}
-              textContentType="password"
-              inputContainerStyle={{
-                width: 240,
-                borderBottomWidth: 0,
-                borderRadius: 15,
-                backgroundColor: '#F0F0F0',
-              }}
-            ></Input>
-          </View>
-          <TouchableOpacity style={styles.whiteFon}>
-            <Text style={styles.text}>Зарегистрироваться</Text>
-          </TouchableOpacity>
+    <>
+      <TouchableWithoutFeedback style={styles.outerView} onPress={handleTap}>
+        <View style={styles.container}>
+          <View style={styles.background}></View>
+          <KeyboardAvoidingView style={styles.view} behavior="padding">
+            <View style={styles.content}>
+              <View style={styles.whiteFonAuto}>
+                <Text style={styles.textAuthorize}>РЕГИСТРАЦИЯ</Text>
+              </View>
+              <View>
+                <Input
+                  cursorColor={'blue'}
+                  style={styles.whiteFon}
+                  value={input.username}
+                  onChangeText={(value) => handleChange('username', value)}
+                  placeholder="Как тебя зовут?"
+                  enablesReturnKeyAutomatically
+                  textAlign="center"
+                  focusable
+                  inputContainerStyle={{
+                    width: 240,
+                    borderBottomWidth: 0,
+                    borderRadius: 15,
+                    backgroundColor: '#F0F0F0',
+                  }}
+                ></Input>
+                <Input
+                  style={styles.whiteFon}
+                  value={input.email}
+                  onChangeText={(value) => handleChange('email', value)}
+                  placeholder="Электронная почта"
+                  enablesReturnKeyAutomatically
+                  textAlign="center"
+                  inputContainerStyle={{
+                    width: 240,
+                    borderBottomWidth: 0,
+                    borderRadius: 15,
+                    backgroundColor: 'white',
+                  }}
+                ></Input>
+                <Input
+                  style={styles.whiteFon}
+                  value={input.password}
+                  onChangeText={(value) => handleChange('password', value)}
+                  placeholder="Пароль"
+                  enablesReturnKeyAutomatically
+                  textAlign="center"
+                  secureTextEntry={true}
+                  textContentType="password"
+                  inputContainerStyle={{
+                    width: 240,
+                    borderBottomWidth: 0,
+                    borderRadius: 15,
+                    backgroundColor: '#F0F0F0',
+                  }}
+                ></Input>
+              </View>
+              <TouchableOpacity onPress={signUpHandler} style={styles.whiteFon}>
+                <Text style={styles.text}>Зарегистрироваться</Text>
+              </TouchableOpacity>
+              <Image style={styles.image} source={ImagesAssets.avatar3} />
+            </View>
+          </KeyboardAvoidingView>
         </View>
-        <Image style={styles.image} source={ImagesAssets.avatar3} />
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  view: {
+  background: {
     flex: 1,
+    backgroundColor: '#ebe134',
+  },
+  outerView: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  content: {
+    marginLeft: 70,
+    transform: [{ translateY: 40 }],
+  },
+  view: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ebe134',
   },
   text: {
     color: 'blue',
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 12,
+    fontFamily: 'Jingle',
   },
   whiteFon: {
     borderRadius: 10,
@@ -133,8 +153,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -7, height: 7 },
     shadowOpacity: 5,
     shadowRadius: 1,
+    color: 'blue',
+    fontFamily: 'Jingle',
+    fontSize: 30,
   },
   textAuthorize: {
+    fontFamily: 'Jingle',
     color: 'blue',
     fontSize: 30,
     textAlign: 'center',
@@ -159,5 +183,6 @@ const styles = StyleSheet.create({
     marginRight: 100,
     resizeMode: 'contain',
     transform: [{ rotate: '10deg' }],
+    position: 'relative',
   },
 });

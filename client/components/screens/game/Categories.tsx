@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Jingle',
   },
   buttonHardText: {
-    fontSize: 19,
+    fontSize: 18,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
