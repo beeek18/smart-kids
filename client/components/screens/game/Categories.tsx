@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Image } from 'react-native-elements';
+import { ImagesAssets } from '../../../assets/imageAssets';
 
 export default function Categories({ navigation }): JSX.Element {
   return (
