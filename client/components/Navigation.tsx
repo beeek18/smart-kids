@@ -32,13 +32,9 @@ export default function Navigation(): JSX.Element {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShadowVisible: false,
-          title: '',
-          headerLeft: false,
-          gestureEnabled: false,
           headerShown: false,
+          // gestureEnabled: false,
         }}
-        //НЕ УДАЛЯТЬ !!!
       >
         {user.status === 'fetching' ? (
           <>
