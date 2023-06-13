@@ -17,6 +17,13 @@ wss.on('connection', (ws, request, wsMap) => {
         break;
       }
 
+      case 'LEFT_ROOM': {
+        for (const [, wsClient] of wsMap) {
+          wsClient.ws.send(JSON.stringify({ type: 'Game/removePlayer', payload }));
+        }
+        break;
+      }
+
       case 'STATUS_GAME': {
         for (const [, wsClient] of wsMap) {
           wsClient.ws.send(JSON.stringify({ type: 'Game/updateGameStatus', payload }));
