@@ -1,12 +1,11 @@
 import { Audio } from 'expo-av';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { socketInit } from '../../features/ws/wsActions';
 import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
-import { Button } from '@rneui/themed';
-import { Icon } from 'react-native-elements';
+import { socketInit } from '../../features/ws/wsActions';
 
 export default function Home({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
