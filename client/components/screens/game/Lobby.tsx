@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Button, Image, Text, View } from 'react-native';
+import { Image, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import {
@@ -7,6 +7,8 @@ import {
   leftRoomAction,
   statusGameAction,
 } from '../../../features/redux/slices/game/gameAction';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Button } from 'react-native-elements';
 
 export default function Lobby({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -36,19 +38,122 @@ export default function Lobby({ navigation }): JSX.Element {
   }, [status]);
 
   return (
-    <View>
-      <Text>Friends</Text>
-      {allPlayers.map((player) => (
-        <View key={player.id}>
-          <Text>{player.username}</Text>
-          <Image
-            style={{ width: 80, height: 80, marginRight: 30, marginLeft: 10 }}
-            source={ImagesAssets[player.img]}
-          />
-        </View>
-      ))}
-      <Button title="НАЧАТЬ" onPress={handleStart} />
-      <Button title="Назад" onPress={leftLobby} />
+    <View style={styles.container}>
+      <Text style={styles.title}>Комната ожидания</Text>
+      <View style={styles.list}>
+        {allPlayers.map((player) => (
+          <View key={player.id} style={styles.player}>
+            <Image style={styles.image} source={ImagesAssets[player.img]} />
+            <Text style={styles.text}>{player.username}</Text>
+          </View>
+        ))}
+      </View>
+      <View style={styles.buttons}>
+        <Button
+          icon={<MaterialIcons name="arrow-back" color={'blue'} size={24} />}
+          onPress={leftLobby}
+          buttonStyle={styles.submitButton}
+        />
+        <TouchableOpacity onPress={handleStart} style={styles.button}>
+          <Text style={styles.buttonText}>Начать</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ebe134',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    position: 'absolute',
+    top: 80,
+    fontSize: 40,
+    color: 'blue',
+    fontFamily: 'Jingle',
+  },
+  list: {
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    position: 'absolute',
+    top: 150,
+    borderRadius: 10,
+    padding: 10,
+    paddingTop: 20,
+    gap: 15,
+    width: 300,
+    elevation: 2,
+    shadowOffset: {
+      width: -10,
+      height: 10,
+    },
+    shadowColor: 'blue',
+    shadowOpacity: 1,
+    shadowRadius: 1,
+  },
+  player: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 20,
+  },
+  text: {
+    fontSize: 20,
+    color: 'blue',
+    fontFamily: 'Jingle',
+  },
+  buttons: {
+    position: 'absolute',
+    bottom: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  buttonText: {
+    fontSize: 20,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'blue',
+    fontFamily: 'Jingle',
+  },
+  image: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+  },
+  button: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    height: 40,
+    width: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+    shadowOffset: {
+      width: -7,
+      height: 7,
+    },
+    shadowColor: 'blue',
+    shadowOpacity: 1,
+    shadowRadius: 1,
+  },
+  submitButton: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    margin: 10,
+    shadowOffset: {
+      width: -5,
+      height: 5,
+    },
+    shadowColor: 'blue',
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+});

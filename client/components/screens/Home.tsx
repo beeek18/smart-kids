@@ -143,12 +143,13 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
   },
   nameText: {
-    fontSize: 24,
+    fontSize: 45,
     marginTop: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'blue',
     marginBottom: 75,
+    fontFamily: 'Jingle',
   },
   button: {
     backgroundColor: 'blue',
@@ -166,12 +167,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   bannerText: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: 'bold',
     // letterSpacing: 0.25,
     color: 'blue',
     textAlign: 'center',
-    marginTop: 5,
+    marginTop: -7,
+    fontFamily: 'Jingle',
   },
   info: {
     flexDirection: 'row',
