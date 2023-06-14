@@ -69,6 +69,8 @@ export default function Home({ navigation }): JSX.Element {
             size={55}
             name="logout"
           />
+          <Image style={styles.crown} source={require('../../assets/crown1.png')} />
+          <Text style={styles.point}> 1</Text>
           <Icon
             onPress={() => navigation.navigate('Info')}
             style={styles.buttonInfo}
@@ -183,9 +185,22 @@ const styles = StyleSheet.create({
   },
   buttonInfo: {
     fontSize: 45,
-    marginRight: 20,
+    marginLeft: 95,
   },
   buttonLogout: {
-    marginRight: 190,
+    marginRight: 140,
+  },
+
+  crown: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+    marginLeft: -100,
+    fontFamily: 'Jingle',
+  },
+  point: {
+    fontSize: 40,
+    fontFamily: 'Jingle',
+    color: 'blue',
   },
 });
