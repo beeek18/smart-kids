@@ -40,7 +40,7 @@ module.exports = {
         },
         {
           title: 'Все котята рождаются с голубыми глазами?',
-          answer: 'Неверно',
+          answer: 'Верно',
           img: 'https://fikiwiki.com/uploads/posts/2022-02/1644991786_3-fikiwiki-com-p-prikolnie-kartinki-pro-kotov-3.jpg',
           categoryId: 2,
         },
@@ -88,7 +88,7 @@ module.exports = {
         },
         {
           title: 'Какой насекомое является самым большим?',
-          answer: 'жук-носорог',
+          answer: 'геркулес',
           img: 'https://whatsthatbug.com/wp-content/uploads/2012/12/rhinoceros_beetle_paraguay_freddy.jpg',
           categoryId: 4,
         },

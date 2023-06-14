@@ -56,7 +56,6 @@ export default function Home({ navigation }): JSX.Element {
   const onClick = () => {
     setImageVolumeToggle((prev) => !prev);
   };
-  const  = useAppSelector((store) => store.user.crown);
 
   const logOutHandler = async () => {
     if (sound) {

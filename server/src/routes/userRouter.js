@@ -98,8 +98,8 @@ router.patch('/edit/avatar', async (req, res) => {
   const changedImg = await User.findByPk(id);
   res.json(changedImg);
 });
-router.patch('/add/crown', async (req, res) => {
-  const { id } = req.session.user;
+router.patch('/:id/add/crown', async (req, res) => {
+  const { id } = req.params;
   const { crown } = await User.findByPk(id);
 
   await User.update({ crown: crown + 10 }, { where: { id } });
