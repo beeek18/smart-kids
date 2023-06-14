@@ -1,27 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button, Image } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import QuestionText from '../../ui/Text/QuestionText';
-
 import { MaterialIcons } from '@expo/vector-icons';
 import { ImagesAssets } from '../../../assets/imageAssets';
 
 export default function SimpleRound({ navigation }): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('RightRound');
-  //     }
-  //   }, 1000 * 15);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('RightRound');
+      }
+    }, 1000 * 15);
 
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -30,6 +29,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
   }, []);
 
   const question = useAppSelector((store) => store.questions);
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -38,38 +38,40 @@ export default function SimpleRound({ navigation }): JSX.Element {
       dispatch(addPoint());
     }
     setArrowButton(true);
+    setSubmitButtonDisabled(false);
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <View>
-          <Image style={styles.image} source={ImagesAssets.avatar4} />
-        </View>
-        <QuestionText question={question} />
-        <View style={{ flexDirection: 'row', marginTop: 20 }}>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonYes} onPress={() => handlePress('Да')}>
-              <Text style={styles.buttonYesText}>ДА</Text>
-            </TouchableOpacity>
-            <View style={styles.buttonSeparator} />
-            <TouchableOpacity style={styles.buttonNo} onPress={() => handlePress('Нет')}>
-              <Text style={styles.buttonNoText}>НЕТ</Text>
-            </TouchableOpacity>
+    <>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <QuestionText question={question} />
+          <View style={{ position: 'absolute', height: 460 }}>
+            <Image style={styles.image} source={ImagesAssets.avatar4} />
+          </View>
+          <View style={{ flexDirection: 'row', marginTop: 20 }}>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
+                <Text style={styles.buttonText}>ДА</Text>
+              </TouchableOpacity>
+              <View style={styles.buttonSeparator} />
+              <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
+                <Text style={styles.buttonText}>НЕТ</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-      {arrowButton && (
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color={'#ebe134'} />}
           onPress={() => {
             setTimerComplete(true);
             navigation.navigate('RightRound');
           }}
-          buttonStyle={styles.submitButton}
+          disabled={submitButtonDisabled}
+          buttonStyle={{ ...styles.submitButton, opacity: arrowButton ? 1 : 0 }}
         />
-      )}
-    </View>
+      </View>
+    </>
   );
 }
 
@@ -78,23 +80,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ecc3fa',
+    zIndex: 0,
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
   },
   image: {
-    marginTop: 30,
-    width: 120,
-    height: 120,
+    width: 190,
+    right: 0,
+    bottom: 150,
+    height: 100,
     resizeMode: 'contain',
+    zIndex: 1,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 100,
+    marginTop: 20,
     paddingHorizontal: 20,
     gap: 20,
     marginLeft: 10,
@@ -102,7 +107,7 @@ const styles = StyleSheet.create({
   buttonSeparator: {
     width: 10,
   },
-  buttonYes: {
+  button: {
     backgroundColor: 'blue',
     borderRadius: 10,
     padding: 10,
@@ -118,34 +123,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 1,
   },
-  buttonNo: {
-    backgroundColor: 'blue',
-    borderRadius: 10,
-    padding: 10,
-    height: 100,
-    width: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowOffset: {
-      width: -7,
-      height: 7,
-    },
-    shadowColor: '#f2b1ed',
-    shadowOpacity: 1,
-    shadowRadius: 1,
-  },
-  buttonYesText: {
+  buttonText: {
     fontSize: 30,
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: '#ebe134',
-    fontFamily: 'Jingle',
-  },
-  buttonNoText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: '#f2b1ed',
     fontFamily: 'Jingle',
   },
   submitButton: {
