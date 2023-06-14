@@ -12,17 +12,25 @@ import * as Animatable from 'react-native-animatable';
 
 export default function RightRound({ navigation }): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(15);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('IntroHard');
-  //     }
-  //   }, 1000 * 15);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('IntroHard');
+      }
+    }, 1000 * 15);
+
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -45,6 +53,9 @@ export default function RightRound({ navigation }): JSX.Element {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Text style={styles.timer}>{timeRemaining}</Text>
+      </View>
       <View style={styles.content}>
         <Image
           source={{ uri: question.img }}
@@ -141,7 +152,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
   },
   buttonText: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: '#ebe134',
@@ -160,5 +171,12 @@ const styles = StyleSheet.create({
     shadowColor: '#ebe134',
     shadowOpacity: 3,
     shadowRadius: 1,
+  },
+  timer: {
+    fontSize: 60,
+    top: 90,
+    marginLeft: 280,
+    color: 'white',
+    fontFamily: 'Jingle',
   },
 });

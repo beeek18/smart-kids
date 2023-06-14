@@ -24,17 +24,25 @@ export default function HardRound({ navigation }): JSX.Element {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
   const [timerComplete, setTimerComplete] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(15);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('InputRound');
-  //     }
-  //   }, 1000 * 15);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('InputRound');
+      }
+    }, 1000 * 15);
+
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -51,12 +59,7 @@ export default function HardRound({ navigation }): JSX.Element {
       {arrowButton ? (
         <Image style={styles.questionImage} source={{ uri: question.img }} />
       ) : (
-        <Image
-          style={styles.questionmarkImage}
-          source={{
-            uri: 'https://marketplace.canva.com/iqS2k/MAEl8EiqS2k/1/tl/canva-question-mark-illustration-MAEl8EiqS2k.png',
-          }}
-        />
+        <Text style={styles.timer}>{timeRemaining}</Text>
       )}
 
       <View style={styles.container}>
@@ -170,14 +173,13 @@ const styles = StyleSheet.create({
     zIndex: 2,
     borderRadius: 300,
   },
-  questionmarkImage: {
-    width: 160,
-    height: 160,
+  timer: {
     position: 'absolute',
     marginTop: 160,
-    marginLeft: 115,
+    marginLeft: 165,
     zIndex: 2,
-    borderRadius: 0,
-    resizeMode: 'contain',
+    fontSize: 100,
+    color: 'white',
+    fontFamily: 'Jingle',
   },
 });

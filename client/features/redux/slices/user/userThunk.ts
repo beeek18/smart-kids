@@ -98,12 +98,12 @@ export const editUserImgThunk: ThunkActionCreater = (input) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const addCrownUserThunk: ThunkActionCreater = () => (dispatch) => {
+export const addCrownUserThunk: ThunkActionCreater = (id) => (dispatch) => {
   axios
     .patch(
       `http://${
         Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-      }:3000/api/user/add/crown`,
+      }:3000/api/user/${id}/add/crown`,
     )
     .then(({ data }) => {
       dispatch(addCrown(data));
