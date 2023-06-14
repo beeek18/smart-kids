@@ -4,6 +4,7 @@ import { addCrown, editImg, editUser, logoutUser, setUser } from './userSlice';
 import { LoginType, SignUpType, UserType } from '../../../../types/user/UserType';
 import { Platform } from 'react-native';
 import { API_URL } from '@env';
+import { setDefaultError, setError } from '../error/errorSlice';
 
 const guestUser = {
   id: 0,
@@ -31,8 +32,14 @@ export const signUpThunk: ThunkActionCreater<SignUpType> = (input: SignUpType) =
       }:3000/api/user/signup`,
       input,
     )
-    .then(({ data }) => dispatch(setUser(data)))
-    .catch(() => dispatch(setUser(guestUser)));
+    .then(({ data }) => {
+      dispatch(setDefaultError());
+      dispatch(setUser(data));
+    })
+    .catch((error) => {
+      dispatch(setError({ text: error.response.data, isError: true }));
+      dispatch(setUser(guestUser));
+    });
 };
 
 export const loginThunk: ThunkActionCreater<LoginType> = (input: LoginType) => (dispatch) => {
@@ -43,8 +50,14 @@ export const loginThunk: ThunkActionCreater<LoginType> = (input: LoginType) => (
       }:3000/api/user/login`,
       input,
     )
-    .then(({ data }) => dispatch(setUser(data)))
-    .catch(() => dispatch(setUser(guestUser)));
+    .then(({ data }) => {
+      dispatch(setDefaultError());
+      dispatch(setUser(data));
+    })
+    .catch((error) => {
+      dispatch(setError({ text: error.response.data, isError: true }));
+      dispatch(setUser(guestUser));
+    });
 };
 
 export const logOutThunk: ThunkActionCreater = () => (dispatch) => {

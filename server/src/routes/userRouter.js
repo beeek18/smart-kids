@@ -23,7 +23,7 @@ router.post('/signup', async (req, res) => {
     });
 
     if (!created) {
-      return res.status(400).json({ message: 'Пользователь уже существует' });
+      return res.status(400).send({ message: 'Пользователь уже существует' });
     }
 
     const userInfo = { id: user.id, username, img: user.img, status: 'logged', crown: user.crown };
@@ -40,19 +40,19 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      return res.status(400).json({ message: 'Заполните все поля' });
+      return res.status(400).send({ message: 'Заполните все поля' });
     }
 
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(400).json({ message: 'Пользователь не найден' });
+      return res.status(400).send({ message: 'Пользователь не найден' });
     }
 
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-      return res.status(400).json({ message: 'Указан неверный пароль' });
+      return res.status(400).send({ message: 'Указан неверный пароль' });
     }
 
     const userInfo = {

@@ -18,6 +18,8 @@ export default function HardRound({ navigation }): JSX.Element {
 
   const question = useAppSelector((store) => store.questions);
 
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
   const [timerComplete, setTimerComplete] = useState(false);
 
   // useEffect(() => {
@@ -38,6 +40,7 @@ export default function HardRound({ navigation }): JSX.Element {
       dispatch(addPoint());
     }
     setArrowButton(true);
+    setSubmitButtonDisabled(false);
   };
   return (
     <>
@@ -76,11 +79,12 @@ export default function HardRound({ navigation }): JSX.Element {
             ))}
         </View>
         <Button
-          icon={<MaterialIcons name="arrow-forward" size={40} />}
+          icon={<MaterialIcons name="arrow-forward" size={24} color="#ecc3fa" />}
           onPress={() => {
             setTimerComplete(true);
             navigation.navigate('InputRound');
           }}
+          disabled={submitButtonDisabled}
           buttonStyle={{ ...styles.submitButton, opacity: arrowButton ? 1 : 0 }}
         />
       </View>
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     backgroundColor: 'blue',
-    // marginBottom: 0,
+    marginBottom: 10,
     marginLeft: 300,
     width: 50,
     borderRadius: 15,
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
       width: -5,
       height: 5,
     },
-    shadowColor: '#ebe134',
+    shadowColor: '#ecc3fa',
     shadowOpacity: 3,
     shadowRadius: 1,
   },
