@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   bannerText: {
     color: 'blue',
-    fontSize: 50,
+    fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'Jingle',

@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, Text } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
@@ -9,7 +9,13 @@ import HardQuestionText from '../../ui/Text/HardQuestionText';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
-
+  const [timeRemaining, setTimeRemaining] = useState(15);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!timerComplete) {
@@ -43,6 +49,9 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     <>
       <TouchableWithoutFeedback>
         <View style={styles.container}>
+          <View>
+            <Text style={styles.timer}>{timeRemaining}</Text>
+          </View>
           <View>
             <HardQuestionText question={question} />
           </View>
@@ -96,5 +105,12 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     backgroundColor: '#ebe134',
+  },
+  timer: {
+    fontSize: 60,
+    top: -200,
+    marginLeft: 280,
+    color: 'white',
+    fontFamily: 'Jingle',
   },
 });
