@@ -12,13 +12,19 @@ export default function Profile({ navigation }): JSX.Element {
   const [input, setInput] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
   const user = useAppSelector((store) => store.user);
+  const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
+
+  // const updateHandler = (value: string) => {
+  //   dispatch(editUserNameThunk(value));
+  //   setInput('');
+  // };
 
   const updateHandler = (value: string) => {
     dispatch(editUserNameThunk(value));
     setInput('');
+    setEditMode(false); // Скрыть инпут после сохранения
   };
-
   const updateImgHandler = (value) => {
     dispatch(editUserImgThunk(value));
     setSelectedImg(value);
@@ -56,7 +62,7 @@ export default function Profile({ navigation }): JSX.Element {
           <Text style={styles.bannerText}>Как тебя зовут ?</Text>
           <Text style={styles.bannerName}>{user.username}</Text>
         </View>
-        <Input
+        {/* <Input
           placeholder="Введите имя"
           style={styles.bannerInput}
           onChangeText={(value) => setInput(value)}
@@ -67,10 +73,34 @@ export default function Profile({ navigation }): JSX.Element {
             borderBottomWidth: 0,
           }}
           inputStyle={{ textAlign: 'center' }}
-        ></Input>
-        <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
+        ></Input> */}
+        {!editMode && (
+          <TouchableOpacity onPress={() => setEditMode(true)} style={styles.bannerInput}>
+            <Text style={styles.bannerTextSave}>Изменить имя</Text>
+          </TouchableOpacity>
+        )}
+        {editMode && (
+          <Input
+            placeholder="Введите имя"
+            style={styles.bannerInput}
+            onChangeText={(value) => setInput(value)}
+            defaultValue={input}
+            inputContainerStyle={{
+              width: 325,
+              marginLeft: 25,
+              borderBottomWidth: 0,
+            }}
+            inputStyle={{ textAlign: 'center' }}
+          />
+        )}
+        {editMode && (
+          <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
+            <Text style={styles.bannerTextSave}>Сохранить</Text>
+          </TouchableOpacity>
+        )}
+        {/* <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
           <Text style={styles.bannerTextSave}>Сохранить</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Button
           icon={<MaterialIcons name="keyboard-backspace" size={40} color={'blue'} />}
           onPress={() => {
