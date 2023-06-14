@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { Button } from 'react-native-elements';
 import { editUserImgThunk, editUserNameThunk } from '../../features/redux/slices/user/userThunk';
+import { MaterialIcons } from '@expo/vector-icons';
+import * as Animatable from 'react-native-animatable';
 
 export default function Profile({ navigation }): JSX.Element {
   const [input, setInput] = useState('');
-
+  const [selectedImg, setSelectedImg] = useState('');
   const user = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
@@ -18,45 +21,183 @@ export default function Profile({ navigation }): JSX.Element {
 
   const updateImgHandler = (value) => {
     dispatch(editUserImgThunk(value));
+    setSelectedImg(value);
   };
 
   return (
     <>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <TouchableOpacity onPress={() => updateImgHandler('avatar1')}>
-          <Image
-            style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
-            source={ImagesAssets.avatar1}
-          />
+      <View style={styles.container}>
+        <View style={styles.bannerChoiceAvatar}>
+          <Text style={styles.bannerChoiceAvatarText}>Выбери аватар</Text>
+        </View>
+        <View style={styles.avatar}>
+          <TouchableOpacity onPress={() => updateImgHandler('avatar1')}>
+            <Animatable.View animation={selectedImg === 'avatar1' ? 'bounce' : ''}>
+              <Image style={styles.imageStyle} source={ImagesAssets.avatar1} />
+            </Animatable.View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => updateImgHandler('avatar2')}>
+            <Animatable.View animation={selectedImg === 'avatar2' ? 'bounce' : ''}>
+              <Image style={styles.imageStyle} source={ImagesAssets.avatar2} />
+            </Animatable.View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => updateImgHandler('avatar3')}>
+            <Animatable.View animation={selectedImg === 'avatar3' ? 'bounce' : ''}>
+              <Image style={styles.imageStyle} source={ImagesAssets.avatar3} />
+            </Animatable.View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => updateImgHandler('avatar4')}>
+            <Animatable.View animation={selectedImg === 'avatar4' ? 'bounce' : ''}>
+              <Image style={styles.imageStyle} source={ImagesAssets.avatar4} />
+            </Animatable.View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.banner}>
+          <Text style={styles.bannerText}>Как тебя зовут ?</Text>
+          <Text style={styles.bannerName}>{user.username}</Text>
+        </View>
+        <Input
+          placeholder="Введите имя"
+          style={styles.bannerInput}
+          onChangeText={(value) => setInput(value)}
+          defaultValue={input}
+          inputContainerStyle={{
+            width: 325,
+            marginLeft: 25,
+            borderBottomWidth: 0,
+          }}
+          inputStyle={{ textAlign: 'center' }}
+        ></Input>
+        <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
+          <Text style={styles.bannerTextSave}>Сохранить</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => updateImgHandler('avatar2')}>
-          <Image
-            style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
-            source={ImagesAssets.avatar2}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => updateImgHandler('avatar3')}>
-          <Image
-            style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
-            source={ImagesAssets.avatar3}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => updateImgHandler('avatar4')}>
-          <Image
-            style={{ width: 80, height: 80, marginRight: 10, marginLeft: 10 }}
-            source={ImagesAssets.avatar4}
-          />
-        </TouchableOpacity>
+        <Button
+          icon={<MaterialIcons name="keyboard-backspace" size={40} color={'blue'} />}
+          onPress={() => {
+            navigation.navigate('Home');
+          }}
+          buttonStyle={styles.submitButton}
+        />
       </View>
-      <Text>{user.username}</Text>
-      <Text>Как тебя зовут ?</Text>
-      <Input
-        placeholder="Введите имя"
-        onChangeText={(value) => setInput(value)}
-        defaultValue={input}
-      ></Input>
-      <Button onPress={() => updateHandler(input)} title="Сохранить" />
-      <Button onPress={() => navigation.navigate('Home')} title="Home" />
     </>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ebe134',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 0,
+  },
+  bannerText: {
+    fontSize: 40,
+    color: 'blue',
+    textAlign: 'center',
+    fontFamily: 'Jingle',
+    marginTop: 5,
+  },
+  bannerTextSave: {
+    fontSize: 40,
+    color: 'blue',
+    textAlign: 'center',
+    fontFamily: 'Jingle',
+  },
+  banner: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 40,
+    marginTop: 30,
+    width: 325,
+    height: 140,
+    shadowColor: 'blue',
+    shadowOffset: { width: -5, height: 5 },
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+  submitButton: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    margin: 10,
+    shadowOffset: {
+      width: -5,
+      height: 5,
+    },
+    shadowColor: 'blue',
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+  avatar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  bannerName: {
+    fontSize: 40,
+    color: 'blue',
+    textAlign: 'center',
+    fontFamily: 'Jingle',
+    marginTop: 5,
+  },
+  bannerInput: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 40,
+    marginTop: 10,
+    width: 325,
+    height: 80,
+    shadowColor: 'blue',
+    color: 'blue',
+    fontFamily: 'Jingle',
+    fontSize: 30,
+    shadowOffset: { width: -5, height: 5 },
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+  bannerSave: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 40,
+    marginTop: -40,
+    width: 325,
+    height: 80,
+    shadowColor: 'blue',
+    color: 'blue',
+    fontFamily: 'Jingle',
+    fontSize: 30,
+    shadowOffset: { width: -5, height: 5 },
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+  imageStyle: {
+    width: 80,
+    height: 80,
+    marginRight: 10,
+    resizeMode: 'contain',
+    marginLeft: 10,
+  },
+  bannerChoiceAvatar: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 40,
+    marginTop: 50,
+    width: 325,
+    height: 80,
+    shadowColor: 'blue',
+    color: 'blue',
+    fontFamily: 'Jingle',
+    fontSize: 30,
+    shadowOffset: { width: -5, height: 5 },
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+  bannerChoiceAvatarText: {
+    fontSize: 40,
+    color: 'blue',
+    textAlign: 'center',
+    fontFamily: 'Jingle',
+  },
+});
