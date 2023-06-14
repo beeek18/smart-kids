@@ -1,9 +1,8 @@
 import axios from 'axios';
+import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
 import Navigation from './components/Navigation';
 import store from './features/redux/store';
-import { useFonts } from 'expo-font';
-import { useEffect, useState } from 'react';
 
 axios.defaults.withCredentials = true;
 
