@@ -10,6 +10,13 @@ import { ImagesAssets } from '../../../assets/imageAssets';
 
 export default function SimpleRound({ navigation }): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(15);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -44,9 +51,11 @@ export default function SimpleRound({ navigation }): JSX.Element {
   return (
     <>
       <View style={styles.container}>
+        <View>
+          <Text style={styles.timer}>{timeRemaining}</Text>
+        </View>
         <View style={styles.content}>
           <QuestionText question={question} />
-
           <View style={{ position: 'absolute', height: 460 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
@@ -144,5 +153,12 @@ const styles = StyleSheet.create({
     shadowColor: '#ebe134',
     shadowOpacity: 3,
     shadowRadius: 1,
+  },
+  timer: {
+    fontSize: 60,
+    top: 90,
+    marginLeft: 280,
+    color: 'white',
+    fontFamily: 'Jingle',
   },
 });
