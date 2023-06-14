@@ -60,9 +60,7 @@ export default function HardRound({ navigation }): JSX.Element {
           <Text style={styles.text}>Несколько вариантов</Text>
         </View>
         <View style={{ marginTop: 200 }}>
-          {/* {questions.map((question) => ( */}
           <HardQuestionText question={question} key={question.id} />
-          {/* ))} */}
         </View>
         <View style={{ gap: 10, marginTop: 40 }}>
           {question?.Options &&

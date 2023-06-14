@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { QuestionType } from '../../../types/question/QuestionType';
+import { Input } from 'react-native-elements';
 
 type Props = {
   question: QuestionType;
