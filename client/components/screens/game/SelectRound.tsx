@@ -39,8 +39,6 @@ export default function HardRound({ navigation }): JSX.Element {
     }
     setArrowButton(true);
   };
-  // console.log(question.img);
-  // const questionImage = require(question.img);
   return (
     <>
       <Image style={styles.image} source={ImagesAssets.avatar3} />
