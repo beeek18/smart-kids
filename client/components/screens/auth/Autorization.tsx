@@ -11,14 +11,18 @@ export default function Autorization({ navigation }) {
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.whiteFon}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => {
+            navigation.navigate('SignUp');
+          }}
         >
           <Text style={styles.text}>Зарегистрироваться</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.whiteFon}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => {
+            navigation.navigate('Login');
+          }}
         >
           <Text style={styles.text}>Войти</Text>
         </TouchableOpacity>

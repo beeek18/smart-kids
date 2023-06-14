@@ -7,6 +7,7 @@ import { getQuestionsThunk } from '../../../features/redux/slices/question/quest
 import QuestionText from '../../ui/Text/QuestionText';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import * as Animatable from 'react-native-animatable';
 
 export default function SimpleRound({ navigation }): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
@@ -45,20 +46,26 @@ export default function SimpleRound({ navigation }): JSX.Element {
     <>
       <View style={styles.container}>
         <View style={styles.content}>
-          <QuestionText question={question} />
+          <Animatable.View animation={'wobble'} duration={1000}>
+            <QuestionText question={question} />
+          </Animatable.View>
 
           <View style={{ position: 'absolute', height: 460 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
           <View style={{ flexDirection: 'row', marginTop: 20 }}>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
-                <Text style={styles.buttonText}>ДА</Text>
-              </TouchableOpacity>
+              <Animatable.View animation={'bounceInLeft'} duration={1000}>
+                <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
+                  <Text style={styles.buttonText}>ДА</Text>
+                </TouchableOpacity>
+              </Animatable.View>
               <View style={styles.buttonSeparator} />
-              <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
-                <Text style={styles.buttonText}>НЕТ</Text>
-              </TouchableOpacity>
+              <Animatable.View animation={'bounceInRight'} duration={1000}>
+                <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
+                  <Text style={styles.buttonText}>НЕТ</Text>
+                </TouchableOpacity>
+              </Animatable.View>
             </View>
           </View>
         </View>

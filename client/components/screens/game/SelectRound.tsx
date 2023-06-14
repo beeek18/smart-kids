@@ -8,8 +8,11 @@ import { getQuestionOptionThunk } from '../../../features/redux/slices/question/
 import SelectButton from '../../ui/Buttons.tsx/SelectButton';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import * as Animatable from 'react-native-animatable';
 
 export default function HardRound({ navigation }): JSX.Element {
+  // const animations = ['slideInDown', 'slideInUp', 'slideInLeft', 'slideInRight'];
+  const animations = ['fadeInUpBig', 'fadeInDownBig', 'fadeInLeftBig', 'fadeInRightBig'];
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -57,25 +60,30 @@ export default function HardRound({ navigation }): JSX.Element {
       )}
 
       <View style={styles.container}>
-        <View style={styles.blueFon}>
-          <Text style={styles.text}>Несколько вариантов</Text>
-        </View>
+        <Animatable.View animation={'lightSpeedIn'} duration={800}>
+          <View style={styles.blueFon}>
+            <Text style={styles.text}>Несколько вариантов</Text>
+          </View>
+        </Animatable.View>
         <View style={{ marginTop: 200 }}>
           {/* {questions.map((question) => ( */}
-          <HardQuestionText question={question} key={question.id} />
+          <Animatable.View animation={'zoomIn'} duration={1000}>
+            <HardQuestionText question={question} key={question.id} />
+          </Animatable.View>
           {/* ))} */}
         </View>
         <View style={{ gap: 10, marginTop: 40 }}>
           {question?.Options &&
-            question?.Options.map((option) => (
-              <TouchableOpacity
-                onPress={() => {
-                  handlePress(option.title);
-                }}
-                key={option.id}
-              >
-                <SelectButton option={option} />
-              </TouchableOpacity>
+            question?.Options.map((option, index) => (
+              <Animatable.View key={option.id} animation={animations[index % 4]} duration={1000}>
+                <TouchableOpacity
+                  onPress={() => {
+                    handlePress(option.title);
+                  }}
+                >
+                  <SelectButton option={option} />
+                </TouchableOpacity>
+              </Animatable.View>
             ))}
         </View>
         <Button
