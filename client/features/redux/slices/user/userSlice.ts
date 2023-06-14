@@ -6,6 +6,7 @@ const initialState: UserType = {
   username: '',
   img: '',
   status: 'fetching',
+  crown: 0,
 };
 
 export const userSlice = createSlice({
@@ -13,6 +14,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserType>) => action.payload,
+    addCrown: (state, action: PayloadAction<UserType>) => {
+      state.crown = action.payload.crown;
+    },
     logoutUser: (state) => initialState,
     editUser: (state, action: PayloadAction<UserType>) => {
       state.username = action.payload.username;
@@ -23,6 +27,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, logoutUser, editUser, editImg } = userSlice.actions;
+export const { setUser, addCrown, logoutUser, editUser, editImg } = userSlice.actions;
 
 export default userSlice.reducer;

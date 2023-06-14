@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ThunkActionCreater } from '../../store';
-import { editImg, editUser, logoutUser, setUser } from './userSlice';
+import { addCrown, editImg, editUser, logoutUser, setUser } from './userSlice';
 import { LoginType, SignUpType, UserType } from '../../../../types/user/UserType';
 import { Platform } from 'react-native';
 import { API_URL } from '@env';
@@ -10,6 +10,7 @@ const guestUser = {
   username: '',
   img: '',
   status: 'fetching',
+  crown: 0,
 };
 
 export const checkUserThunk: ThunkActionCreater = () => (dispatch) => {
@@ -80,6 +81,19 @@ export const editUserImgThunk: ThunkActionCreater = (input) => (dispatch) => {
     )
     .then(({ data }) => {
       dispatch(editImg(data));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const addCrownUserThunk: ThunkActionCreater = () => (dispatch) => {
+  axios
+    .patch(
+      `http://${
+        Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
+      }:3000/api/user/add/crown`,
+    )
+    .then(({ data }) => {
+      dispatch(addCrown(data));
     })
     .catch((error) => console.log(error));
 };

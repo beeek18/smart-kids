@@ -4,11 +4,16 @@ import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } f
 import { Icon } from 'react-native-elements';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
+import {
+  addCrownUserThunk,
+  checkUserThunk,
+  logOutThunk,
+} from '../../features/redux/slices/user/userThunk';
 import { socketInit } from '../../features/ws/wsActions';
 
 export default function Home({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
+  const crown = useAppSelector((store) => store.user.crown);
 
   useEffect(() => {
     dispatch(socketInit());
@@ -51,6 +56,8 @@ export default function Home({ navigation }): JSX.Element {
   const onClick = () => {
     setImageVolumeToggle((prev) => !prev);
   };
+  const  = useAppSelector((store) => store.user.crown);
+
   const logOutHandler = async () => {
     if (sound) {
       sound.stopAsync();
@@ -70,7 +77,7 @@ export default function Home({ navigation }): JSX.Element {
             name="logout"
           />
           <Image style={styles.crown} source={require('../../assets/crown1.png')} />
-          <Text style={styles.point}> 1</Text>
+          <Text style={styles.point}>{crown}</Text>
           <Icon
             onPress={() => navigation.navigate('Info')}
             style={styles.buttonInfo}
