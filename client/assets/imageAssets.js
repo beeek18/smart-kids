@@ -4,5 +4,5 @@ export const ImagesAssets = {
   avatar3: require('./icons/avatar3.png'),
   avatar4: require('./icons/avatar4.png'),
   avatar5: require('./icons/avatar5.png'),
-  ///you can add more many images like this here.
+  crown: require('./crown1.png'),
 };
