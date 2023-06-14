@@ -23,10 +23,10 @@ router.post('/signup', async (req, res) => {
     });
 
     if (!created) {
-      return res.status(400).json({ message: 'Пользователь уже существует' });
+      return res.status(400).send({ message: 'Пользователь уже существует' });
     }
 
-    const userInfo = { id: user.id, username, img: user.img, status: 'logged' };
+    const userInfo = { id: user.id, username, img: user.img, status: 'logged', crown: user.crown };
     req.session.user = userInfo;
 
     res.status(200).json(userInfo);
@@ -40,22 +40,28 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      return res.status(400).json({ message: 'Заполните все поля' });
+      return res.status(400).send({ message: 'Заполните все поля' });
     }
 
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(400).json({ message: 'Пользователь не найден' });
+      return res.status(400).send({ message: 'Пользователь не найден' });
     }
 
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-      return res.status(400).json({ message: 'Указан неверный пароль' });
+      return res.status(400).send({ message: 'Указан неверный пароль' });
     }
 
-    const userInfo = { id: user.id, username: user.username, img: user.img, status: 'logged' };
+    const userInfo = {
+      id: user.id,
+      username: user.username,
+      img: user.img,
+      status: 'logged',
+      crown: user.crown,
+    };
 
     req.session.user = userInfo;
 
@@ -91,6 +97,15 @@ router.patch('/edit/avatar', async (req, res) => {
   await User.update({ img }, { where: { id } });
   const changedImg = await User.findByPk(id);
   res.json(changedImg);
+});
+router.patch('/add/crown', async (req, res) => {
+  const { id } = req.session.user;
+  const { crown } = await User.findByPk(id);
+
+  await User.update({ crown: crown + 10 }, { where: { id } });
+
+  const changedCrown = await User.findByPk(id);
+  res.json(changedCrown);
 });
 
 module.exports = router;

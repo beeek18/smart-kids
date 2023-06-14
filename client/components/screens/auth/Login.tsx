@@ -1,5 +1,5 @@
 import { Input, Text } from '@rneui/themed';
-import { useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import {
   Image,
   Keyboard,
@@ -10,11 +10,22 @@ import {
   View,
 } from 'react-native';
 import { ImagesAssets } from '../../../assets/imageAssets';
-import { useAppDispatch } from '../../../features/redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { loginThunk } from '../../../features/redux/slices/user/userThunk';
 import { LoginType } from '../../../types/user/UserType';
+import { setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 
 export default function Autorization({ navigation }) {
+  const error = useAppSelector((store) => store.error);
+
+  useEffect(() => {
+    if (error.isError) {
+      setTimeout(() => {
+        dispatch(setDefaultError())
+      }, 2000);
+    }
+  }, [error]);
+
   const [input, setInput] = useState<LoginType>({
     email: '',
     password: '',
@@ -28,13 +39,22 @@ export default function Autorization({ navigation }) {
   };
   const dispatch = useAppDispatch();
 
+  const inputEmailRef = createRef();
+  const inputPassRef = createRef();
+
   const loginHandler = () => {
+    if (input.email.trim() === '' || input.password === '') {
+      inputEmailRef.current.shake();
+      inputPassRef.current.shake();
+      return;
+    }
     try {
       dispatch(loginThunk(input));
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleTap = (): void => {
     Keyboard.dismiss();
   };
@@ -42,11 +62,12 @@ export default function Autorization({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={handleTap}>
       <KeyboardAvoidingView style={styles.view} behavior="padding">
-        <View style={styles.whiteFonAuto}>
-          <Text style={styles.textAuthorize}>ВОЙТИ В АККАУНТ</Text>
+        <View>
+          <Text style={styles.textAuthorize}>ВОЙТИ</Text>
         </View>
         <View>
           <Input
+            ref={inputEmailRef}
             style={styles.whiteFonInputs}
             value={input.email}
             onChangeText={(value) => handleChange('email', value)}
@@ -64,6 +85,7 @@ export default function Autorization({ navigation }) {
         </View>
         <View>
           <Input
+            ref={inputPassRef}
             style={styles.whiteFonInputs}
             value={input.password}
             onChangeText={(value) => handleChange('password', value)}
@@ -71,6 +93,7 @@ export default function Autorization({ navigation }) {
             enablesReturnKeyAutomatically
             textAlign="center"
             focusable
+            secureTextEntry={true}
             autoCorrect={false}
             spellCheck={false}
             textContentType="none"
@@ -81,9 +104,10 @@ export default function Autorization({ navigation }) {
               width: 250,
             }}
           ></Input>
+          {error.isError && <Text style={styles.errorText}>{error.text.message}</Text>}
         </View>
         <TouchableOpacity onPress={loginHandler} style={styles.whiteFonInputs}>
-          <Text style={styles.text}>Войти</Text>
+          <Text style={styles.text}>Вход</Text>
         </TouchableOpacity>
         <Image style={styles.image} source={ImagesAssets.avatar3} />
       </KeyboardAvoidingView>
@@ -124,10 +148,11 @@ const styles = StyleSheet.create({
   textAuthorize: {
     fontFamily: 'Jingle',
     color: 'blue',
-    fontSize: 28,
+    fontSize: 40,
     letterSpacing: 1,
     textAlign: 'center',
-    marginTop: 42,
+    marginTop: 100,
+    marginBottom: 80,
   },
   whiteFonAuto: {
     display: 'flex',
@@ -148,5 +173,10 @@ const styles = StyleSheet.create({
     height: 225,
     resizeMode: 'contain',
     transform: [{ rotate: '10deg' }],
+  },
+  errorText: {
+    fontFamily: 'Jingle',
+    color: 'red',
+    fontSize: 20,
   },
 });

@@ -1,5 +1,5 @@
 import { Input } from '@rneui/themed';
-import { useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import {
   Image,
   Keyboard,
@@ -10,17 +10,31 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useAppDispatch } from '../../../features/redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { signUpThunk } from '../../../features/redux/slices/user/userThunk';
 import { SignUpType } from '../../../types/user/UserType';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import { setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 
 export default function SignUp({ navigation }) {
+  const error = useAppSelector((store) => store.error);
   const [input, setInput] = useState<SignUpType>({
     username: '',
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (error.isError) {
+      setTimeout(() => {
+        dispatch(setDefaultError());
+      }, 2000);
+    }
+  }, [error]);
+
+  const inputEmailRef = createRef();
+  const inputPassRef = createRef();
+  const inputNameRef = createRef();
 
   const handleChange = (name, value): void => {
     setInput((prev) => ({
@@ -32,6 +46,12 @@ export default function SignUp({ navigation }) {
   const dispatch = useAppDispatch();
 
   const signUpHandler = (): void => {
+    if (input.email.trim() === '' || input.password === '' || input.username === '') {
+      inputEmailRef.current.shake();
+      inputPassRef.current.shake();
+      inputNameRef.current.shake();
+      return;
+    }
     try {
       dispatch(signUpThunk(input));
     } catch (error) {
@@ -54,6 +74,7 @@ export default function SignUp({ navigation }) {
               </View>
               <View>
                 <Input
+                  ref={inputNameRef}
                   cursorColor={'blue'}
                   style={styles.whiteFon}
                   value={input.username}
@@ -70,6 +91,7 @@ export default function SignUp({ navigation }) {
                   }}
                 ></Input>
                 <Input
+                  ref={inputEmailRef}
                   style={styles.whiteFon}
                   value={input.email}
                   onChangeText={(value) => handleChange('email', value)}
@@ -84,6 +106,7 @@ export default function SignUp({ navigation }) {
                   }}
                 ></Input>
                 <Input
+                  ref={inputPassRef}
                   style={styles.whiteFon}
                   value={input.password}
                   onChangeText={(value) => handleChange('password', value)}
@@ -99,8 +122,12 @@ export default function SignUp({ navigation }) {
                     backgroundColor: '#F0F0F0',
                   }}
                 ></Input>
+                {error.isError && <Text style={styles.errorText}>{error.text.message}</Text>}
               </View>
-              <TouchableOpacity onPress={signUpHandler} style={styles.whiteFon}>
+              <TouchableOpacity
+                onPress={signUpHandler}
+                style={[styles.whiteFon, { marginTop: 30 }]}
+              >
                 <Text style={styles.text}>Зарегистрироваться</Text>
               </TouchableOpacity>
               <Image style={styles.image} source={ImagesAssets.avatar3} />
@@ -160,7 +187,7 @@ const styles = StyleSheet.create({
   textAuthorize: {
     fontFamily: 'Jingle',
     color: 'blue',
-    fontSize: 30,
+    fontSize: 42,
     textAlign: 'center',
     marginTop: 40,
     letterSpacing: 2,
@@ -169,13 +196,8 @@ const styles = StyleSheet.create({
     marginBottom: 70,
     borderRadius: 10,
     alignItems: 'center',
-    width: 250,
+    width: 275,
     height: 120,
-    backgroundColor: 'white',
-    shadowColor: 'blue',
-    shadowOffset: { width: -7, height: 7 },
-    shadowOpacity: 5,
-    shadowRadius: 1,
   },
   image: {
     width: 225,
@@ -184,5 +206,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     transform: [{ rotate: '10deg' }],
     position: 'relative',
+  },
+  errorText: {
+    fontFamily: 'Jingle',
+    color: 'red',
+    fontSize: 20,
   },
 });
