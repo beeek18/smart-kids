@@ -14,4 +14,5 @@ export type UserType = {
   username: string;
   img: string;
   status: string;
+  crown: number;
 };

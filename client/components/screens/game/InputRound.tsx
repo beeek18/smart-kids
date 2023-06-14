@@ -1,13 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import {
-  Keyboard,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
@@ -17,14 +11,20 @@ import { ImagesAssets } from '../../../assets/imageAssets';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
-
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('Result');
-  //     }
-  //   }, 1000 * 15);
+  const [timeRemaining, setTimeRemaining] = useState(15);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('Result');
+      }
+    }, 1000 * 15);
 
   //   return () => clearTimeout(timeout);
   // }, [timerComplete]);
@@ -57,6 +57,9 @@ export default function HardTwoRound({ navigation }): JSX.Element {
   return (
     <>
       <View style={styles.container}>
+          <View>
+            <Text style={styles.timer}>{timeRemaining}</Text>
+          </View>
         <TouchableWithoutFeedback onPress={handleTap}>
           <View style={styles.content}>
             <TouchableOpacity style={styles.banner}>
@@ -157,5 +160,12 @@ const styles = StyleSheet.create({
     shadowColor: '#ebe134',
     shadowOpacity: 3,
     shadowRadius: 1,
+  },
+  timer: {
+    fontSize: 60,
+    top: -200,
+    marginLeft: 280,
+    color: 'white',
+    fontFamily: 'Jingle',
   },
 });

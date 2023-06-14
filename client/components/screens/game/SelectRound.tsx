@@ -8,8 +8,11 @@ import { getQuestionOptionThunk } from '../../../features/redux/slices/question/
 import SelectButton from '../../ui/Buttons.tsx/SelectButton';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import * as Animatable from 'react-native-animatable';
 
 export default function HardRound({ navigation }): JSX.Element {
+  // const animations = ['slideInDown', 'slideInUp', 'slideInLeft', 'slideInRight'];
+  const animations = ['fadeInUpBig', 'fadeInDownBig', 'fadeInLeftBig', 'fadeInRightBig'];
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,18 +21,28 @@ export default function HardRound({ navigation }): JSX.Element {
 
   const question = useAppSelector((store) => store.questions);
 
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
   const [timerComplete, setTimerComplete] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(15);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('InputRound');
-  //     }
-  //   }, 1000 * 15);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('InputRound');
+      }
+    }, 1000 * 15);
+
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -38,49 +51,51 @@ export default function HardRound({ navigation }): JSX.Element {
       dispatch(addPoint());
     }
     setArrowButton(true);
+    setSubmitButtonDisabled(false);
   };
-  // console.log(question.img);
-  // const questionImage = require(question.img);
   return (
     <>
       <Image style={styles.image} source={ImagesAssets.avatar3} />
       {arrowButton ? (
         <Image style={styles.questionImage} source={{ uri: question.img }} />
       ) : (
-        <Image
-          style={styles.questionmarkImage}
-          source={{
-            uri: 'https://marketplace.canva.com/iqS2k/MAEl8EiqS2k/1/tl/canva-question-mark-illustration-MAEl8EiqS2k.png',
-          }}
-        />
+        <Text style={styles.timer}>{timeRemaining}</Text>
       )}
 
       <View style={styles.container}>
-        <View style={styles.blueFon}>
-          <Text style={styles.text}>Несколько вариантов</Text>
-        </View>
+        <Animatable.View animation={'lightSpeedIn'} duration={800}>
+          <View style={styles.blueFon}>
+            <Text style={styles.text}>Несколько вариантов</Text>
+          </View>
+        </Animatable.View>
         <View style={{ marginTop: 200 }}>
-          <HardQuestionText question={question} key={question.id} />
+          {/* {questions.map((question) => ( */}
+          <Animatable.View animation={'zoomIn'} duration={1000}>
+            <HardQuestionText question={question} key={question.id} />
+          </Animatable.View>
+          {/* ))} */}
         </View>
         <View style={{ gap: 10, marginTop: 40 }}>
           {question?.Options &&
-            question?.Options.map((option) => (
-              <TouchableOpacity
-                onPress={() => {
-                  handlePress(option.title);
-                }}
-                key={option.id}
-              >
-                <SelectButton option={option} />
-              </TouchableOpacity>
+            question?.Options.map((option, index) => (
+              <Animatable.View key={option.id} animation={animations[index % 4]} duration={1000}>
+                <TouchableOpacity
+                  onPress={() => {
+                    handlePress(option.title);
+                  }}
+                >
+                  <SelectButton option={option} />
+                </TouchableOpacity>
+              </Animatable.View>
             ))}
         </View>
         <Button
-          icon={<MaterialIcons name="arrow-forward" size={40} />}
+          icon={<MaterialIcons name="arrow-forward" size={24} color="#ecc3fa" />}
           onPress={() => {
             setTimerComplete(true);
             navigation.navigate('InputRound');
           }}
+          disabled={submitButtonDisabled}
           buttonStyle={{ ...styles.submitButton, opacity: arrowButton ? 1 : 0 }}
         />
       </View>
@@ -97,7 +112,7 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     backgroundColor: 'blue',
-    // marginBottom: 0,
+    marginBottom: 10,
     marginLeft: 300,
     width: 50,
     borderRadius: 15,
@@ -105,7 +120,7 @@ const styles = StyleSheet.create({
       width: -5,
       height: 5,
     },
-    shadowColor: '#ebe134',
+    shadowColor: '#ecc3fa',
     shadowOpacity: 3,
     shadowRadius: 1,
   },
@@ -158,14 +173,13 @@ const styles = StyleSheet.create({
     zIndex: 2,
     borderRadius: 300,
   },
-  questionmarkImage: {
-    width: 160,
-    height: 160,
+  timer: {
     position: 'absolute',
     marginTop: 160,
-    marginLeft: 115,
+    marginLeft: 165,
     zIndex: 2,
-    borderRadius: 0,
-    resizeMode: 'contain',
+    fontSize: 100,
+    color: 'white',
+    fontFamily: 'Jingle',
   },
 });

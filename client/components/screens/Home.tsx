@@ -4,11 +4,16 @@ import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } f
 import { Icon } from 'react-native-elements';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
+import {
+  addCrownUserThunk,
+  checkUserThunk,
+  logOutThunk,
+} from '../../features/redux/slices/user/userThunk';
 import { socketInit } from '../../features/ws/wsActions';
 
 export default function Home({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
+  const crown = useAppSelector((store) => store.user.crown);
 
   useEffect(() => {
     dispatch(socketInit());
@@ -51,6 +56,7 @@ export default function Home({ navigation }): JSX.Element {
   const onClick = () => {
     setImageVolumeToggle((prev) => !prev);
   };
+
   const logOutHandler = async () => {
     if (sound) {
       sound.stopAsync();
@@ -66,16 +72,16 @@ export default function Home({ navigation }): JSX.Element {
             color="blue"
             onPress={logOutHandler}
             style={styles.buttonLogout}
-            size={55}
+            size={45}
             name="logout"
           />
           <Image style={styles.crown} source={require('../../assets/crown1.png')} />
-          <Text style={styles.point}> 1</Text>
+          <Text style={styles.point}>{crown}</Text>
           <Icon
             onPress={() => navigation.navigate('Info')}
             style={styles.buttonInfo}
             name="info-outline"
-            size={55}
+            size={45}
             color="blue"
           />
           {imageVolumeToggle !== true && (
@@ -84,7 +90,7 @@ export default function Home({ navigation }): JSX.Element {
                 onClick(), changeVolume(0);
               }}
               color="blue"
-              size={50}
+              size={45}
               name="audiotrack"
             />
           )}
@@ -93,7 +99,7 @@ export default function Home({ navigation }): JSX.Element {
               onPress={() => {
                 onClick(), changeVolume(1);
               }}
-              size={50}
+              size={45}
               color="blue"
               name="music-off"
             />
@@ -185,15 +191,16 @@ const styles = StyleSheet.create({
   },
   buttonInfo: {
     fontSize: 45,
-    marginLeft: 95,
+    marginLeft: 125,
+    marginRight: 10,
   },
   buttonLogout: {
     marginRight: 140,
   },
 
   crown: {
-    width: 60,
-    height: 60,
+    width: 45,
+    height: 45,
     resizeMode: 'contain',
     marginLeft: -100,
     fontFamily: 'Jingle',

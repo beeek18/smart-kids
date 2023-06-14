@@ -2,22 +2,29 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 
 export default function Welcome({ navigation }): JSX.Element {
   return (
     <View style={styles.view}>
-      <View style={styles.whiteFon}>
-        <Text style={styles.text}>DЕТИ - УМНЫЕ!</Text>
-        <Text style={styles.textCard}>Но кто станет самым умным в этой викторине?</Text>
-      </View>
-      <Image style={styles.image} source={ImagesAssets.avatar2} />
-      <Button
-        icon={<MaterialIcons name="arrow-forward" size={40} color={'blue'} />}
-        onPress={() => {
-          navigation.navigate('Autorization');
-        }}
-        buttonStyle={styles.submitButton}
-      />
+      <Animatable.View animation={'bounceInRight'} duration={1500}>
+        <View style={styles.whiteFon}>
+          <Text style={styles.text}>DЕТИ - УМНЫЕ!</Text>
+          <Text style={styles.textCard}>Но кто станет самым умным в этой викторине?</Text>
+        </View>
+      </Animatable.View>
+      <Animatable.View animation={'flipInY'} duration={1500}>
+        <Image style={styles.image} source={ImagesAssets.avatar2} />
+      </Animatable.View>
+      <Animatable.View animation={'lightSpeedIn'} duration={1500}>
+        <Button
+          icon={<MaterialIcons name="arrow-forward" size={40} color={'blue'} />}
+          onPress={() => {
+            navigation.navigate('Autorization');
+          }}
+          buttonStyle={styles.submitButton}
+        />
+      </Animatable.View>
     </View>
   );
 }

@@ -15,6 +15,7 @@ export type GameVoteType = string;
 export type GameAllScoreType = {
   username: string;
   score: number;
+  img: string;
 };
 
 export type GameStatusType = GameStateInfoType & {

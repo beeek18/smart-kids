@@ -5,20 +5,24 @@ export default function Autorization({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.innerView}>
-        <View style={styles.whiteFonAuto}>
+        <View>
           <Text style={styles.textAuthorize}>АВТОРИЗАЦИЯ</Text>
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.whiteFon}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => {
+            navigation.navigate('SignUp');
+          }}
         >
           <Text style={styles.text}>Зарегистрироваться</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.whiteFon}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => {
+            navigation.navigate('Login');
+          }}
         >
           <Text style={styles.text}>Войти</Text>
         </TouchableOpacity>
@@ -45,9 +49,10 @@ const styles = StyleSheet.create({
   textAuthorize: {
     fontFamily: 'Jingle',
     color: 'blue',
-    fontSize: 30,
+    fontSize: 50,
     textAlign: 'center',
-    marginTop: 40,
+    marginTop: 20,
+    marginBottom: 60,
     letterSpacing: 2,
   },
   whiteFonAuto: {
@@ -55,8 +60,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 250,
     height: 120,
-    backgroundColor: 'white',
-    shadowColor: 'blue',
+    backgroundColor: 'blue',
+    shadowColor: 'white',
     shadowOffset: { width: -7, height: 7 },
     shadowOpacity: 5,
     shadowRadius: 1,
