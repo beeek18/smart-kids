@@ -3,7 +3,6 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Button, Image } from 'react-native-elements';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { useAppSelector } from '../../../features/redux/hooks';
-import store from '../../../features/redux/store';
 
 export default function Categories({ navigation }): JSX.Element {
   const players = useAppSelector((store) => store.game.allPlayers);
