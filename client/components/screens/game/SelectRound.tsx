@@ -1,12 +1,13 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionOptionThunk } from '../../../features/redux/slices/question/questionSlice';
 import SelectButton from '../../ui/Buttons.tsx/SelectButton';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
+import { ImagesAssets } from '../../../assets/imageAssets';
 
 export default function HardRound({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,16 +20,16 @@ export default function HardRound({ navigation }): JSX.Element {
 
   const [timerComplete, setTimerComplete] = useState(false);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!timerComplete) {
-        setTimerComplete(true);
-        navigation.navigate('InputRound');
-      }
-    }, 1000 * 15);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     if (!timerComplete) {
+  //       setTimerComplete(true);
+  //       navigation.navigate('InputRound');
+  //     }
+  //   }, 1000 * 15);
 
-    return () => clearTimeout(timeout);
-  }, [timerComplete]);
+  //   return () => clearTimeout(timeout);
+  // }, [timerComplete]);
 
   const [arrowButton, setArrowButton] = useState(false);
 
@@ -38,15 +39,32 @@ export default function HardRound({ navigation }): JSX.Element {
     }
     setArrowButton(true);
   };
+  // console.log(question.img);
+  // const questionImage = require(question.img);
   return (
     <>
+      <Image style={styles.image} source={ImagesAssets.avatar3} />
+      {arrowButton ? (
+        <Image style={styles.questionImage} source={{ uri: question.img }} />
+      ) : (
+        <Image
+          style={styles.questionmarkImage}
+          source={{
+            uri: 'https://marketplace.canva.com/iqS2k/MAEl8EiqS2k/1/tl/canva-question-mark-illustration-MAEl8EiqS2k.png',
+          }}
+        />
+      )}
+
       <View style={styles.container}>
-        <View>
+        <View style={styles.blueFon}>
+          <Text style={styles.text}>Несколько вариантов</Text>
+        </View>
+        <View style={{ marginTop: 200 }}>
           {/* {questions.map((question) => ( */}
           <HardQuestionText question={question} key={question.id} />
           {/* ))} */}
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ gap: 10, marginTop: 40 }}>
           {question?.Options &&
             question?.Options.map((option) => (
               <TouchableOpacity
@@ -59,18 +77,14 @@ export default function HardRound({ navigation }): JSX.Element {
               </TouchableOpacity>
             ))}
         </View>
-      </View>
-      <View>
-        {arrowButton && (
-          <Button
-            icon={<MaterialIcons name="arrow-forward" size={40} />}
-            onPress={() => {
-              setTimerComplete(true);
-              navigation.navigate('InputRound');
-            }}
-            buttonStyle={styles.submitButton}
-          />
-        )}
+        <Button
+          icon={<MaterialIcons name="arrow-forward" size={40} />}
+          onPress={() => {
+            setTimerComplete(true);
+            navigation.navigate('InputRound');
+          }}
+          buttonStyle={{ ...styles.submitButton, opacity: arrowButton ? 1 : 0 }}
+        />
       </View>
     </>
   );
@@ -84,7 +98,76 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitButton: {
+    backgroundColor: 'blue',
+    // marginBottom: 0,
+    marginLeft: 300,
+    width: 50,
+    borderRadius: 15,
+    shadowOffset: {
+      width: -5,
+      height: 5,
+    },
+    shadowColor: '#ebe134',
+    shadowOpacity: 3,
+    shadowRadius: 1,
+  },
+  text: {
+    fontFamily: 'Jingle',
+    color: 'white',
+    fontSize: 25,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  whiteFon: {
+    borderRadius: 10,
+    alignItems: 'center',
+    width: 250,
+    height: 80,
     backgroundColor: 'white',
-    color: 'blue',
+    shadowColor: 'blue',
+    shadowOffset: { width: -7, height: 7 },
+    shadowOpacity: 5,
+    shadowRadius: 1,
+  },
+  blueFon: {
+    borderRadius: 10,
+    alignItems: 'center',
+    width: 280,
+    height: 50,
+    backgroundColor: 'blue',
+    shadowColor: 'white',
+    shadowOffset: { width: -10, height: 10 },
+    shadowOpacity: 5,
+    shadowRadius: 1,
+    marginTop: 80,
+    zIndex: 0,
+  },
+  image: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
+    position: 'absolute',
+    marginTop: 45,
+    marginLeft: 165,
+    zIndex: 1,
+  },
+  questionImage: {
+    width: 160,
+    height: 160,
+    position: 'absolute',
+    marginTop: 160,
+    marginLeft: 115,
+    zIndex: 2,
+    borderRadius: 300,
+  },
+  questionmarkImage: {
+    width: 160,
+    height: 160,
+    position: 'absolute',
+    marginTop: 160,
+    marginLeft: 115,
+    zIndex: 2,
+    borderRadius: 0,
+    resizeMode: 'contain',
   },
 });
