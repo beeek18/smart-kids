@@ -26,7 +26,7 @@ router.post('/signup', async (req, res) => {
       return res.status(400).send({ message: 'Пользователь уже существует' });
     }
 
-    const userInfo = { id: user.id, username, img: user.img, status: 'logged' };
+    const userInfo = { id: user.id, username, img: user.img, status: 'logged', crown: user.crown };
     req.session.user = userInfo;
 
     res.status(200).json(userInfo);
@@ -55,7 +55,13 @@ router.post('/login', async (req, res) => {
       return res.status(400).send({ message: 'Указан неверный пароль' });
     }
 
-    const userInfo = { id: user.id, username: user.username, img: user.img, status: 'logged' };
+    const userInfo = {
+      id: user.id,
+      username: user.username,
+      img: user.img,
+      status: 'logged',
+      crown: user.crown,
+    };
 
     req.session.user = userInfo;
 
@@ -91,6 +97,15 @@ router.patch('/edit/avatar', async (req, res) => {
   await User.update({ img }, { where: { id } });
   const changedImg = await User.findByPk(id);
   res.json(changedImg);
+});
+router.patch('/add/crown', async (req, res) => {
+  const { id } = req.session.user;
+  const { crown } = await User.findByPk(id);
+
+  await User.update({ crown: crown + 10 }, { where: { id } });
+
+  const changedCrown = await User.findByPk(id);
+  res.json(changedCrown);
 });
 
 module.exports = router;

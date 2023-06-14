@@ -42,7 +42,6 @@ export default function HardRound({ navigation }): JSX.Element {
     setArrowButton(true);
     setSubmitButtonDisabled(false);
   };
-
   return (
     <>
       <Image style={styles.image} source={ImagesAssets.avatar3} />
