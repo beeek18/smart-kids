@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   img: {
     position: 'absolute',
     width: 190,
-    marginTop: 90,
+    marginTop: 70,
     marginLeft: 230,
     height: 100,
     transform: [{ rotate: '380deg' }],
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 40,
     width: 325,
-    height: 90,
+    height: 100,
     shadowColor: 'blue',
     shadowOffset: { width: -5, height: 5 },
     shadowOpacity: 3,

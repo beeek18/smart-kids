@@ -46,6 +46,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
       <View style={styles.container}>
         <View style={styles.content}>
           <QuestionText question={question} />
+
           <View style={{ position: 'absolute', height: 460 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
