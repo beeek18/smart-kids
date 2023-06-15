@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../features/redux/hooks';
 import { Image } from 'react-native-elements';
 import { ImagesAssets } from '../../../assets/imageAssets';
 
-type Props = {
+type SelectButtonProps = {
   option: {
     id: number;
     title: string;
@@ -13,7 +13,11 @@ type Props = {
   answered: boolean;
 };
 
-export default function SelectButton({ option, question, answered }: Props): JSX.Element {
+export default function SelectButton({
+  option,
+  question,
+  answered,
+}: SelectButtonProps): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{option?.title}</Text>

@@ -57,7 +57,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
   const [answered, setAnswered] = useState(false);
 
   const handleSubmit = () => {
-    if (answer.toLowerCase() === question.answer.toLowerCase()) {
+    if (answer.toLowerCase().trim() === question.answer.toLowerCase().trim()) {
       dispatch(addPoint());
     }
     clickSound();

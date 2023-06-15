@@ -5,7 +5,7 @@ import { Button, Image, Input } from 'react-native-elements';
 import { QuestionType } from '../../../types/question/QuestionType';
 import { ImagesAssets } from '../../../assets/imageAssets';
 
-type Props = {
+type InputQuestionTextProps = {
   question: QuestionType;
   answer: string;
   setAnswer: (answer: string) => void;
@@ -19,7 +19,7 @@ export default function InputQuestionText({
   setAnswer,
   handleSubmit,
   answered,
-}: Props): JSX.Element {
+}: InputQuestionTextProps): JSX.Element {
   return (
     <>
       <KeyboardAvoidingView style={styles.view} behavior="padding">
@@ -37,7 +37,10 @@ export default function InputQuestionText({
               <Image
                 style={{
                   ...styles.imageCrown,
-                  opacity: answered && question.answer === answer ? 1 : 0,
+                  opacity:
+                    answered && question.answer.toLowerCase().trim() === answer.toLowerCase().trim()
+                      ? 1
+                      : 0,
                 }}
                 source={ImagesAssets.crown}
               />
