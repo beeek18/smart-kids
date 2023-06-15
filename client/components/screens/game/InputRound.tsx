@@ -1,7 +1,13 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import {
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import { Button, Image, Input, Text } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
@@ -12,20 +18,21 @@ import { ImagesAssets } from '../../../assets/imageAssets';
 export default function HardTwoRound({ navigation }): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!timerComplete) {
-        setTimerComplete(true);
-        navigation.navigate('Result');
-      }
-    }, 1000 * 15);
 
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     if (!timerComplete) {
+  //       setTimerComplete(true);
+  //       navigation.navigate('Result');
+  //     }
+  //   }, 1000 * 15);
   //   return () => clearTimeout(timeout);
   // }, [timerComplete]);
 
@@ -52,21 +59,22 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     }
     setArrowButton(true);
     setSubmitButtonDisabled(false);
+    handleTap();
   };
 
   return (
     <>
       <View style={styles.container}>
-          <View>
-            <Text style={styles.timer}>{timeRemaining}</Text>
-          </View>
+        <View>
+          <Text style={styles.timer}>{timeRemaining}</Text>
+        </View>
         <TouchableWithoutFeedback onPress={handleTap}>
           <View style={styles.content}>
-            <TouchableOpacity style={styles.banner}>
+            <View style={styles.banner}>
               <Text style={styles.bannerText}>Введите ответ</Text>
-            </TouchableOpacity>
+            </View>
             <View>
-              <View style={{ position: 'absolute', top: -150, height: 150, right: -95 }}>
+              <View style={{ position: 'relative', top: -120, height: 150, zIndex: 1 }}>
                 <Image style={styles.image} source={ImagesAssets.avatar4} />
               </View>
               <InputQuestion
@@ -101,7 +109,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fcaf62',
     zIndex: 0,
   },
   content: {

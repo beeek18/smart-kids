@@ -25,7 +25,12 @@ export default function InputQuestionText({
         <View style={styles.container}>
           <Text style={styles.text}>{question?.title}</Text>
           <View style={styles.inputContainer}>
-            <Input value={answer} onChangeText={setAnswer} containerStyle={styles.input} />
+            <Input
+              value={answer}
+              onChangeText={setAnswer}
+              containerStyle={styles.input}
+              inputStyle={styles.inputText}
+            />
             <Button
               icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
               onPress={handleSubmit}
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 10,
     backgroundColor: '#ebe134',
-    marginBottom: 10,
+    marginBottom: 85,
     shadowColor: 'blue',
     shadowOffset: { width: -7, height: 7 },
     shadowOpacity: 5,
@@ -75,6 +80,9 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginRight: 10,
+  },
+  inputText: {
+    fontFamily: 'Jingle',
   },
   submitButton: {
     backgroundColor: 'blue',
