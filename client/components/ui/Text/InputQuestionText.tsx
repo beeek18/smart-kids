@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import { QuestionType } from '../../../types/question/QuestionType';
-import { Button, Image, Input } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useAppDispatch } from '../../../features/redux/hooks';
-import { ImagesAssets } from '../../../assets/imageAssets';
 
-type Props = {
+import { QuestionType } from '../../../types/question/QuestionType';
+
+type InputQuestionTextProps = {
   question: QuestionType;
   answer: string;
   setAnswer: (answer: string) => void;
@@ -18,7 +16,7 @@ export default function InputQuestionText({
   answer,
   setAnswer,
   handleSubmit,
-}: Props): JSX.Element {
+}: InputQuestionTextProps): JSX.Element {
   return (
     <>
       <KeyboardAvoidingView style={styles.view} behavior="padding">

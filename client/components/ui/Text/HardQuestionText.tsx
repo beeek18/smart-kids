@@ -1,13 +1,12 @@
-import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { QuestionType } from '../../../types/question/QuestionType';
-import { Input } from 'react-native-elements';
 
-type Props = {
+import { QuestionType } from '../../../types/question/QuestionType';
+
+type HardQuestionTextProps = {
   question: QuestionType;
 };
 
-export default function HardQuestionText({ question }: Props): JSX.Element {
+export default function HardQuestionText({ question }: HardQuestionTextProps): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{question?.title}</Text>

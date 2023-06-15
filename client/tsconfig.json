@@ -5,6 +5,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@env": ["./env"]
-    }
+    },
+    "allowImportingTsExtensions": true
   }
 }

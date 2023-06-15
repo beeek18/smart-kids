@@ -1,15 +1,13 @@
-import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { QuestionType } from '../../../types/question/QuestionType';
-import { useAppDispatch } from '../../../features/redux/hooks';
-type Props = {
+
+type SelectButtonProps = {
   option: {
     id: number;
     title: string;
   };
 };
 
-export default function SelectButton({ option }: Props): JSX.Element {
+export default function SelectButton({ option }: SelectButtonProps): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{option?.title}</Text>

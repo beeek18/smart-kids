@@ -1,21 +1,20 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
-import {
-  Keyboard,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, Image, Text } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
-import HardQuestionText from '../../ui/Text/HardQuestionText';
 import InputQuestion from '../../ui/Text/InputQuestionText';
-import { ImagesAssets } from '../../../assets/imageAssets';
 
-export default function HardTwoRound({ navigation }): JSX.Element {
+type InputRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function InputRound({ navigation }: InputRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
 
@@ -26,15 +25,15 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     return () => clearInterval(timer);
   }, []);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('Result');
-  //     }
-  //   }, 1000 * 15);
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('Result');
+      }
+    }, 1000 * 15);
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 

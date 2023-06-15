@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+
 import { QuestionType } from '../../../types/question/QuestionType';
 
 type QuestionTextProps = {
