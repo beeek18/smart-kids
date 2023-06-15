@@ -2,15 +2,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Button, Image, Text } from 'react-native-elements';
 
 import { ImagesAssets } from '../../../assets/imageAssets';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import InputQuestion from '../../ui/Text/InputQuestionText';
-import clickSound from '../../../features/clickSound';
-import * as Animatable from 'react-native-animatable';
 
 type InputRoundProps = {
   navigation: StackNavigationProp<any, any>;

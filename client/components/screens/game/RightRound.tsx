@@ -6,12 +6,11 @@ import * as Animatable from 'react-native-animatable';
 import { Button, Image } from 'react-native-elements';
 
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import QuestionText from '../../ui/Text/QuestionText';
-
-import clickSound from '../../../features/clickSound';
 
 type RightRoundProps = {
   navigation: StackNavigationProp<any, any>;

@@ -13,8 +13,6 @@ import {
   statusGameAction,
 } from '../../../features/redux/slices/game/gameAction';
 
-
-
 type LobbyProps = {
   navigation: StackNavigationProp<any, any>;
 };

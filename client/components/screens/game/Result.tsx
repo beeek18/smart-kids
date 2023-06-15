@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import {
   getAllScoreAction,
@@ -10,7 +11,6 @@ import {
 } from '../../../features/redux/slices/game/gameAction';
 import { resetRoom } from '../../../features/redux/slices/game/gameSlice';
 import { addCrownUserThunk } from '../../../features/redux/slices/user/userThunk';
-import clickSound from '../../../features/clickSound';
 
 type ResultProps = {
   navigation: StackNavigationProp<any, any>;

@@ -5,10 +5,10 @@ import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } f
 import { Icon } from 'react-native-elements';
 
 import { ImagesAssets } from '../../assets/imageAssets';
+import clickSound from '../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
 import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
 import { socketInit } from '../../features/ws/wsActions';
-import clickSound from '../../features/clickSound';
 
 type HomeProps = {
   navigation: StackNavigationProp<any, any>;
@@ -222,7 +222,6 @@ const styles = StyleSheet.create({
     height: 45,
     resizeMode: 'contain',
     marginLeft: -100,
-    fontFamily: 'Jingle',
   },
   point: {
     fontSize: 40,

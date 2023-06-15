@@ -13,10 +13,6 @@ import { getQuestionOptionThunk } from '../../../features/redux/slices/question/
 import SelectButton from '../../ui/Buttons/SelectButton';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
 
-
-
-  
-
 type HardRoundProps = {
   navigation: StackNavigationProp<any, any>;
 };

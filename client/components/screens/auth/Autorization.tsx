@@ -1,8 +1,8 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import { ImagesAssets } from '../../../assets/imageAssets';
 import clickSound from '../../../features/clickSound';
-
 
 type AutorizationProps = {
   navigation: StackNavigationProp<any, any>;

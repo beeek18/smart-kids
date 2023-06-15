@@ -1,11 +1,11 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Button, Image } from 'react-native-elements';
 
-import { StackNavigationProp } from '@react-navigation/stack';
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
-import { useAppSelector } from '../../../features/redux/hooks';
 import clickSound from '../../../features/clickSound';
+import { useAppSelector } from '../../../features/redux/hooks';
 
 type CategoriesProps = {
   navigation: StackNavigationProp<any, any>;

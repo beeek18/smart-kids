@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
+import { useAppSelector } from '../features/redux/hooks';
 
 import Home from './screens/Home';
 import Info from './screens/Info';
@@ -19,9 +19,6 @@ import RightRound from './screens/game/RightRound';
 import SelectRound from './screens/game/SelectRound';
 import IntroHard from './screens/intro/IntroHard';
 import IntroSimple from './screens/intro/IntroSimple';
-import { Audio } from 'expo-av';
-import { storeSound } from '../features/redux/slices/sound/soundSlice';
-import { useEffect } from 'react';
 
 const Stack = createStackNavigator();
 

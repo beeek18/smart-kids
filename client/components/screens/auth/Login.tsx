@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { defaultError, setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 import { loginThunk } from '../../../features/redux/slices/user/userThunk';
 import { LoginType } from '../../../types/user/UserType';
-import clickSound from '../../../features/clickSound';
 
 export default function Autorization() {
   const error = useAppSelector((store) => store.error);

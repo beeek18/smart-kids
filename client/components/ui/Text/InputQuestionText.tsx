@@ -1,6 +1,6 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
-import { MaterialIcons } from '@expo/vector-icons';
 
 import { QuestionType } from '../../../types/question/QuestionType';
 
