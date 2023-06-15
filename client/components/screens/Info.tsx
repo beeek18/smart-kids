@@ -18,20 +18,20 @@ export default function Info({ navigation }: InfoProps): JSX.Element {
         </View>
         <View style={styles.bannerRules}>
           <Text style={styles.rules}>
-            В этой игре 3 раунда: легкий, средний и простой. Игра расчитана до 7 игроков. На ответ
-            дается 15 секунд.
+            Играть можно компанией до 7 играков. На ответ дается 15 секунд, в последнем раунде 20
+            секунд. В игре 4 раунда.
           </Text>
         </View>
         <View style={styles.bannerRules}>
           <Text style={styles.rules}>
-            На каждом вопросе есть только один правильный ответ. Неправильно написанные ответы не
-            считаются.
+            У каждого раунда свой уровень сложности. На каждом вопросе есть только один правильный
+            ответ.
           </Text>
         </View>
-        <View style={styles.bannerRules}>
+        <View style={styles.bannerRules1}>
           <Text style={styles.rules}>
-            Игрокам не разрешается просить помощь с ответами, в том числе смотреть ответы в
-            интернете.
+            За правильный ответ начисляется 1 балл, за неправильный - 0. За все правильные ответы Вы
+            получаете 10 корон, которые можно обменять на призы.
           </Text>
         </View>
         <Button
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   img: {
     position: 'absolute',
     width: 190,
-    marginTop: 70,
+    marginTop: 65,
     marginLeft: 230,
     height: 100,
     transform: [{ rotate: '380deg' }],
@@ -73,6 +73,19 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     width: 325,
     height: 100,
+    shadowColor: 'blue',
+    shadowOffset: { width: -5, height: 5 },
+    shadowOpacity: 3,
+    shadowRadius: 1,
+    zIndex: 0,
+  },
+  bannerRules1: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 40,
+    width: 325,
+    height: 130,
     shadowColor: 'blue',
     shadowOffset: { width: -5, height: 5 },
     shadowOpacity: 3,
