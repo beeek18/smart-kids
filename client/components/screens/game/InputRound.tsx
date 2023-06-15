@@ -2,6 +2,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import {
   Keyboard,
+  KeyboardAvoidingView,
+  KeyboardAvoidingViewBase,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -40,6 +42,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
 
   const [arrowButton, setArrowButton] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
     dispatch(getQuestionsThunk(4));
@@ -60,6 +63,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     setArrowButton(true);
     setSubmitButtonDisabled(false);
     handleTap();
+    setShowImage(true);
   };
 
   return (
@@ -70,11 +74,22 @@ export default function HardTwoRound({ navigation }): JSX.Element {
         </View>
         <TouchableWithoutFeedback onPress={handleTap}>
           <View style={styles.content}>
-            <View style={styles.banner}>
-              <Text style={styles.bannerText}>Введите ответ</Text>
-            </View>
+            {showImage ? (
+              <Image
+                source={{ uri: question.img }}
+                style={{
+                  width: 300,
+                  height: 300,
+                  borderRadius: 150,
+                }}
+              />
+            ) : (
+              <View style={styles.banner}>
+                <Text style={styles.bannerText}>Введите ответ</Text>
+              </View>
+            )}
             <View>
-              <View style={{ position: 'relative', top: -120, height: 150, zIndex: 1 }}>
+              <View style={{ position: 'relative', top: -190, height: 150, zIndex: 1 }}>
                 <Image style={styles.image} source={ImagesAssets.avatar4} />
               </View>
               <InputQuestion
@@ -116,7 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    rowGap: 100,
+    rowGap: 140,
   },
   banner: {
     padding: 10,
