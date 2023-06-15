@@ -9,8 +9,10 @@ import {
 } from '../../../features/redux/slices/game/gameAction';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-elements';
+import clickSound from '../../../features/clickSound';
 
 export default function Lobby({ navigation }): JSX.Element {
+
   const dispatch = useAppDispatch();
 
   const allPlayers = useAppSelector((store) => store.game.allPlayers);
@@ -51,10 +53,19 @@ export default function Lobby({ navigation }): JSX.Element {
       <View style={styles.buttons}>
         <Button
           icon={<MaterialIcons name="arrow-back" color={'blue'} size={24} />}
-          onPress={leftLobby}
+          onPress={() => {
+            clickSound();
+            leftLobby();
+          }}
           buttonStyle={styles.submitButton}
         />
-        <TouchableOpacity onPress={handleStart} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            clickSound();
+            handleStart();
+          }}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>Начать</Text>
         </TouchableOpacity>
       </View>

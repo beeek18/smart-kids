@@ -8,8 +8,11 @@ import QuestionText from '../../ui/Text/QuestionText';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import * as Animatable from 'react-native-animatable';
+import clickSound from '../../../features/clickSound';
 
 export default function SimpleRound({ navigation }): JSX.Element {
+
+
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
   useEffect(() => {
@@ -66,13 +69,25 @@ export default function SimpleRound({ navigation }): JSX.Element {
           <View style={{ flexDirection: 'row', marginTop: 20 }}>
             <View style={styles.buttonContainer}>
               <Animatable.View animation={'bounceInLeft'} duration={1000}>
-                <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    clickSound();
+                    handlePress('Да');
+                  }}
+                >
                   <Text style={styles.buttonText}>ДА</Text>
                 </TouchableOpacity>
               </Animatable.View>
               <View style={styles.buttonSeparator} />
               <Animatable.View animation={'bounceInRight'} duration={1000}>
-                <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    clickSound();
+                    handlePress('Нет');
+                  }}
+                >
                   <Text style={styles.buttonText}>НЕТ</Text>
                 </TouchableOpacity>
               </Animatable.View>
@@ -82,6 +97,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color={'#ebe134'} />}
           onPress={() => {
+            clickSound();
             setTimerComplete(true);
             navigation.navigate('RightRound');
           }}

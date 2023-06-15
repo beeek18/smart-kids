@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import { useAppSelector } from '../../../features/redux/hooks';
 
 export default function IntroSimple({ navigation }): JSX.Element {
   useEffect(() => {

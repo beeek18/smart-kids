@@ -6,8 +6,10 @@ import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
+import clickSound from '../../../features/clickSound';
 
 export default function HardTwoRound({ navigation }): JSX.Element {
+
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
   useEffect(() => {
@@ -64,7 +66,10 @@ export default function HardTwoRound({ navigation }): JSX.Element {
             />
             <Button
               icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
-              onPress={handleSubmit}
+              onPress={() => {
+                clickSound();
+                handleSubmit();
+              }}
               buttonStyle={styles.submitButton}
             />
           </View>
@@ -75,6 +80,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
           <Button
             icon={<MaterialIcons name="arrow-forward" size={40} />}
             onPress={() => {
+              clickSound();
               setTimerComplete(true);
               navigation.navigate('Result');
             }}

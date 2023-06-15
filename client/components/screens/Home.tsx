@@ -10,6 +10,7 @@ import {
   logOutThunk,
 } from '../../features/redux/slices/user/userThunk';
 import { socketInit } from '../../features/ws/wsActions';
+import clickSound from '../../features/clickSound';
 
 export default function Home({ navigation }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ export default function Home({ navigation }): JSX.Element {
   async function playSound() {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(require('../../assets/mainsound.mp3'));
+    await sound.setVolumeAsync(0.02);
     await sound.setIsLoopingAsync(true);
     console.log('Playing Sound');
     setSound(sound);
@@ -70,7 +72,10 @@ export default function Home({ navigation }): JSX.Element {
         <View style={styles.info}>
           <Icon
             color="blue"
-            onPress={logOutHandler}
+            onPress={() => {
+              clickSound();
+              logOutHandler();
+            }}
             style={styles.buttonLogout}
             size={45}
             name="logout"
@@ -78,7 +83,10 @@ export default function Home({ navigation }): JSX.Element {
           <Image style={styles.crown} source={require('../../assets/crown1.png')} />
           <Text style={styles.point}>{crown}</Text>
           <Icon
-            onPress={() => navigation.navigate('Info')}
+            onPress={() => {
+              clickSound();
+              navigation.navigate('Info');
+            }}
             style={styles.buttonInfo}
             name="info-outline"
             size={45}
@@ -87,6 +95,7 @@ export default function Home({ navigation }): JSX.Element {
           {imageVolumeToggle !== true && (
             <Icon
               onPress={() => {
+                clickSound();
                 onClick(), changeVolume(0);
               }}
               color="blue"
@@ -97,7 +106,8 @@ export default function Home({ navigation }): JSX.Element {
           {imageVolumeToggle === true && (
             <Icon
               onPress={() => {
-                onClick(), changeVolume(1);
+                clickSound();
+                onClick(), changeVolume(0.02);
               }}
               size={45}
               color="blue"
@@ -110,7 +120,10 @@ export default function Home({ navigation }): JSX.Element {
         <TouchableHighlight
           activeOpacity={1}
           underlayColor={'white'}
-          onPress={() => navigation.navigate('Profile', { sound })}
+          onPress={() => {
+            clickSound();
+            navigation.navigate('Profile');
+          }}
         >
           <Image
             style={{ width: 200, height: 190, resizeMode: 'contain', backgroundColor: '#ebe134' }}
@@ -119,7 +132,13 @@ export default function Home({ navigation }): JSX.Element {
         </TouchableHighlight>
         <Text style={styles.nameText}>{user.username}</Text>
         <View>
-          <TouchableOpacity style={styles.banner} onPress={() => navigation.navigate('Categories')}>
+          <TouchableOpacity
+            style={styles.banner}
+            onPress={() => {
+              clickSound();
+              navigation.navigate('Categories');
+            }}
+          >
             <Text style={styles.bannerText}>Играть</Text>
           </TouchableOpacity>
         </View>

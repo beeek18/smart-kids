@@ -9,8 +9,11 @@ import QuestionText from '../../ui/Text/QuestionText';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import * as Animatable from 'react-native-animatable';
+import clickSound from '../../../features/clickSound';
 
 export default function RightRound({ navigation }): JSX.Element {
+ 
+
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
 
@@ -70,7 +73,13 @@ export default function RightRound({ navigation }): JSX.Element {
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <Animatable.View animation={'slideInLeft'}>
-              <TouchableOpacity style={styles.button} onPress={() => handlePress('Верно')}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  clickSound();
+                  handlePress('Верно');
+                }}
+              >
                 <Text style={styles.buttonText}>Верно</Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -79,6 +88,7 @@ export default function RightRound({ navigation }): JSX.Element {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
+                  clickSound();
                   handlePress('Неверно');
                 }}
               >
@@ -92,6 +102,7 @@ export default function RightRound({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color="#ebe134" />}
           onPress={() => {
+            clickSound();
             clearTimeout(setTimerComplete(true));
             navigation.navigate('IntroHard');
           }}

@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { loginThunk } from '../../../features/redux/slices/user/userThunk';
 import { LoginType } from '../../../types/user/UserType';
 import { setDefaultError } from '../../../features/redux/slices/error/errorSlice';
+import clickSound from '../../../features/clickSound';
 
 export default function Autorization({ navigation }) {
   const error = useAppSelector((store) => store.error);
@@ -21,7 +22,7 @@ export default function Autorization({ navigation }) {
   useEffect(() => {
     if (error.isError) {
       setTimeout(() => {
-        dispatch(setDefaultError())
+        dispatch(setDefaultError());
       }, 2000);
     }
   }, [error]);
@@ -106,7 +107,13 @@ export default function Autorization({ navigation }) {
           ></Input>
           {error.isError && <Text style={styles.errorText}>{error.text.message}</Text>}
         </View>
-        <TouchableOpacity onPress={loginHandler} style={styles.whiteFonInputs}>
+        <TouchableOpacity
+          onPress={() => {
+            loginHandler();
+            clickSound();
+          }}
+          style={styles.whiteFonInputs}
+        >
           <Text style={styles.text}>Вход</Text>
         </TouchableOpacity>
         <Image style={styles.image} source={ImagesAssets.avatar3} />

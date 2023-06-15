@@ -9,9 +9,12 @@ import SelectButton from '../../ui/Buttons.tsx/SelectButton';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import * as Animatable from 'react-native-animatable';
+import clickSound from '../../../features/clickSound';
+
 
 export default function HardRound({ navigation }): JSX.Element {
-  // const animations = ['slideInDown', 'slideInUp', 'slideInLeft', 'slideInRight'];
+
+  
   const animations = ['fadeInUpBig', 'fadeInDownBig', 'fadeInLeftBig', 'fadeInRightBig'];
   const dispatch = useAppDispatch();
 
@@ -81,6 +84,7 @@ export default function HardRound({ navigation }): JSX.Element {
               <Animatable.View key={option.id} animation={animations[index % 4]} duration={1000}>
                 <TouchableOpacity
                   onPress={() => {
+                    clickSound();
                     handlePress(option.title);
                   }}
                 >
@@ -92,6 +96,7 @@ export default function HardRound({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color="#ecc3fa" />}
           onPress={() => {
+            clickSound();
             setTimerComplete(true);
             navigation.navigate('InputRound');
           }}

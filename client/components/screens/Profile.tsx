@@ -7,8 +7,11 @@ import { Button } from 'react-native-elements';
 import { editUserImgThunk, editUserNameThunk } from '../../features/redux/slices/user/userThunk';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
+import clickSound from '../../features/clickSound';
 
 export default function Profile({ navigation }): JSX.Element {
+
+
   const [input, setInput] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
   const user = useAppSelector((store) => store.user);
@@ -37,22 +40,42 @@ export default function Profile({ navigation }): JSX.Element {
           <Text style={styles.bannerChoiceAvatarText}>Выбери аватар</Text>
         </View>
         <View style={styles.avatar}>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar1')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar1');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar1' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar1} />
             </Animatable.View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar2')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar2');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar2' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar2} />
             </Animatable.View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar3')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar3');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar3' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar3} />
             </Animatable.View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar4')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar4');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar4' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar4} />
             </Animatable.View>
@@ -75,7 +98,13 @@ export default function Profile({ navigation }): JSX.Element {
           inputStyle={{ textAlign: 'center' }}
         ></Input> */}
         {!editMode && (
-          <TouchableOpacity onPress={() => setEditMode(true)} style={styles.bannerInput}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              setEditMode(true);
+            }}
+            style={styles.bannerInput}
+          >
             <Text style={styles.bannerTextSave}>Изменить имя</Text>
           </TouchableOpacity>
         )}
@@ -94,7 +123,13 @@ export default function Profile({ navigation }): JSX.Element {
           />
         )}
         {editMode && (
-          <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateHandler(input);
+            }}
+            style={styles.bannerSave}
+          >
             <Text style={styles.bannerTextSave}>Сохранить</Text>
           </TouchableOpacity>
         )}
@@ -104,6 +139,7 @@ export default function Profile({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="keyboard-backspace" size={40} color={'blue'} />}
           onPress={() => {
+            clickSound();
             navigation.navigate('Home');
           }}
           buttonStyle={styles.submitButton}

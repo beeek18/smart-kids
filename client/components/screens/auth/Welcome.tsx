@@ -3,6 +3,9 @@ import { ImagesAssets } from '../../../assets/imageAssets';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import { Audio } from 'expo-av';
+import { useEffect } from 'react';
+import clickSound from '../../../features/clickSound';
 
 export default function Welcome({ navigation }): JSX.Element {
   return (
@@ -20,6 +23,7 @@ export default function Welcome({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="arrow-forward" size={40} color={'blue'} />}
           onPress={() => {
+            clickSound();
             navigation.navigate('Autorization');
           }}
           buttonStyle={styles.submitButton}

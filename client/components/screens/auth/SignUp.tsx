@@ -15,6 +15,7 @@ import { signUpThunk } from '../../../features/redux/slices/user/userThunk';
 import { SignUpType } from '../../../types/user/UserType';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { setDefaultError } from '../../../features/redux/slices/error/errorSlice';
+import clickSound from '../../../features/clickSound';
 
 export default function SignUp({ navigation }) {
   const error = useAppSelector((store) => store.error);
@@ -125,7 +126,10 @@ export default function SignUp({ navigation }) {
                 {error.isError && <Text style={styles.errorText}>{error.text.message}</Text>}
               </View>
               <TouchableOpacity
-                onPress={signUpHandler}
+                onPress={() => {
+                  signUpHandler();
+                  clickSound();
+                }}
                 style={[styles.whiteFon, { marginTop: 30 }]}
               >
                 <Text style={styles.text}>Зарегистрироваться</Text>

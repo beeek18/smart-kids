@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { ImagesAssets } from '../../assets/imageAssets';
 import { Image } from 'react-native';
+import { useAppSelector } from '../../features/redux/hooks';
+import clickSound from '../../features/clickSound';
+
 export default function Info({ navigation }): JSX.Element {
   return (
     <>
@@ -31,6 +34,7 @@ export default function Info({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="keyboard-backspace" size={40} color={'blue'} />}
           onPress={() => {
+            clickSound();
             navigation.navigate('Home');
           }}
           buttonStyle={styles.submitButton}

@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Button, Image } from 'react-native-elements';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { useAppSelector } from '../../../features/redux/hooks';
+import clickSound from '../../../features/clickSound';
 
 export default function Categories({ navigation }): JSX.Element {
   const players = useAppSelector((store) => store.game.allPlayers);
@@ -42,7 +43,10 @@ export default function Categories({ navigation }): JSX.Element {
         </View>
         <Button
           icon={<MaterialIcons name="arrow-forward" color={'blue'} size={24} />}
-          onPress={handleToLobby}
+          onPress={() => {
+            clickSound();
+            handleToLobby();
+          }}
           buttonStyle={styles.submitButton}
         />
       </View>

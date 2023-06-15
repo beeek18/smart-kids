@@ -1,5 +1,6 @@
 import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { ImagesAssets } from '../../../assets/imageAssets';
+import clickSound from '../../../features/clickSound';
 
 export default function Autorization({ navigation }) {
   return (
@@ -12,6 +13,7 @@ export default function Autorization({ navigation }) {
           activeOpacity={0.6}
           style={styles.whiteFon}
           onPress={() => {
+            clickSound();
             navigation.navigate('SignUp');
           }}
         >
@@ -21,6 +23,7 @@ export default function Autorization({ navigation }) {
           activeOpacity={0.6}
           style={styles.whiteFon}
           onPress={() => {
+            clickSound();
             navigation.navigate('Login');
           }}
         >
