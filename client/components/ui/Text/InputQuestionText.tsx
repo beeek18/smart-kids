@@ -24,13 +24,14 @@ export default function InputQuestionText({
           <Text style={styles.text}>{question?.title}</Text>
           <View style={styles.inputContainer}>
             <Input
+              placeholder="Ответ"
               value={answer}
               onChangeText={setAnswer}
               containerStyle={styles.input}
               inputStyle={styles.inputText}
             />
             <Button
-              icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
+              icon={<MaterialIcons name="done" size={24} color="white" />}
               onPress={handleSubmit}
               buttonStyle={styles.submitButton}
             />
@@ -80,7 +81,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   inputText: {
+    textAlign: 'center',
     fontFamily: 'Jingle',
+    borderBottomWidth: 1.5,
+    borderColor: 'blue',
   },
   submitButton: {
     backgroundColor: 'blue',
