@@ -187,12 +187,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ebe134',
     padding: 10,
-    marginTop: 70,
+    marginTop: 60,
   },
   buttonInfo: {
     fontSize: 45,
-    marginLeft: 125,
-    marginRight: 10,
+    marginLeft: 110,
+    marginRight: 15,
   },
   buttonLogout: {
     marginRight: 140,

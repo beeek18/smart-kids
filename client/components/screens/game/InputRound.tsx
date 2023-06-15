@@ -1,7 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, Image, Input, Text } from 'react-native-elements';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
@@ -26,8 +26,8 @@ export default function HardTwoRound({ navigation }): JSX.Element {
       }
     }, 1000 * 15);
 
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -57,9 +57,9 @@ export default function HardTwoRound({ navigation }): JSX.Element {
   return (
     <>
       <View style={styles.container}>
-          <View>
-            <Text style={styles.timer}>{timeRemaining}</Text>
-          </View>
+        <View>
+          <Text style={styles.timer}>{timeRemaining}</Text>
+        </View>
         <TouchableWithoutFeedback onPress={handleTap}>
           <View style={styles.content}>
             <TouchableOpacity style={styles.banner}>
