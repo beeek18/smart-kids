@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import { QuestionType } from '../../../types/question/QuestionType';
-import { Button, Image, Input } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useAppDispatch } from '../../../features/redux/hooks';
-import { ImagesAssets } from '../../../assets/imageAssets';
 
-type Props = {
+import { QuestionType } from '../../../types/question/QuestionType';
+
+type InputQuestionTextProps = {
   question: QuestionType;
   answer: string;
   setAnswer: (answer: string) => void;
@@ -18,14 +16,19 @@ export default function InputQuestionText({
   answer,
   setAnswer,
   handleSubmit,
-}: Props): JSX.Element {
+}: InputQuestionTextProps): JSX.Element {
   return (
     <>
       <KeyboardAvoidingView style={styles.view} behavior="padding">
         <View style={styles.container}>
           <Text style={styles.text}>{question?.title}</Text>
           <View style={styles.inputContainer}>
-            <Input value={answer} onChangeText={setAnswer} containerStyle={styles.input} />
+            <Input
+              value={answer}
+              onChangeText={setAnswer}
+              containerStyle={styles.input}
+              inputStyle={styles.inputText}
+            />
             <Button
               icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
               onPress={handleSubmit}
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 10,
     backgroundColor: '#ebe134',
-    marginBottom: 10,
+    marginBottom: 230,
     shadowColor: 'blue',
     shadowOffset: { width: -7, height: 7 },
     shadowOpacity: 5,
@@ -75,6 +78,9 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginRight: 10,
+  },
+  inputText: {
+    fontFamily: 'Jingle',
   },
   submitButton: {
     backgroundColor: 'blue',

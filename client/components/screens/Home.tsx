@@ -1,17 +1,19 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Audio } from 'expo-av';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import {
-  addCrownUserThunk,
-  checkUserThunk,
-  logOutThunk,
-} from '../../features/redux/slices/user/userThunk';
+import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
 import { socketInit } from '../../features/ws/wsActions';
 
-export default function Home({ navigation }): JSX.Element {
+type HomeProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Home({ navigation }: HomeProps): JSX.Element {
   const dispatch = useAppDispatch();
   const crown = useAppSelector((store) => store.user.crown);
 

@@ -1,16 +1,21 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import {
   getAllScoreAction,
   statusGameAction,
 } from '../../../features/redux/slices/game/gameAction';
-
-import { ImagesAssets } from '../../../assets/imageAssets';
 import { resetRoom } from '../../../features/redux/slices/game/gameSlice';
 import { addCrownUserThunk } from '../../../features/redux/slices/user/userThunk';
 
-export default function Result({ navigation }): JSX.Element {
+type ResultProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Result({ navigation }: ResultProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handlePlayAgain = () => {

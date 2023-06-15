@@ -1,10 +1,16 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { ImagesAssets } from '../../../assets/imageAssets';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Button } from 'react-native-elements';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { Button } from 'react-native-elements';
 
-export default function Welcome({ navigation }): JSX.Element {
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+
+type WelcomeProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Welcome({ navigation }: WelcomeProps): JSX.Element {
   return (
     <View style={styles.view}>
       <Animatable.View animation={'bounceInRight'} duration={1500}>

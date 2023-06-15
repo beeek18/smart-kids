@@ -1,23 +1,30 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, Image, Text } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
-import HardQuestionText from '../../ui/Text/HardQuestionText';
 import InputQuestion from '../../ui/Text/InputQuestionText';
-import { ImagesAssets } from '../../../assets/imageAssets';
 
-export default function HardTwoRound({ navigation }): JSX.Element {
+type InputRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function InputRound({ navigation }: InputRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeRemaining((time) => (time - 1 > 0 ? time - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!timerComplete) {
@@ -25,7 +32,6 @@ export default function HardTwoRound({ navigation }): JSX.Element {
         navigation.navigate('Result');
       }
     }, 1000 * 15);
-
     return () => clearTimeout(timeout);
   }, [timerComplete]);
 
@@ -33,6 +39,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
 
   const [arrowButton, setArrowButton] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
     dispatch(getQuestionsThunk(4));
@@ -52,6 +59,8 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     }
     setArrowButton(true);
     setSubmitButtonDisabled(false);
+    handleTap();
+    setShowImage(true);
   };
 
   return (
@@ -62,11 +71,22 @@ export default function HardTwoRound({ navigation }): JSX.Element {
         </View>
         <TouchableWithoutFeedback onPress={handleTap}>
           <View style={styles.content}>
-            <TouchableOpacity style={styles.banner}>
-              <Text style={styles.bannerText}>Введите ответ</Text>
-            </TouchableOpacity>
+            {showImage ? (
+              <Image
+                source={{ uri: question.img }}
+                style={{
+                  width: 300,
+                  height: 300,
+                  borderRadius: 150,
+                }}
+              />
+            ) : (
+              <View style={styles.banner}>
+                <Text style={styles.bannerText}>Введите ответ</Text>
+              </View>
+            )}
             <View>
-              <View style={{ position: 'absolute', top: -150, height: 150, right: -95 }}>
+              <View style={{ position: 'relative', top: -190, height: 150, zIndex: 1 }}>
                 <Image style={styles.image} source={ImagesAssets.avatar4} />
               </View>
               <InputQuestion
@@ -101,14 +121,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fcaf62',
     zIndex: 0,
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    rowGap: 100,
+    rowGap: 140,
   },
   banner: {
     padding: 10,

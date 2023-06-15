@@ -1,9 +1,15 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
-import { ImagesAssets } from '../../assets/imageAssets';
-import { Image } from 'react-native';
-export default function Info({ navigation }): JSX.Element {
+
+import { ImagesAssets } from '../../assets/imageAssets.ts';
+
+type InfoProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Info({ navigation }: InfoProps): JSX.Element {
   return (
     <>
       <View style={styles.container}>

@@ -1,15 +1,21 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Button, Image } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import QuestionText from '../../ui/Text/QuestionText';
-import { MaterialIcons } from '@expo/vector-icons';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import * as Animatable from 'react-native-animatable';
 
-export default function SimpleRound({ navigation }): JSX.Element {
+type ChoiceRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function ChoiceRound({ navigation }: ChoiceRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
   useEffect(() => {
@@ -19,16 +25,16 @@ export default function SimpleRound({ navigation }): JSX.Element {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!timerComplete) {
-        setTimerComplete(true);
-        navigation.navigate('RightRound');
-      }
-    }, 1000 * 15);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     if (!timerComplete) {
+  //       setTimerComplete(true);
+  //       navigation.navigate('RightRound');
+  //     }
+  //   }, 1000 * 15);
 
-    return () => clearTimeout(timeout);
-  }, [timerComplete]);
+  //   return () => clearTimeout(timeout);
+  // }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -59,24 +65,25 @@ export default function SimpleRound({ navigation }): JSX.Element {
           <Animatable.View animation={'wobble'} duration={1000}>
             <QuestionText question={question} />
           </Animatable.View>
-
-          <View style={{ position: 'absolute', height: 460 }}>
+          <View style={{ position: 'absolute', height: 450 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
-          <View style={{ flexDirection: 'row', marginTop: 20 }}>
-            <View style={styles.buttonContainer}>
-              <Animatable.View animation={'bounceInLeft'} duration={1000}>
-                <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
-                  <Text style={styles.buttonText}>ДА</Text>
-                </TouchableOpacity>
-              </Animatable.View>
-              <View style={styles.buttonSeparator} />
-              <Animatable.View animation={'bounceInRight'} duration={1000}>
-                <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
-                  <Text style={styles.buttonText}>НЕТ</Text>
-                </TouchableOpacity>
-              </Animatable.View>
-            </View>
+          <View style={{ position: 'absolute', height: 450 }}>
+            <Image style={styles.imageCrown} source={ImagesAssets.crown} />
+            <Image style={styles.imageCrown} source={ImagesAssets.crown} />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Animatable.View animation={'bounceInLeft'} duration={1000}>
+              <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
+                <Text style={styles.buttonText}>ДА</Text>
+              </TouchableOpacity>
+            </Animatable.View>
+            <View style={styles.buttonSeparator} />
+            <Animatable.View animation={'bounceInRight'} duration={1000}>
+              <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
+                <Text style={styles.buttonText}>НЕТ</Text>
+              </TouchableOpacity>
+            </Animatable.View>
           </View>
         </View>
         <Button
@@ -114,13 +121,21 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     zIndex: 1,
   },
+  imageCrown: {
+    width: 60,
+    bottom: 150,
+    resizeMode: 'contain',
+    transform: [{ rotate: '350deg' }],
+    zIndex: 1,
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    top: 60,
     paddingHorizontal: 20,
     gap: 20,
     marginLeft: 10,
+    marginTop: 20,
   },
   buttonSeparator: {
     width: 10,
