@@ -31,7 +31,7 @@ export default function Home({ navigation }: HomeProps): JSX.Element {
   async function playSound() {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(require('../../assets/mainsound.mp3'));
-    await sound.setVolumeAsync(0.02);
+    await sound.setVolumeAsync(0.04);
     await sound.setIsLoopingAsync(true);
     console.log('Playing Sound');
     setSound(sound);
@@ -109,7 +109,7 @@ export default function Home({ navigation }: HomeProps): JSX.Element {
             <Icon
               onPress={() => {
                 clickSound();
-                onClick(), changeVolume(0.02);
+                onClick(), changeVolume(0.04);
               }}
               size={45}
               color="blue"

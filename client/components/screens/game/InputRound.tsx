@@ -10,6 +10,7 @@ import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import InputQuestion from '../../ui/Text/InputQuestionText';
 import clickSound from '../../../features/clickSound';
+import * as Animatable from 'react-native-animatable';
 
 type InputRoundProps = {
   navigation: StackNavigationProp<any, any>;
@@ -17,7 +18,7 @@ type InputRoundProps = {
 
 export default function InputRound({ navigation }: InputRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(15);
+  const [timeRemaining, setTimeRemaining] = useState(20);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -83,22 +84,26 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
                 }}
               />
             ) : (
-              <View style={styles.banner}>
-                <Text style={styles.bannerText}>Введите ответ</Text>
-              </View>
+              <Animatable.View animation={'zoomInDown'} duration={1500}>
+                <View style={styles.banner}>
+                  <Text style={styles.bannerText}>Введите ответ</Text>
+                </View>
+              </Animatable.View>
             )}
-            <View>
-              <View style={{ position: 'relative', top: -190, height: 150, zIndex: 1 }}>
-                <Image style={styles.image} source={ImagesAssets.avatar4} />
+            <Animatable.View duration={1500} animation={'zoomInUp'}>
+              <View>
+                <View style={{ position: 'relative', top: -190, height: 150, zIndex: 1 }}>
+                  <Image style={styles.image} source={ImagesAssets.avatar4} />
+                </View>
+                <InputQuestion
+                  question={question}
+                  answer={answer}
+                  setAnswer={setAnswer}
+                  handleSubmit={handleSubmit}
+                />
+                <View />
               </View>
-              <InputQuestion
-                question={question}
-                answer={answer}
-                setAnswer={setAnswer}
-                handleSubmit={handleSubmit}
-              />
-              <View />
-            </View>
+            </Animatable.View>
             <View style={styles.inputContainer}></View>
           </View>
         </TouchableWithoutFeedback>
@@ -128,10 +133,11 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   content: {
+    marginTop: 50,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    rowGap: 140,
+    rowGap: 120,
   },
   banner: {
     padding: 10,
@@ -186,7 +192,7 @@ const styles = StyleSheet.create({
   },
   timer: {
     fontSize: 60,
-    top: -200,
+    top: 60,
     marginLeft: 280,
     color: 'white',
     fontFamily: 'Jingle',
