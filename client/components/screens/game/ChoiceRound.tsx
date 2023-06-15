@@ -6,6 +6,7 @@ import * as Animatable from 'react-native-animatable';
 import { Button, Image } from 'react-native-elements';
 
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
@@ -25,16 +26,16 @@ export default function ChoiceRound({ navigation }: ChoiceRoundProps): JSX.Eleme
     return () => clearInterval(timer);
   }, []);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('RightRound');
-  //     }
-  //   }, 1000 * 15);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('RightRound');
+      }
+    }, 1000 * 15);
 
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -68,27 +69,38 @@ export default function ChoiceRound({ navigation }: ChoiceRoundProps): JSX.Eleme
           <View style={{ position: 'absolute', height: 450 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
-          <View style={{ position: 'absolute', height: 450 }}>
-            <Image style={styles.imageCrown} source={ImagesAssets.crown} />
-            <Image style={styles.imageCrown} source={ImagesAssets.crown} />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Animatable.View animation={'bounceInLeft'} duration={1000}>
-              <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
-                <Text style={styles.buttonText}>ДА</Text>
-              </TouchableOpacity>
-            </Animatable.View>
-            <View style={styles.buttonSeparator} />
-            <Animatable.View animation={'bounceInRight'} duration={1000}>
-              <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
-                <Text style={styles.buttonText}>НЕТ</Text>
-              </TouchableOpacity>
-            </Animatable.View>
+          <View style={{ flexDirection: 'row', marginTop: 20 }}>
+            <View style={styles.buttonContainer}>
+              <Animatable.View animation={'bounceInLeft'} duration={1000}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    clickSound();
+                    handlePress('Да');
+                  }}
+                >
+                  <Text style={styles.buttonText}>ДА</Text>
+                </TouchableOpacity>
+              </Animatable.View>
+              <View style={styles.buttonSeparator} />
+              <Animatable.View animation={'bounceInRight'} duration={1000}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    clickSound();
+                    handlePress('Нет');
+                  }}
+                >
+                  <Text style={styles.buttonText}>НЕТ</Text>
+                </TouchableOpacity>
+              </Animatable.View>
+            </View>
           </View>
         </View>
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color={'#ebe134'} />}
           onPress={() => {
+            clickSound();
             setTimerComplete(true);
             navigation.navigate('RightRound');
           }}

@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { defaultError, setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 import { loginThunk } from '../../../features/redux/slices/user/userThunk';
 import { LoginType } from '../../../types/user/UserType';
+import clickSound from '../../../features/clickSound';
 
 export default function Autorization() {
   const error = useAppSelector((store) => store.error);
@@ -107,7 +108,13 @@ export default function Autorization() {
           ></Input>
           {error.isError && <Text style={styles.errorText}>{error.text.message}</Text>}
         </View>
-        <TouchableOpacity onPress={loginHandler} style={styles.whiteFonInputs}>
+        <TouchableOpacity
+          onPress={() => {
+            loginHandler();
+            clickSound();
+          }}
+          style={styles.whiteFonInputs}
+        >
           <Text style={styles.text}>Вход</Text>
         </TouchableOpacity>
         <Image style={styles.image} source={ImagesAssets.avatar3} />

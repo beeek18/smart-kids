@@ -10,6 +10,7 @@ import {
 } from '../../../features/redux/slices/game/gameAction';
 import { resetRoom } from '../../../features/redux/slices/game/gameSlice';
 import { addCrownUserThunk } from '../../../features/redux/slices/user/userThunk';
+import clickSound from '../../../features/clickSound';
 
 type ResultProps = {
   navigation: StackNavigationProp<any, any>;
@@ -55,10 +56,22 @@ export default function Result({ navigation }: ResultProps): JSX.Element {
         ))}
       </View>
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={handlePlayAgain} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            clickSound();
+            handlePlayAgain();
+          }}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>Сыграть снова</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleHome} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            clickSound();
+            handleHome();
+          }}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>Главное меню</Text>
         </TouchableOpacity>
       </View>

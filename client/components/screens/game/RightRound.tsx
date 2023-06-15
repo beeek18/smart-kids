@@ -11,6 +11,8 @@ import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import QuestionText from '../../ui/Text/QuestionText';
 
+import clickSound from '../../../features/clickSound';
+
 type RightRoundProps = {
   navigation: StackNavigationProp<any, any>;
 };
@@ -57,6 +59,7 @@ export default function RightRound({ navigation }: RightRoundProps): JSX.Element
   };
 
   const handleNextRound = (): void => {
+    clickSound();
     setTimerComplete(true);
     navigation.navigate('IntroHard');
   };
@@ -80,7 +83,13 @@ export default function RightRound({ navigation }: RightRoundProps): JSX.Element
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <Animatable.View animation={'slideInLeft'}>
-              <TouchableOpacity style={styles.button} onPress={() => handlePress('Верно')}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  clickSound();
+                  handlePress('Верно');
+                }}
+              >
                 <Text style={styles.buttonText}>Верно</Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -89,6 +98,7 @@ export default function RightRound({ navigation }: RightRoundProps): JSX.Element
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
+                  clickSound();
                   handlePress('Неверно');
                 }}
               >

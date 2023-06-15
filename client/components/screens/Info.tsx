@@ -2,7 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
-
+import clickSound from '../../features/clickSound';
 import { ImagesAssets } from '../../assets/imageAssets.ts';
 
 type InfoProps = {
@@ -37,6 +37,7 @@ export default function Info({ navigation }: InfoProps): JSX.Element {
         <Button
           icon={<MaterialIcons name="keyboard-backspace" size={40} color={'blue'} />}
           onPress={() => {
+            clickSound();
             navigation.navigate('Home');
           }}
           buttonStyle={styles.submitButton}

@@ -3,6 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-elements';
+import clickSound from '../../../features/clickSound';
 
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
 
@@ -26,6 +27,7 @@ export default function Welcome({ navigation }: WelcomeProps): JSX.Element {
         <Button
           icon={<MaterialIcons name="arrow-forward" size={40} color={'blue'} />}
           onPress={() => {
+            clickSound();
             navigation.navigate('Autorization');
           }}
           buttonStyle={styles.submitButton}

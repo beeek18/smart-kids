@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import InputQuestion from '../../ui/Text/InputQuestionText';
+import clickSound from '../../../features/clickSound';
 
 type InputRoundProps = {
   navigation: StackNavigationProp<any, any>;
@@ -57,6 +58,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
     if (answer.toLowerCase() === question.answer.toLowerCase()) {
       dispatch(addPoint());
     }
+    clickSound();
     setArrowButton(true);
     setSubmitButtonDisabled(false);
     handleTap();
@@ -104,6 +106,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
           <Button
             icon={<MaterialIcons name="arrow-forward" size={26} color={'#ebe134'} />}
             onPress={() => {
+              clickSound();
               setTimerComplete(true);
               navigation.navigate('Result');
             }}

@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { defaultError, setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 import { signUpThunk } from '../../../features/redux/slices/user/userThunk';
@@ -126,7 +127,10 @@ export default function SignUp() {
                 {error.isError && <Text style={styles.errorText}>{error.text.message}</Text>}
               </View>
               <TouchableOpacity
-                onPress={signUpHandler}
+                onPress={() => {
+                  signUpHandler();
+                  clickSound();
+                }}
                 style={[styles.whiteFon, { marginTop: 30 }]}
               >
                 <Text style={styles.text}>Зарегистрироваться</Text>

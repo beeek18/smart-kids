@@ -5,6 +5,7 @@ import { Button, Image } from 'react-native-elements';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ImagesAssets } from '../../../assets/imageAssets.ts';
 import { useAppSelector } from '../../../features/redux/hooks';
+import clickSound from '../../../features/clickSound';
 
 type CategoriesProps = {
   navigation: StackNavigationProp<any, any>;
@@ -48,7 +49,10 @@ export default function Categories({ navigation }: CategoriesProps): JSX.Element
         </View>
         <Button
           icon={<MaterialIcons name="arrow-forward" color={'blue'} size={24} />}
-          onPress={handleToLobby}
+          onPress={() => {
+            clickSound();
+            handleToLobby();
+          }}
           buttonStyle={styles.submitButton}
         />
       </View>
