@@ -5,7 +5,6 @@ const { User } = require('../../db/models');
 const { isAuth } = require('../middleware');
 
 const router = express.Router();
-const avatarPaths = ['avatar1', 'avatar2', 'avatar3', 'avatar4'];
 
 router.post('/signup', async (req, res) => {
   try {
