@@ -1,24 +1,24 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Input } from 'react-native-elements';
-import { ImagesAssets } from '../../assets/imageAssets';
-import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { Button } from 'react-native-elements';
-import { editUserImgThunk, editUserNameThunk } from '../../features/redux/slices/user/userThunk';
-import { MaterialIcons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
+import { Button, Input } from 'react-native-elements';
 
-export default function Profile({ navigation }): JSX.Element {
+import { ImagesAssets } from '../../assets/imageAssets.ts';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { editUserImgThunk, editUserNameThunk } from '../../features/redux/slices/user/userThunk';
+
+type ProfileProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Profile({ navigation }: ProfileProps): JSX.Element {
   const [input, setInput] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
   const user = useAppSelector((store) => store.user);
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
-
-  // const updateHandler = (value: string) => {
-  //   dispatch(editUserNameThunk(value));
-  //   setInput('');
-  // };
 
   const updateHandler = (value: string) => {
     dispatch(editUserNameThunk(value));
@@ -62,18 +62,6 @@ export default function Profile({ navigation }): JSX.Element {
           <Text style={styles.bannerText}>Как тебя зовут ?</Text>
           <Text style={styles.bannerName}>{user.username}</Text>
         </View>
-        {/* <Input
-          placeholder="Введите имя"
-          style={styles.bannerInput}
-          onChangeText={(value) => setInput(value)}
-          defaultValue={input}
-          inputContainerStyle={{
-            width: 325,
-            marginLeft: 25,
-            borderBottomWidth: 0,
-          }}
-          inputStyle={{ textAlign: 'center' }}
-        ></Input> */}
         {!editMode && (
           <TouchableOpacity onPress={() => setEditMode(true)} style={styles.bannerInput}>
             <Text style={styles.bannerTextSave}>Изменить имя</Text>
@@ -98,9 +86,6 @@ export default function Profile({ navigation }): JSX.Element {
             <Text style={styles.bannerTextSave}>Сохранить</Text>
           </TouchableOpacity>
         )}
-        {/* <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
-          <Text style={styles.bannerTextSave}>Сохранить</Text>
-        </TouchableOpacity> */}
         <Button
           icon={<MaterialIcons name="keyboard-backspace" size={40} color={'blue'} />}
           onPress={() => {
