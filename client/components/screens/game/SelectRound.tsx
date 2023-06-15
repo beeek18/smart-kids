@@ -45,6 +45,7 @@ export default function HardRound({ navigation }): JSX.Element {
   }, [timerComplete]);
 
   const [arrowButton, setArrowButton] = useState(false);
+  const [answered, setAnswered] = useState(false);
 
   const handlePress = (answer: string) => {
     if (answer === question.answer) {
@@ -52,7 +53,9 @@ export default function HardRound({ navigation }): JSX.Element {
     }
     setArrowButton(true);
     setSubmitButtonDisabled(false);
+    setAnswered(true);
   };
+
   return (
     <>
       <Image style={styles.image} source={ImagesAssets.avatar3} />
@@ -69,11 +72,9 @@ export default function HardRound({ navigation }): JSX.Element {
           </View>
         </Animatable.View>
         <View style={{ marginTop: 200 }}>
-          {/* {questions.map((question) => ( */}
           <Animatable.View animation={'zoomIn'} duration={1000}>
             <HardQuestionText question={question} key={question.id} />
           </Animatable.View>
-          {/* ))} */}
         </View>
         <View style={{ gap: 10, marginTop: 40 }}>
           {question?.Options &&
@@ -84,7 +85,12 @@ export default function HardRound({ navigation }): JSX.Element {
                     handlePress(option.title);
                   }}
                 >
-                  <SelectButton option={option} />
+                  <SelectButton
+                    option={option}
+                    question={question}
+                    key={option.id}
+                    answered={answered}
+                  />
                 </TouchableOpacity>
               </Animatable.View>
             ))}

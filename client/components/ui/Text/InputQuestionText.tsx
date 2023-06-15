@@ -11,6 +11,7 @@ type Props = {
   answer: string;
   setAnswer: (answer: string) => void;
   handleSubmit: () => void;
+  answered: boolean;
 };
 
 export default function InputQuestionText({
@@ -18,6 +19,7 @@ export default function InputQuestionText({
   answer,
   setAnswer,
   handleSubmit,
+  answered,
 }: Props): JSX.Element {
   return (
     <>
@@ -31,6 +33,15 @@ export default function InputQuestionText({
               containerStyle={styles.input}
               inputStyle={styles.inputText}
             />
+            <View style={{ position: 'absolute', left: 175, top: -4, height: 200, width: 200 }}>
+              <Image
+                style={{
+                  ...styles.imageCrown,
+                  opacity: answered && question.answer === answer ? 1 : 0,
+                }}
+                source={ImagesAssets.crown}
+              />
+            </View>
             <Button
               icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
               onPress={handleSubmit}
@@ -52,6 +63,7 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 0,
   },
   container: {
     padding: 10,
@@ -64,6 +76,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -7, height: 7 },
     shadowOpacity: 5,
     shadowRadius: 1,
+    zIndex: 0,
+  },
+  imageCrown: {
+    width: 45,
+    height: 45,
+    resizeMode: 'contain',
+    transform: [{ rotate: '353deg' }],
+    zIndex: 1,
   },
   text: {
     color: 'blue',
@@ -80,9 +100,11 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginRight: 10,
+    zIndex: 0,
   },
   inputText: {
     fontFamily: 'Jingle',
+    zIndex: 0,
   },
   submitButton: {
     backgroundColor: 'blue',

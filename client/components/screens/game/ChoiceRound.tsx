@@ -19,16 +19,16 @@ export default function SimpleRound({ navigation }): JSX.Element {
     return () => clearInterval(timer);
   }, []);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('RightRound');
-  //     }
-  //   }, 1000 * 15);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('RightRound');
+      }
+    }, 1000 * 15);
 
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -59,12 +59,33 @@ export default function SimpleRound({ navigation }): JSX.Element {
           <Animatable.View animation={'wobble'} duration={1000}>
             <QuestionText question={question} />
           </Animatable.View>
+
           <View style={{ position: 'absolute', height: 450 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
-          <View style={{ position: 'absolute', height: 450 }}>
-            <Image style={styles.imageCrown} source={ImagesAssets.crown} />
-            <Image style={styles.imageCrown} source={ImagesAssets.crown} />
+          <View
+            style={{
+              width: 300,
+              height: 70,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            }}
+          >
+            <Image
+              style={{
+                ...styles.imageCrown,
+                opacity: arrowButton && question.answer === 'Да' ? 1 : 0,
+              }}
+              source={ImagesAssets.crown}
+            />
+            <Image
+              style={{
+                ...styles.imageCrown,
+                opacity: arrowButton && question.answer === 'Нет' ? 1 : 0,
+              }}
+              source={ImagesAssets.crown}
+            />
           </View>
           <View style={styles.buttonContainer}>
             <Animatable.View animation={'bounceInLeft'} duration={1000}>
@@ -117,19 +138,17 @@ const styles = StyleSheet.create({
   },
   imageCrown: {
     width: 60,
-    bottom: 150,
+    height: 60,
+    marginTop: 7,
     resizeMode: 'contain',
-    transform: [{ rotate: '350deg' }],
-    zIndex: 1,
+    transform: [{ rotate: '353deg' }],
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    top: 60,
     paddingHorizontal: 20,
     gap: 20,
     marginLeft: 10,
-    marginTop: 20,
   },
   buttonSeparator: {
     width: 10,

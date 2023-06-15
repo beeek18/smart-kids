@@ -28,15 +28,15 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     return () => clearInterval(timer);
   }, []);
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (!timerComplete) {
-  //       setTimerComplete(true);
-  //       navigation.navigate('Result');
-  //     }
-  //   }, 1000 * 15);
-  //   return () => clearTimeout(timeout);
-  // }, [timerComplete]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!timerComplete) {
+        setTimerComplete(true);
+        navigation.navigate('Result');
+      }
+    }, 1000 * 15);
+    return () => clearTimeout(timeout);
+  }, [timerComplete]);
 
   const dispatch = useAppDispatch();
 
@@ -55,6 +55,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
   };
 
   const [answer, setAnswer] = useState('');
+  const [answered, setAnswered] = useState(false);
 
   const handleSubmit = () => {
     if (answer.toLowerCase() === question.answer.toLowerCase()) {
@@ -64,6 +65,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     setSubmitButtonDisabled(false);
     handleTap();
     setShowImage(true);
+    setAnswered(true);
   };
 
   return (
@@ -97,6 +99,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
                 answer={answer}
                 setAnswer={setAnswer}
                 handleSubmit={handleSubmit}
+                answered={answered}
               />
               <View />
             </View>
