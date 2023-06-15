@@ -51,6 +51,7 @@ export default function SelectRound({ navigation }: HardRoundProps): JSX.Element
   }, [timerComplete]);
 
   const [arrowButton, setArrowButton] = useState(false);
+  const [answered, setAnswered] = useState(false);
 
   const handlePress = (answer: string) => {
     if (answer === question.answer) {
@@ -58,7 +59,9 @@ export default function SelectRound({ navigation }: HardRoundProps): JSX.Element
     }
     setArrowButton(true);
     setSubmitButtonDisabled(false);
+    setAnswered(true);
   };
+
   return (
     <>
       <Image style={styles.image} source={ImagesAssets.avatar3} />
@@ -89,7 +92,12 @@ export default function SelectRound({ navigation }: HardRoundProps): JSX.Element
                     handlePress(option.title);
                   }}
                 >
-                  <SelectButton option={option} />
+                  <SelectButton
+                    option={option}
+                    question={question}
+                    key={option.id}
+                    answered={answered}
+                  />
                 </TouchableOpacity>
               </Animatable.View>
             ))}

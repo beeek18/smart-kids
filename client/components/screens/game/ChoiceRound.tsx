@@ -69,32 +69,42 @@ export default function ChoiceRound({ navigation }: ChoiceRoundProps): JSX.Eleme
           <View style={{ position: 'absolute', height: 450 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
-          <View style={{ flexDirection: 'row', marginTop: 20 }}>
-            <View style={styles.buttonContainer}>
-              <Animatable.View animation={'bounceInLeft'} duration={1000}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                    clickSound();
-                    handlePress('Да');
-                  }}
-                >
-                  <Text style={styles.buttonText}>ДА</Text>
-                </TouchableOpacity>
-              </Animatable.View>
-              <View style={styles.buttonSeparator} />
-              <Animatable.View animation={'bounceInRight'} duration={1000}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                    clickSound();
-                    handlePress('Нет');
-                  }}
-                >
-                  <Text style={styles.buttonText}>НЕТ</Text>
-                </TouchableOpacity>
-              </Animatable.View>
-            </View>
+          <View
+            style={{
+              width: 300,
+              height: 70,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            }}
+          >
+            <Image
+              style={{
+                ...styles.imageCrown,
+                opacity: arrowButton && question.answer === 'Да' ? 1 : 0,
+              }}
+              source={ImagesAssets.crown}
+            />
+            <Image
+              style={{
+                ...styles.imageCrown,
+                opacity: arrowButton && question.answer === 'Нет' ? 1 : 0,
+              }}
+              source={ImagesAssets.crown}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Animatable.View animation={'bounceInLeft'} duration={1000}>
+              <TouchableOpacity style={styles.button} onPress={() => handlePress('Да')}>
+                <Text style={styles.buttonText}>ДА</Text>
+              </TouchableOpacity>
+            </Animatable.View>
+            <View style={styles.buttonSeparator} />
+            <Animatable.View animation={'bounceInRight'} duration={1000}>
+              <TouchableOpacity style={styles.button} onPress={() => handlePress('Нет')}>
+                <Text style={styles.buttonText}>НЕТ</Text>
+              </TouchableOpacity>
+            </Animatable.View>
           </View>
         </View>
         <Button
@@ -135,19 +145,17 @@ const styles = StyleSheet.create({
   },
   imageCrown: {
     width: 60,
-    bottom: 150,
+    height: 60,
+    marginTop: 7,
     resizeMode: 'contain',
-    transform: [{ rotate: '350deg' }],
-    zIndex: 1,
+    transform: [{ rotate: '353deg' }],
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    top: 60,
     paddingHorizontal: 20,
     gap: 20,
     marginLeft: 10,
-    marginTop: 20,
   },
   buttonSeparator: {
     width: 10,

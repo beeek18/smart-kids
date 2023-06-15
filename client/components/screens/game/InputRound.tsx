@@ -54,9 +54,10 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
   };
 
   const [answer, setAnswer] = useState('');
+  const [answered, setAnswered] = useState(false);
 
   const handleSubmit = () => {
-    if (answer.toLowerCase() === question.answer.toLowerCase()) {
+    if (answer.toLowerCase().trim() === question.answer.toLowerCase().trim()) {
       dispatch(addPoint());
     }
     clickSound();
@@ -64,6 +65,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
     setSubmitButtonDisabled(false);
     handleTap();
     setShowImage(true);
+    setAnswered(true);
   };
 
   return (
@@ -100,6 +102,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
                   answer={answer}
                   setAnswer={setAnswer}
                   handleSubmit={handleSubmit}
+                  answered={answered}
                 />
                 <View />
               </View>

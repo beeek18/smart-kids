@@ -79,6 +79,32 @@ export default function RightRound({ navigation }: RightRoundProps): JSX.Element
         <View style={{ position: 'absolute', height: 150 }}>
           <Image style={styles.image} source={ImagesAssets.avatar4} />
         </View>
+        <View
+          style={{
+            width: 300,
+            height: 100,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            zIndex: 1,
+            position: 'absolute',
+            bottom: 105,
+          }}
+        >
+          <Image
+            style={{
+              ...styles.imageCrown,
+              opacity: arrowButton && question.answer === 'Верно' ? 1 : 0,
+            }}
+            source={ImagesAssets.crown}
+          />
+          <Image
+            style={{
+              ...styles.imageCrown,
+              opacity: arrowButton && question.answer === 'Неверно' ? 1 : 0,
+            }}
+            source={ImagesAssets.crown}
+          />
+        </View>
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <Animatable.View animation={'slideInLeft'}>
@@ -134,10 +160,15 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 190,
-    right: 0,
-    bottom: 100,
     height: 100,
     resizeMode: 'contain',
+  },
+  imageCrown: {
+    width: 60,
+    height: 60,
+    marginTop: 7,
+    resizeMode: 'contain',
+    transform: [{ rotate: '353deg' }],
     zIndex: 1,
   },
   buttonContainer: {
