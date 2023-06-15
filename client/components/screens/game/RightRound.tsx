@@ -1,16 +1,22 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Button, Image } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import QuestionText from '../../ui/Text/QuestionText';
 
-import { MaterialIcons } from '@expo/vector-icons';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import * as Animatable from 'react-native-animatable';
+type RightRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
 
-export default function RightRound({ navigation }): JSX.Element {
+export default function RightRound({ navigation }: RightRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
 
@@ -43,12 +49,18 @@ export default function RightRound({ navigation }): JSX.Element {
   const [arrowButton, setArrowButton] = useState(false);
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
-  const handlePress = (text: string) => {
+  const handlePress = (text: string): void => {
     if (text === question.answer) {
       dispatch(addPoint());
     }
     setArrowButton(true);
     setSubmitButtonDisabled(false);
+  };
+
+  const handleNextRound = (): void => {
+    clickSound();
+    setTimerComplete(true);
+    navigation.navigate('IntroHard');
   };
 
   return (
@@ -96,7 +108,13 @@ export default function RightRound({ navigation }): JSX.Element {
         <View style={{ flexDirection: 'row', marginTop: 20 }}>
           <View style={styles.buttonContainer}>
             <Animatable.View animation={'slideInLeft'}>
-              <TouchableOpacity style={styles.button} onPress={() => handlePress('Верно')}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  clickSound();
+                  handlePress('Верно');
+                }}
+              >
                 <Text style={styles.buttonText}>Верно</Text>
               </TouchableOpacity>
             </Animatable.View>
@@ -105,6 +123,7 @@ export default function RightRound({ navigation }): JSX.Element {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
+                  clickSound();
                   handlePress('Неверно');
                 }}
               >
@@ -117,10 +136,7 @@ export default function RightRound({ navigation }): JSX.Element {
       <Animatable.View animation={'tada'} duration={1000}>
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color="#ebe134" />}
-          onPress={() => {
-            clearTimeout(setTimerComplete(true));
-            navigation.navigate('IntroHard');
-          }}
+          onPress={handleNextRound}
           disabled={submitButtonDisabled}
           buttonStyle={{ ...styles.submitButton, opacity: arrowButton ? 1 : 0 }}
         />

@@ -1,9 +1,15 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
-import { ImagesAssets } from '../../../assets/imageAssets';
 
-export default function IntroHard({ navigation }): JSX.Element {
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+
+type IntroHardProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function IntroHard({ navigation }: IntroHardProps): JSX.Element {
   useEffect(() => {
     const timeout = setTimeout(() => {
       navigation.navigate('SelectRound');

@@ -1,17 +1,20 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Audio } from 'expo-av';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+
 import { ImagesAssets } from '../../assets/imageAssets';
+import clickSound from '../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import {
-  addCrownUserThunk,
-  checkUserThunk,
-  logOutThunk,
-} from '../../features/redux/slices/user/userThunk';
+import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
 import { socketInit } from '../../features/ws/wsActions';
 
-export default function Home({ navigation }): JSX.Element {
+type HomeProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Home({ navigation }: HomeProps): JSX.Element {
   const dispatch = useAppDispatch();
   const crown = useAppSelector((store) => store.user.crown);
 
@@ -28,6 +31,7 @@ export default function Home({ navigation }): JSX.Element {
   async function playSound() {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(require('../../assets/mainsound.mp3'));
+    await sound.setVolumeAsync(0.04);
     await sound.setIsLoopingAsync(true);
     console.log('Playing Sound');
     setSound(sound);
@@ -70,7 +74,10 @@ export default function Home({ navigation }): JSX.Element {
         <View style={styles.info}>
           <Icon
             color="blue"
-            onPress={logOutHandler}
+            onPress={() => {
+              clickSound();
+              logOutHandler();
+            }}
             style={styles.buttonLogout}
             size={45}
             name="logout"
@@ -78,7 +85,10 @@ export default function Home({ navigation }): JSX.Element {
           <Image style={styles.crown} source={require('../../assets/crown1.png')} />
           <Text style={styles.point}>{crown}</Text>
           <Icon
-            onPress={() => navigation.navigate('Info')}
+            onPress={() => {
+              clickSound();
+              navigation.navigate('Info');
+            }}
             style={styles.buttonInfo}
             name="info-outline"
             size={45}
@@ -87,6 +97,7 @@ export default function Home({ navigation }): JSX.Element {
           {imageVolumeToggle !== true && (
             <Icon
               onPress={() => {
+                clickSound();
                 onClick(), changeVolume(0);
               }}
               color="blue"
@@ -97,7 +108,8 @@ export default function Home({ navigation }): JSX.Element {
           {imageVolumeToggle === true && (
             <Icon
               onPress={() => {
-                onClick(), changeVolume(1);
+                clickSound();
+                onClick(), changeVolume(0.04);
               }}
               size={45}
               color="blue"
@@ -110,7 +122,10 @@ export default function Home({ navigation }): JSX.Element {
         <TouchableHighlight
           activeOpacity={1}
           underlayColor={'white'}
-          onPress={() => navigation.navigate('Profile', { sound })}
+          onPress={() => {
+            clickSound();
+            navigation.navigate('Profile');
+          }}
         >
           <Image
             style={{ width: 200, height: 190, resizeMode: 'contain', backgroundColor: '#ebe134' }}
@@ -119,7 +134,13 @@ export default function Home({ navigation }): JSX.Element {
         </TouchableHighlight>
         <Text style={styles.nameText}>{user.username}</Text>
         <View>
-          <TouchableOpacity style={styles.banner} onPress={() => navigation.navigate('Categories')}>
+          <TouchableOpacity
+            style={styles.banner}
+            onPress={() => {
+              clickSound();
+              navigation.navigate('Categories');
+            }}
+          >
             <Text style={styles.bannerText}>Играть</Text>
           </TouchableOpacity>
         </View>
@@ -176,7 +197,6 @@ const styles = StyleSheet.create({
   bannerText: {
     fontSize: 40,
     fontWeight: 'bold',
-    // letterSpacing: 0.25,
     color: 'blue',
     textAlign: 'center',
     marginTop: -7,
@@ -187,23 +207,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ebe134',
     padding: 10,
-    marginTop: 70,
+    marginTop: 60,
   },
   buttonInfo: {
     fontSize: 45,
-    marginLeft: 125,
-    marginRight: 10,
+    marginLeft: 110,
+    marginRight: 15,
   },
   buttonLogout: {
     marginRight: 140,
   },
-
   crown: {
     width: 45,
     height: 45,
     resizeMode: 'contain',
     marginLeft: -100,
-    fontFamily: 'Jingle',
   },
   point: {
     fontSize: 40,

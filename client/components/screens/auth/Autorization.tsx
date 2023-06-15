@@ -1,7 +1,14 @@
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
-import { ImagesAssets } from '../../../assets/imageAssets';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function Autorization({ navigation }) {
+import { ImagesAssets } from '../../../assets/imageAssets';
+import clickSound from '../../../features/clickSound';
+
+type AutorizationProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Autorization({ navigation }: AutorizationProps) {
   return (
     <View style={styles.container}>
       <View style={styles.innerView}>
@@ -12,6 +19,7 @@ export default function Autorization({ navigation }) {
           activeOpacity={0.6}
           style={styles.whiteFon}
           onPress={() => {
+            clickSound();
             navigation.navigate('SignUp');
           }}
         >
@@ -21,6 +29,7 @@ export default function Autorization({ navigation }) {
           activeOpacity={0.6}
           style={styles.whiteFon}
           onPress={() => {
+            clickSound();
             navigation.navigate('Login');
           }}
         >

@@ -1,15 +1,22 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Button, Image } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import QuestionText from '../../ui/Text/QuestionText';
-import { MaterialIcons } from '@expo/vector-icons';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import * as Animatable from 'react-native-animatable';
 
-export default function SimpleRound({ navigation }): JSX.Element {
+type ChoiceRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function ChoiceRound({ navigation }: ChoiceRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
   useEffect(() => {
@@ -59,7 +66,6 @@ export default function SimpleRound({ navigation }): JSX.Element {
           <Animatable.View animation={'wobble'} duration={1000}>
             <QuestionText question={question} />
           </Animatable.View>
-
           <View style={{ position: 'absolute', height: 450 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
@@ -104,6 +110,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color={'#ebe134'} />}
           onPress={() => {
+            clickSound();
             setTimerComplete(true);
             navigation.navigate('RightRound');
           }}

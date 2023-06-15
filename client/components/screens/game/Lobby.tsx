@@ -1,16 +1,23 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect } from 'react';
-import { Image, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { ImagesAssets } from '../../../assets/imageAssets';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { MaterialIcons } from '@expo/vector-icons';
+import { Button } from 'react-native-elements';
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import {
   joinRoomAction,
   leftRoomAction,
   statusGameAction,
 } from '../../../features/redux/slices/game/gameAction';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Button } from 'react-native-elements';
 
-export default function Lobby({ navigation }): JSX.Element {
+type LobbyProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Lobby({ navigation }: LobbyProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const allPlayers = useAppSelector((store) => store.game.allPlayers);
@@ -51,10 +58,19 @@ export default function Lobby({ navigation }): JSX.Element {
       <View style={styles.buttons}>
         <Button
           icon={<MaterialIcons name="arrow-back" color={'blue'} size={24} />}
-          onPress={leftLobby}
+          onPress={() => {
+            clickSound();
+            leftLobby();
+          }}
           buttonStyle={styles.submitButton}
         />
-        <TouchableOpacity onPress={handleStart} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            clickSound();
+            handleStart();
+          }}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>Начать</Text>
         </TouchableOpacity>
       </View>

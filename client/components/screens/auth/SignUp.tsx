@@ -10,13 +10,15 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
+import { defaultError, setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 import { signUpThunk } from '../../../features/redux/slices/user/userThunk';
 import { SignUpType } from '../../../types/user/UserType';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import { setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 
-export default function SignUp({ navigation }) {
+export default function SignUp() {
   const error = useAppSelector((store) => store.error);
   const [input, setInput] = useState<SignUpType>({
     username: '',
@@ -27,16 +29,16 @@ export default function SignUp({ navigation }) {
   useEffect(() => {
     if (error.isError) {
       setTimeout(() => {
-        dispatch(setDefaultError());
+        dispatch(setDefaultError(defaultError));
       }, 2000);
     }
   }, [error]);
 
-  const inputEmailRef = createRef();
-  const inputPassRef = createRef();
-  const inputNameRef = createRef();
+  const inputEmailRef = createRef<HTMLInputElement | any>();
+  const inputPassRef = createRef<HTMLInputElement | any>();
+  const inputNameRef = createRef<HTMLInputElement | any>();
 
-  const handleChange = (name, value): void => {
+  const handleChange = (name: string, value: string): void => {
     setInput((prev) => ({
       ...prev,
       [name]: value,
@@ -125,7 +127,10 @@ export default function SignUp({ navigation }) {
                 {error.isError && <Text style={styles.errorText}>{error.text.message}</Text>}
               </View>
               <TouchableOpacity
-                onPress={signUpHandler}
+                onPress={() => {
+                  signUpHandler();
+                  clickSound();
+                }}
                 style={[styles.whiteFon, { marginTop: 30 }]}
               >
                 <Text style={styles.text}>Зарегистрироваться</Text>

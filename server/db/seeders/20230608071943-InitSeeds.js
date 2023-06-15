@@ -1,6 +1,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface) {
     await queryInterface.bulkInsert(
       'Categories',
       [
@@ -51,7 +51,7 @@ module.exports = {
           categoryId: 2,
         },
         {
-          title: 'Луна является самой большой луной в Солнечной системе?',
+          title: 'Луна является самым большим спутнкиом в Солнечной системе?',
           answer: 'Неверно',
           img: 'https://kartinkin.net/uploads/posts/2022-06/1654665189_11-kartinkin-net-p-krasivaya-luna-kartinki-12.jpg',
           categoryId: 2,
@@ -63,7 +63,13 @@ module.exports = {
           categoryId: 3,
         },
         {
-          title: 'Какой из этих животных является ядовитым?',
+          title: 'Где жил Чебурашка до встречи с людьми?',
+          answer: 'в тропическом лесу',
+          img: 'https://masterfresok.ru/upload/iblock/30b/0hyd5jynz9e1hq51bsi0xtpe7nns2eyd/fotooboi-volshebnyy-tropicheskiy-les-foto.jpg',
+          categoryId: 3,
+        },
+        {
+          title: 'Какое из этих животных является ядовитым?',
           answer: 'Фугу',
           img: 'https://s9.travelask.ru/system/images/files/001/469/246/wysiwyg_jpg/fgresh.jpg?1619163310',
           categoryId: 3,
@@ -77,7 +83,7 @@ module.exports = {
         {
           title: 'Сердце креветки находится в её',
           answer: 'голове',
-          img: 'https://elenaportnova.ru/wp-content/uploads/2/9/0/29084cb417afd8f49919a8e1c0c91293.jpeg',
+          img: 'https://kartinki.pibig.info/uploads/posts/2023-04/1680404121_kartinki-pibig-info-p-krevetka-kartinka-smeshnaya-arti-1.jpg',
           categoryId: 4,
         },
         {
@@ -88,8 +94,48 @@ module.exports = {
         },
         {
           title: 'Какой насекомое является самым большим?',
-          answer: 'геркулес',
+          answer: 'жук-носорог',
           img: 'https://whatsthatbug.com/wp-content/uploads/2012/12/rhinoceros_beetle_paraguay_freddy.jpg',
+          categoryId: 4,
+        },
+        {
+          title: 'Кто любил играть на гармошке?',
+          answer: 'Крокодил Гена',
+          img: 'https://i.ytimg.com/vi/PuZ6gJEAr4s/maxresdefault.jpg',
+          categoryId: 3,
+        },
+        {
+          title: 'Мальчика из дерева звали Буратино?',
+          answer: 'Да',
+          categoryId: 1,
+        },
+        {
+          title: 'Чтобы вызвать джина, нужно ударить по лампе?',
+          answer: 'Нет',
+          categoryId: 1,
+        },
+        {
+          title: 'Избушка Бабы Яги стояла на железных ножках?',
+          answer: 'Неверно',
+          img: 'https://drevlandia.ru/wp-content/uploads/2020/07/Izbushka-Baby-YAgi-3.jpg',
+          categoryId: 2,
+        },
+        {
+          title: 'Гадкий утенок стал лебедем?',
+          answer: 'Верно',
+          img: 'https://cs.pikabu.ru/post_img/big/2013/09/07/7/1378549758_1937509266.jpg',
+          categoryId: 2,
+        },
+        {
+          title: 'Как звали девочку с голубыми волосами ?',
+          answer: 'Мальвина',
+          img: 'https://cs14.pikabu.ru/post_img/big/2021/10/31/6/1635667932116688183.png',
+          categoryId: 4,
+        },
+        {
+          title: 'Что несла Красная Шапочка своей бабушке?',
+          answer: 'Пирожки',
+          img: 'https://nukadeti.ru/content/images/essence/tale/1835/884.jpg',
           categoryId: 4,
         },
         {},
@@ -117,42 +163,74 @@ module.exports = {
         },
         {
           title: 'Кабан',
-          questionId: 8,
+          questionId: 9,
         },
         {
           title: 'Пчела',
-          questionId: 8,
+          questionId: 9,
         },
         {
           title: 'Фугу',
-          questionId: 8,
+          questionId: 9,
         },
         {
           title: 'Пингвин',
-          questionId: 8,
+          questionId: 9,
         },
         {
           title: 'Марс',
-          questionId: 9,
+          questionId: 10,
         },
         {
           title: 'Сатурн',
-          questionId: 9,
+          questionId: 10,
         },
         {
           title: 'Юпитер',
-          questionId: 9,
+          questionId: 10,
         },
         {
           title: 'Венера',
-          questionId: 9,
+          questionId: 10,
+        },
+        {
+          title: 'в телефонной будке',
+          questionId: 8,
+        },
+        {
+          title: 'В Африке',
+          questionId: 8,
+        },
+        {
+          title: 'в тропическом лесу',
+          questionId: 8,
+        },
+        {
+          title: 'в Австралии',
+          questionId: 8,
+        },
+        {
+          title: 'Крокодил Гена',
+          questionId: 14,
+        },
+        {
+          title: 'Почтальон Печкин',
+          questionId: 14,
+        },
+        {
+          title: 'Матроскин',
+          questionId: 14,
+        },
+        {
+          title: 'Карлсон',
+          questionId: 14,
         },
       ],
       {},
     );
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.bulkDelete('Categories', null, {});
     await queryInterface.bulkDelete('Questions', null, {});
     await queryInterface.bulkDelete('Options', null, {});

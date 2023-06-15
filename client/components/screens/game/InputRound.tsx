@@ -1,25 +1,24 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  KeyboardAvoidingViewBase,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { Button, Image, Text } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
-import HardQuestionText from '../../ui/Text/HardQuestionText';
 import InputQuestion from '../../ui/Text/InputQuestionText';
-import { ImagesAssets } from '../../../assets/imageAssets';
 
-export default function HardTwoRound({ navigation }): JSX.Element {
+type InputRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function InputRound({ navigation }: InputRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(15);
+  const [timeRemaining, setTimeRemaining] = useState(20);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -61,6 +60,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
     if (answer.toLowerCase() === question.answer.toLowerCase()) {
       dispatch(addPoint());
     }
+    clickSound();
     setArrowButton(true);
     setSubmitButtonDisabled(false);
     handleTap();
@@ -86,23 +86,27 @@ export default function HardTwoRound({ navigation }): JSX.Element {
                 }}
               />
             ) : (
-              <View style={styles.banner}>
-                <Text style={styles.bannerText}>Введите ответ</Text>
-              </View>
+              <Animatable.View animation={'zoomInDown'} duration={1500}>
+                <View style={styles.banner}>
+                  <Text style={styles.bannerText}>Введите ответ</Text>
+                </View>
+              </Animatable.View>
             )}
-            <View>
-              <View style={{ position: 'relative', top: -190, height: 150, zIndex: 1 }}>
-                <Image style={styles.image} source={ImagesAssets.avatar4} />
+            <Animatable.View duration={1500} animation={'zoomInUp'}>
+              <View>
+                <View style={{ position: 'relative', top: -190, height: 150, zIndex: 1 }}>
+                  <Image style={styles.image} source={ImagesAssets.avatar4} />
+                </View>
+                <InputQuestion
+                  question={question}
+                  answer={answer}
+                  setAnswer={setAnswer}
+                  handleSubmit={handleSubmit}
+                  answered={answered}
+                />
+                <View />
               </View>
-              <InputQuestion
-                question={question}
-                answer={answer}
-                setAnswer={setAnswer}
-                handleSubmit={handleSubmit}
-                answered={answered}
-              />
-              <View />
-            </View>
+            </Animatable.View>
             <View style={styles.inputContainer}></View>
           </View>
         </TouchableWithoutFeedback>
@@ -110,6 +114,7 @@ export default function HardTwoRound({ navigation }): JSX.Element {
           <Button
             icon={<MaterialIcons name="arrow-forward" size={26} color={'#ebe134'} />}
             onPress={() => {
+              clickSound();
               setTimerComplete(true);
               navigation.navigate('Result');
             }}
@@ -131,10 +136,11 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   content: {
+    marginTop: 50,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    rowGap: 140,
+    rowGap: 120,
   },
   banner: {
     padding: 10,
@@ -189,7 +195,7 @@ const styles = StyleSheet.create({
   },
   timer: {
     fontSize: 60,
-    top: -200,
+    top: 60,
     marginLeft: 280,
     color: 'white',
     fontFamily: 'Jingle',

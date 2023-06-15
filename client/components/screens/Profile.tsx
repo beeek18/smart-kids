@@ -1,24 +1,32 @@
-import { useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Input } from 'react-native-elements';
-import { ImagesAssets } from '../../assets/imageAssets';
-import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import { Button } from 'react-native-elements';
-import { editUserImgThunk, editUserNameThunk } from '../../features/redux/slices/user/userThunk';
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useState } from 'react';
+import {
+  Image,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { Button, Input } from 'react-native-elements';
 
-export default function Profile({ navigation }): JSX.Element {
+import { ImagesAssets } from '../../assets/imageAssets.ts';
+import clickSound from '../../features/clickSound';
+import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
+import { editUserImgThunk, editUserNameThunk } from '../../features/redux/slices/user/userThunk';
+
+type ProfileProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Profile({ navigation }: ProfileProps): JSX.Element {
   const [input, setInput] = useState('');
   const [selectedImg, setSelectedImg] = useState('');
   const user = useAppSelector((store) => store.user);
   const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
-
-  // const updateHandler = (value: string) => {
-  //   dispatch(editUserNameThunk(value));
-  //   setInput('');
-  // };
 
   const updateHandler = (value: string) => {
     dispatch(editUserNameThunk(value));
@@ -32,27 +40,48 @@ export default function Profile({ navigation }): JSX.Element {
 
   return (
     <>
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        {/* <View style={styles.container}> */}
         <View style={styles.bannerChoiceAvatar}>
           <Text style={styles.bannerChoiceAvatarText}>Выбери аватар</Text>
         </View>
         <View style={styles.avatar}>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar1')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar1');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar1' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar1} />
             </Animatable.View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar2')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar2');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar2' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar2} />
             </Animatable.View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar3')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar3');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar3' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar3} />
             </Animatable.View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => updateImgHandler('avatar4')}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateImgHandler('avatar4');
+            }}
+          >
             <Animatable.View animation={selectedImg === 'avatar4' ? 'bounce' : ''}>
               <Image style={styles.imageStyle} source={ImagesAssets.avatar4} />
             </Animatable.View>
@@ -62,20 +91,14 @@ export default function Profile({ navigation }): JSX.Element {
           <Text style={styles.bannerText}>Как тебя зовут ?</Text>
           <Text style={styles.bannerName}>{user.username}</Text>
         </View>
-        {/* <Input
-          placeholder="Введите имя"
-          style={styles.bannerInput}
-          onChangeText={(value) => setInput(value)}
-          defaultValue={input}
-          inputContainerStyle={{
-            width: 325,
-            marginLeft: 25,
-            borderBottomWidth: 0,
-          }}
-          inputStyle={{ textAlign: 'center' }}
-        ></Input> */}
         {!editMode && (
-          <TouchableOpacity onPress={() => setEditMode(true)} style={styles.bannerInput}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              setEditMode(true);
+            }}
+            style={styles.bannerInput}
+          >
             <Text style={styles.bannerTextSave}>Изменить имя</Text>
           </TouchableOpacity>
         )}
@@ -94,21 +117,26 @@ export default function Profile({ navigation }): JSX.Element {
           />
         )}
         {editMode && (
-          <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
+          <TouchableOpacity
+            onPress={() => {
+              clickSound();
+              updateHandler(input);
+            }}
+            style={styles.bannerSave}
+          >
             <Text style={styles.bannerTextSave}>Сохранить</Text>
           </TouchableOpacity>
         )}
-        {/* <TouchableOpacity onPress={() => updateHandler(input)} style={styles.bannerSave}>
-          <Text style={styles.bannerTextSave}>Сохранить</Text>
-        </TouchableOpacity> */}
         <Button
           icon={<MaterialIcons name="keyboard-backspace" size={40} color={'blue'} />}
           onPress={() => {
+            clickSound();
             navigation.navigate('Home');
           }}
           buttonStyle={styles.submitButton}
         />
-      </View>
+        {/* </View> */}
+      </KeyboardAvoidingView>
     </>
   );
 }

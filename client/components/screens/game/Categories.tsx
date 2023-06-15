@@ -1,10 +1,17 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Button, Image } from 'react-native-elements';
-import { ImagesAssets } from '../../../assets/imageAssets';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppSelector } from '../../../features/redux/hooks';
 
-export default function Categories({ navigation }): JSX.Element {
+type CategoriesProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Categories({ navigation }: CategoriesProps): JSX.Element {
   const players = useAppSelector((store) => store.game.allPlayers);
 
   const handleToLobby = () => {
@@ -42,7 +49,10 @@ export default function Categories({ navigation }): JSX.Element {
         </View>
         <Button
           icon={<MaterialIcons name="arrow-forward" color={'blue'} size={24} />}
-          onPress={handleToLobby}
+          onPress={() => {
+            clickSound();
+            handleToLobby();
+          }}
           buttonStyle={styles.submitButton}
         />
       </View>

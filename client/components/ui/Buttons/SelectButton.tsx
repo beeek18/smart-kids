@@ -1,9 +1,9 @@
-import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { QuestionType } from '../../../types/question/QuestionType';
 import { useAppDispatch } from '../../../features/redux/hooks';
 import { Image } from 'react-native-elements';
 import { ImagesAssets } from '../../../assets/imageAssets';
+
 type Props = {
   option: {
     id: number;

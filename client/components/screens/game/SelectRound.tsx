@@ -1,17 +1,23 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionOptionThunk } from '../../../features/redux/slices/question/questionSlice';
-import SelectButton from '../../ui/Buttons.tsx/SelectButton';
+import SelectButton from '../../ui/Buttons/SelectButton';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import * as Animatable from 'react-native-animatable';
 
-export default function HardRound({ navigation }): JSX.Element {
-  // const animations = ['slideInDown', 'slideInUp', 'slideInLeft', 'slideInRight'];
+type HardRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function SelectRound({ navigation }: HardRoundProps): JSX.Element {
   const animations = ['fadeInUpBig', 'fadeInDownBig', 'fadeInLeftBig', 'fadeInRightBig'];
   const dispatch = useAppDispatch();
 
@@ -82,6 +88,7 @@ export default function HardRound({ navigation }): JSX.Element {
               <Animatable.View key={option.id} animation={animations[index % 4]} duration={1000}>
                 <TouchableOpacity
                   onPress={() => {
+                    clickSound();
                     handlePress(option.title);
                   }}
                 >
@@ -98,6 +105,7 @@ export default function HardRound({ navigation }): JSX.Element {
         <Button
           icon={<MaterialIcons name="arrow-forward" size={24} color="#ecc3fa" />}
           onPress={() => {
+            clickSound();
             setTimerComplete(true);
             navigation.navigate('InputRound');
           }}

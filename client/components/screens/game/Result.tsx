@@ -1,16 +1,22 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import {
   getAllScoreAction,
   statusGameAction,
 } from '../../../features/redux/slices/game/gameAction';
-
-import { ImagesAssets } from '../../../assets/imageAssets';
 import { resetRoom } from '../../../features/redux/slices/game/gameSlice';
 import { addCrownUserThunk } from '../../../features/redux/slices/user/userThunk';
 
-export default function Result({ navigation }): JSX.Element {
+type ResultProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Result({ navigation }: ResultProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handlePlayAgain = () => {
@@ -50,10 +56,22 @@ export default function Result({ navigation }): JSX.Element {
         ))}
       </View>
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={handlePlayAgain} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            clickSound();
+            handlePlayAgain();
+          }}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>Сыграть снова</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleHome} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            clickSound();
+            handleHome();
+          }}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>Главное меню</Text>
         </TouchableOpacity>
       </View>
