@@ -2,15 +2,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
+import { Button, Image, Text } from 'react-native-elements';
 
 import { ImagesAssets } from '../../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
-import HardQuestionText from '../../ui/Text/HardQuestionText';
-import clickSound from '../../../features/clickSound';
 import InputQuestion from '../../ui/Text/InputQuestionText';
+import clickSound from '../../../features/clickSound';
 
 type InputRoundProps = {
   navigation: StackNavigationProp<any, any>;
@@ -59,6 +58,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
     if (answer.toLowerCase() === question.answer.toLowerCase()) {
       dispatch(addPoint());
     }
+    clickSound();
     setArrowButton(true);
     setSubmitButtonDisabled(false);
     handleTap();
@@ -71,27 +71,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
         <View>
           <Text style={styles.timer}>{timeRemaining}</Text>
         </View>
-
         <TouchableWithoutFeedback onPress={handleTap}>
-          <View>
-            <HardQuestionText question={question} />
-          </View>
-          <View style={styles.inputContainer}>
-            <Input
-              placeholder="Your Answer"
-              value={answer}
-              onChangeText={setAnswer}
-              containerStyle={styles.input}
-            />
-            <Button
-              icon={<MaterialIcons name="arrow-forward" size={24} color="white" />}
-              onPress={() => {
-                clickSound();
-                handleSubmit();
-              }}
-              buttonStyle={styles.submitButton}
-            />
-          </View>
           <View style={styles.content}>
             {showImage ? (
               <Image
