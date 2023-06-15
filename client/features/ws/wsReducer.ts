@@ -1,6 +1,6 @@
 import { SET_WS } from '../../types/ws/WsType';
 
-const wsReducer = (state = null, action) => {
+const wsReducer = (state = null, action: any) => {
   const { type, payload } = action;
 
   switch (type) {

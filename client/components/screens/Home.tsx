@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
   bannerText: {
     fontSize: 40,
     fontWeight: 'bold',
-    // letterSpacing: 0.25,
     color: 'blue',
     textAlign: 'center',
     marginTop: -7,
@@ -218,7 +217,6 @@ const styles = StyleSheet.create({
   buttonLogout: {
     marginRight: 140,
   },
-
   crown: {
     width: 45,
     height: 45,

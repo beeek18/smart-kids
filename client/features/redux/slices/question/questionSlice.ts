@@ -11,6 +11,7 @@ const initialState: QuestionState = {
   id: 0,
   title: '',
   answer: '',
+  img: '',
   categoryId: 0,
   Options: [
     {
