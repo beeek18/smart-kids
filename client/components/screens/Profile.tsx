@@ -1,7 +1,14 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button, Input } from 'react-native-elements';
 
@@ -32,7 +39,8 @@ export default function Profile({ navigation }: ProfileProps): JSX.Element {
 
   return (
     <>
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        {/* <View style={styles.container}> */}
         <View style={styles.bannerChoiceAvatar}>
           <Text style={styles.bannerChoiceAvatarText}>Выбери аватар</Text>
         </View>
@@ -93,7 +101,8 @@ export default function Profile({ navigation }: ProfileProps): JSX.Element {
           }}
           buttonStyle={styles.submitButton}
         />
-      </View>
+        {/* </View> */}
+      </KeyboardAvoidingView>
     </>
   );
 }
