@@ -51,7 +51,7 @@ module.exports = {
           categoryId: 2,
         },
         {
-          title: 'Луна является самой большой луной в Солнечной системе?',
+          title: 'Луна является самым большим спутнкиом в Солнечной системе?',
           answer: 'Неверно',
           img: 'https://kartinkin.net/uploads/posts/2022-06/1654665189_11-kartinkin-net-p-krasivaya-luna-kartinki-12.jpg',
           categoryId: 2,
@@ -69,7 +69,7 @@ module.exports = {
           categoryId: 3,
         },
         {
-          title: 'Какой из этих животных является ядовитым?',
+          title: 'Какое из этих животных является ядовитым?',
           answer: 'Фугу',
           img: 'https://s9.travelask.ru/system/images/files/001/469/246/wysiwyg_jpg/fgresh.jpg?1619163310',
           categoryId: 3,
@@ -83,7 +83,7 @@ module.exports = {
         {
           title: 'Сердце креветки находится в её',
           answer: 'голове',
-          img: 'https://elenaportnova.ru/wp-content/uploads/2/9/0/29084cb417afd8f49919a8e1c0c91293.jpeg',
+          img: 'https://kartinki.pibig.info/uploads/posts/2023-04/1680404121_kartinki-pibig-info-p-krevetka-kartinka-smeshnaya-arti-1.jpg',
           categoryId: 4,
         },
         {
