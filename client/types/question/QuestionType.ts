@@ -3,6 +3,7 @@ export type QuestionType = {
   title: string;
   answer: string;
   categoryId: number;
+  img: string;
   Options: [
     {
       id: number;

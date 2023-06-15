@@ -9,20 +9,21 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { ImagesAssets } from '../../../assets/imageAssets';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
+import { defaultError, setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 import { loginThunk } from '../../../features/redux/slices/user/userThunk';
 import { LoginType } from '../../../types/user/UserType';
-import { setDefaultError } from '../../../features/redux/slices/error/errorSlice';
 import clickSound from '../../../features/clickSound';
 
-export default function Autorization({ navigation }) {
+export default function Autorization() {
   const error = useAppSelector((store) => store.error);
 
   useEffect(() => {
     if (error.isError) {
       setTimeout(() => {
-        dispatch(setDefaultError());
+        dispatch(setDefaultError(defaultError));
       }, 2000);
     }
   }, [error]);
@@ -32,7 +33,7 @@ export default function Autorization({ navigation }) {
     password: '',
   });
 
-  const handleChange = (name, value): void => {
+  const handleChange = (name: string, value: string): void => {
     setInput((prev) => ({
       ...prev,
       [name]: value,
@@ -40,8 +41,8 @@ export default function Autorization({ navigation }) {
   };
   const dispatch = useAppDispatch();
 
-  const inputEmailRef = createRef();
-  const inputPassRef = createRef();
+  const inputEmailRef = createRef<HTMLInputElement | any>();
+  const inputPassRef = createRef<HTMLInputElement | any>();
 
   const loginHandler = () => {
     if (input.email.trim() === '' || input.password === '') {

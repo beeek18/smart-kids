@@ -1,20 +1,27 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionOptionThunk } from '../../../features/redux/slices/question/questionSlice';
-import SelectButton from '../../ui/Buttons.tsx/SelectButton';
+import SelectButton from '../../ui/Buttons/SelectButton';
 import HardQuestionText from '../../ui/Text/HardQuestionText';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import * as Animatable from 'react-native-animatable';
-import clickSound from '../../../features/clickSound';
 
 
-export default function HardRound({ navigation }): JSX.Element {
 
   
+
+type HardRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function SelectRound({ navigation }: HardRoundProps): JSX.Element {
   const animations = ['fadeInUpBig', 'fadeInDownBig', 'fadeInLeftBig', 'fadeInRightBig'];
   const dispatch = useAppDispatch();
 
@@ -72,11 +79,9 @@ export default function HardRound({ navigation }): JSX.Element {
           </View>
         </Animatable.View>
         <View style={{ marginTop: 200 }}>
-          {/* {questions.map((question) => ( */}
           <Animatable.View animation={'zoomIn'} duration={1000}>
             <HardQuestionText question={question} key={question.id} />
           </Animatable.View>
-          {/* ))} */}
         </View>
         <View style={{ gap: 10, marginTop: 40 }}>
           {question?.Options &&

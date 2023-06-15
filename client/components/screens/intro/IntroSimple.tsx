@@ -1,10 +1,15 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import { useAppSelector } from '../../../features/redux/hooks';
 
-export default function IntroSimple({ navigation }): JSX.Element {
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+
+type IntroSimpleProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function IntroSimple({ navigation }: IntroSimpleProps): JSX.Element {
   useEffect(() => {
     const timeout = setTimeout(() => {
       navigation.navigate('ChoiceRound');

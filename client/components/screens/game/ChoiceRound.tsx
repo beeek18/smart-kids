@@ -1,18 +1,22 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Button, Image } from 'react-native-elements';
+
+import { ImagesAssets } from '../../../assets/imageAssets.ts';
+import clickSound from '../../../features/clickSound';
 import { useAppDispatch, useAppSelector } from '../../../features/redux/hooks';
 import { addPoint } from '../../../features/redux/slices/game/gameSlice';
 import { getQuestionsThunk } from '../../../features/redux/slices/question/questionSlice';
 import QuestionText from '../../ui/Text/QuestionText';
-import { MaterialIcons } from '@expo/vector-icons';
-import { ImagesAssets } from '../../../assets/imageAssets';
-import * as Animatable from 'react-native-animatable';
-import clickSound from '../../../features/clickSound';
 
-export default function SimpleRound({ navigation }): JSX.Element {
+type ChoiceRoundProps = {
+  navigation: StackNavigationProp<any, any>;
+};
 
-
+export default function ChoiceRound({ navigation }: ChoiceRoundProps): JSX.Element {
   const [timerComplete, setTimerComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(15);
   useEffect(() => {
@@ -62,8 +66,7 @@ export default function SimpleRound({ navigation }): JSX.Element {
           <Animatable.View animation={'wobble'} duration={1000}>
             <QuestionText question={question} />
           </Animatable.View>
-
-          <View style={{ position: 'absolute', height: 460 }}>
+          <View style={{ position: 'absolute', height: 450 }}>
             <Image style={styles.image} source={ImagesAssets.avatar4} />
           </View>
           <View style={{ flexDirection: 'row', marginTop: 20 }}>
@@ -130,13 +133,21 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     zIndex: 1,
   },
+  imageCrown: {
+    width: 60,
+    bottom: 150,
+    resizeMode: 'contain',
+    transform: [{ rotate: '350deg' }],
+    zIndex: 1,
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    top: 60,
     paddingHorizontal: 20,
     gap: 20,
     marginLeft: 10,
+    marginTop: 20,
   },
   buttonSeparator: {
     width: 10,

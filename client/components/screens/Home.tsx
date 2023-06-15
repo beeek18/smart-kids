@@ -1,18 +1,20 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Audio } from 'expo-av';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+
 import { ImagesAssets } from '../../assets/imageAssets';
 import { useAppDispatch, useAppSelector } from '../../features/redux/hooks';
-import {
-  addCrownUserThunk,
-  checkUserThunk,
-  logOutThunk,
-} from '../../features/redux/slices/user/userThunk';
+import { checkUserThunk, logOutThunk } from '../../features/redux/slices/user/userThunk';
 import { socketInit } from '../../features/ws/wsActions';
 import clickSound from '../../features/clickSound';
 
-export default function Home({ navigation }): JSX.Element {
+type HomeProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Home({ navigation }: HomeProps): JSX.Element {
   const dispatch = useAppDispatch();
   const crown = useAppSelector((store) => store.user.crown);
 
@@ -206,12 +208,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ebe134',
     padding: 10,
-    marginTop: 70,
+    marginTop: 60,
   },
   buttonInfo: {
     fontSize: 45,
-    marginLeft: 125,
-    marginRight: 10,
+    marginLeft: 110,
+    marginRight: 15,
   },
   buttonLogout: {
     marginRight: 140,

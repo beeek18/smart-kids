@@ -1,8 +1,14 @@
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ImagesAssets } from '../../../assets/imageAssets';
 import clickSound from '../../../features/clickSound';
 
-export default function Autorization({ navigation }) {
+
+type AutorizationProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function Autorization({ navigation }: AutorizationProps) {
   return (
     <View style={styles.container}>
       <View style={styles.innerView}>
