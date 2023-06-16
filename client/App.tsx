@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import axios from 'axios';
+import { useFonts } from 'expo-font';
+import { Provider } from 'react-redux';
+import Navigation from './components/Navigation';
+import store from './features/redux/store';
+
+axios.defaults.withCredentials = true;
 
 export default function App() {
+  const [loaded] = useFonts({
+    Jingle: require('./assets/fonts/Jingleberry.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,17 +1,19 @@
-import errorSlice from './slices/error/errorSlice';
-import wsReducer from '../websocket/wsReducer';
-import fetchingSlice from './slices/fetchingSlice/fetchingSlice';
-import { AnyAction, ThunkAction, combineReducers } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
+import { AnyAction, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
+import userReducer from './slices/user/userSlice';
+import gameReducer from './slices/game/gameSlice';
 import rootSaga from '../sagas/rootSaga';
-import userReducer from './slices/user/userSlicer';
+import questionsReduser from './slices/question/questionSlice';
+import errorReducer from './slices/error/errorSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    game: gameReducer,
+    questions: questionsReduser,
+    error: errorReducer,
   },
   middleware: (mid) => [...mid(), sagaMiddleware],
 });

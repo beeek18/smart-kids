@@ -17,6 +17,13 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      img: {
+        type: Sequelize.STRING,
+      },
+      crown: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -29,7 +36,7 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable('Users');
   },
 };
