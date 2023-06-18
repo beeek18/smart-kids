@@ -51,7 +51,7 @@ module.exports = {
           categoryId: 2,
         },
         {
-          title: 'Луна является самым большим спутнкиом в Солнечной системе?',
+          title: 'Луна является самым большим спутником в Солнечной системе?',
           answer: 'Неверно',
           img: 'https://kartinkin.net/uploads/posts/2022-06/1654665189_11-kartinkin-net-p-krasivaya-luna-kartinki-12.jpg',
           categoryId: 2,
@@ -83,7 +83,7 @@ module.exports = {
         {
           title: 'Сердце креветки находится в её',
           answer: 'голове',
-          img: 'https://kartinki.pibig.info/uploads/posts/2023-04/1680404121_kartinki-pibig-info-p-krevetka-kartinka-smeshnaya-arti-1.jpg',
+          img: 'https://avatars.dzeninfra.ru/get-zen_doc/4481244/pub_60736a3b62e6254e9dfd55d0_60736abb2cd56807be47abfa/scale_1200',
           categoryId: 4,
         },
         {
