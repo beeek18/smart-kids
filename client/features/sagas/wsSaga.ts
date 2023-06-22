@@ -1,7 +1,5 @@
 import { END, eventChannel } from 'redux-saga';
-import { Platform } from 'react-native';
 import { call, fork, put, take, takeEvery } from 'redux-saga/effects';
-import { API_URL } from '@env';
 import { SET_WS, SOCKET_INIT } from '../../types/ws/WsType';
 
 function createSocketChannel(socket) {
@@ -30,9 +28,7 @@ function createSocketChannel(socket) {
 }
 
 function createWebSocketConnection() {
-  const newSocket = new WebSocket(
-    `ws://${Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'}:3000`,
-  );
+  const newSocket = new WebSocket(`ws://localhost:3000`);
   return newSocket;
 }
 

@@ -33,7 +33,7 @@ export default function InputRound({ navigation }: InputRoundProps): JSX.Element
         setTimerComplete(true);
         navigation.navigate('Result');
       }
-    }, 1000 * 15);
+    }, 1000 * 20);
     return () => clearTimeout(timeout);
   }, [timerComplete]);
 

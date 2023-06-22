@@ -1,10 +1,8 @@
 import axios from 'axios';
-import { AppThunk, ThunkActionCreater } from '../../store';
-import { addCrown, editImg, editUser, logoutUser, setUser } from './userSlice';
 import { LoginType, SignUpType, UserType } from '../../../../types/user/UserType';
-import { Platform } from 'react-native';
-import { API_URL } from '@env';
+import { AppThunk } from '../../store';
 import { setDefaultError, setError } from '../error/errorSlice';
+import { addCrown, editImg, editUser, logoutUser, setUser } from './userSlice';
 
 const guestUser = {
   id: 0,
@@ -22,11 +20,7 @@ const initialState = {
 };
 
 export const checkUserThunk = (): AppThunk => (dispatch) => {
-  axios(
-    `http://${
-      Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-    }:3000/api/user/check`,
-  )
+  axios(`http://localhost:3000/api/user/check`)
     .then(({ data }) => dispatch(setUser(data)))
     .catch(() => dispatch(setUser(guestUser)));
 };
@@ -35,12 +29,7 @@ export const signUpThunk =
   (input: SignUpType): AppThunk =>
   (dispatch) => {
     axios
-      .post<UserType>(
-        `http://${
-          Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-        }:3000/api/user/signup`,
-        input,
-      )
+      .post<UserType>(`http://localhost:3000/api/user/signup`, input)
       .then(({ data }) => {
         dispatch(setDefaultError(initialState));
         dispatch(setUser(data));
@@ -55,12 +44,7 @@ export const loginThunk =
   (input: LoginType): AppThunk =>
   (dispatch) => {
     axios
-      .post<UserType>(
-        `http://${
-          Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-        }:3000/api/user/login`,
-        input,
-      )
+      .post<UserType>(`http://localhost:3000/api/user/login`, input)
       .then(({ data }) => {
         dispatch(setDefaultError(initialState));
         dispatch(setUser(data));
@@ -72,11 +56,7 @@ export const loginThunk =
   };
 
 export const logOutThunk = (): AppThunk => (dispatch) => {
-  axios(
-    `http://${
-      Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-    }:3000/api/user/logout`,
-  )
+  axios(`http://localhost:3000/api/user/logout`)
     .then(() => {
       dispatch(logoutUser());
     })
@@ -86,12 +66,7 @@ export const editUserNameThunk =
   (input: UserType['username']): AppThunk =>
   (dispatch) => {
     axios
-      .patch(
-        `http://${
-          Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-        }:3000/api/user/edit`,
-        { username: input },
-      )
+      .patch(`http://localhost:3000/api/user/edit`, { username: input })
       .then(({ data }) => {
         dispatch(editUser(data));
       })
@@ -101,12 +76,7 @@ export const editUserImgThunk =
   (input: UserType['img']): AppThunk =>
   (dispatch) => {
     axios
-      .patch(
-        `http://${
-          Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-        }:3000/api/user/edit/avatar`,
-        { img: input },
-      )
+      .patch(`http://localhost:3000/api/user/edit/avatar`, { img: input })
       .then(({ data }) => {
         dispatch(editImg(data));
       })
@@ -117,11 +87,7 @@ export const addCrownUserThunk =
   (id: UserType['id']): AppThunk =>
   (dispatch) => {
     axios
-      .patch(
-        `http://${
-          Platform.OS === 'android' || Platform.OS === 'ios' ? API_URL : 'localhost'
-        }:3000/api/user/${id}/add/crown`,
-      )
+      .patch(`http://localhost:3000/api/user/${id}/add/crown`)
       .then(({ data }) => {
         dispatch(addCrown(data));
       })
