@@ -1,4 +1,4 @@
-<h1>SMART KIDS 📚
+<h1>SMART KIDS 📚</h1>
 
 <h2>🛠 Стек:
 <h4>
@@ -35,3 +35,24 @@
 - <a href="https://github.com/krupeshka">Алёна</a> (Home, Profile)
 
 - <a href="https://github.com/COBERNADOS">Чыргал</a> (Auth, Sound)
+
+<details>
+
+  <summary><b>Скриншоты</b></summary>
+  <br>
+
+<img src='./assets/welcome.png' alt='welcome'>
+<img src='./assets/auth.png' alt='auth'>
+<img src='./assets/login.png' alt='login'>
+<img src='./assets/home.png' alt='home'>
+<img src='./assets/profile.png' alt='profile'>
+<img src='./assets/categories.png' alt='categories'>
+<img src='./assets/lobby.png' alt='lobby'>
+<img src='./assets/introSimple.png' alt='introSimple'>
+<img src='./assets/choice.png' alt='choice'>
+<img src='./assets/introHard.png' alt='introHard'>
+<img src='./assets/select.png' alt='select'>
+<img src='./assets/input.png' alt='input'>
+<img src='./assets/result.png' alt='result'>
+
+</details>
